@@ -8,11 +8,12 @@ import com.apboutos.moneytrack.model.dao.CategoryDAO
 import com.apboutos.moneytrack.model.dao.UserDAO
 import com.apboutos.moneytrack.model.database.dao.EntryDAO
 import com.apboutos.moneytrack.model.database.dao.SummaryDAO
+import com.apboutos.moneytrack.model.database.entity.Summary
 import com.apboutos.moneytrack.model.entity.Category
 import com.apboutos.moneytrack.model.entity.Entry
 import com.apboutos.moneytrack.model.entity.User
 
-@Database(entities = [Entry::class, User::class, Category::class],version = 1)
+@Database(entities = [Entry::class, User::class, Category::class, Summary::class],version = 1)
 abstract class MoneytrackDatabase : RoomDatabase() {
 
     abstract fun EntryDAO() : EntryDAO

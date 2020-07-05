@@ -3,7 +3,7 @@ package com.apboutos.moneytrack.model.database.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "summary")
 data class Summary(
         val username : String,
         val category: String,
