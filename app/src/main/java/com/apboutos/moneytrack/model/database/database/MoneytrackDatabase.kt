@@ -10,7 +10,6 @@ import com.apboutos.moneytrack.model.dao.UserDAO
 import com.apboutos.moneytrack.model.entity.Category
 import com.apboutos.moneytrack.model.entity.Entry
 import com.apboutos.moneytrack.model.entity.User
-import java.security.KeyStore
 
 @Database(entities = [Entry::class, User::class, Category::class],version = 1)
 abstract class MoneytrackDatabase : RoomDatabase() {
