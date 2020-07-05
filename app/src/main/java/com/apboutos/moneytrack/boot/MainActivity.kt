@@ -14,5 +14,6 @@ class MainActivity : Activity() {
         val e = Entry.createEmptyEntry()
 
         val ee = MoneytrackDatabase.invoke(this)
+
     }
 }
