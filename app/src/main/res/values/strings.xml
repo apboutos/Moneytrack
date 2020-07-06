@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Moneytrack</string>
+
+
+    <!--Login Activity Labels -->
+    <string name="activity_login_register_prompt">I don\'t have an account</string>
+    <string name="activity_login_Login_Button_Text">Login</string>
+    <string name="activity_login_retrieve_credentials">I forgot my username and password</string>
+    <string name="activity_login_remember_me">Remember me</string>
+    <string name="activity_login_password_hint">password</string>
+    <string name="activity_login_username_hint">username</string>
+    <string name="activity_login_Logo">Moneytrack</string>
 </resources>

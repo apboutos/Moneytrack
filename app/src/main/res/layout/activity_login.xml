@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/logoBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:layout_marginTop="65dp"
+        android:text="@string/activity_login_Logo"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="36sp"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/usernameBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:hint="@string/activity_login_username_hint"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/holo_green_light"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:autofillHints="@string/activity_login_username_hint" />
+
+    <EditText
+        android:id="@+id/passwordBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:hint="@string/activity_login_password_hint"
+        android:inputType="textPassword"
+        android:textColor="@android:color/holo_green_light"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:autofillHints="no" />
+
+    <CheckBox
+        android:id="@+id/rememberBox"
+        android:layout_width="168dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/activity_login_remember_me"
+        android:textColor="@android:color/holo_green_light" />
+
+    <TextView
+        android:id="@+id/forgotBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="@string/activity_login_retrieve_credentials"
+        android:textColor="@android:color/holo_green_light"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="119dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/activity_login_Login_Button_Text"
+        android:textColor="@android:color/holo_green_light" />
+
+    <TextView
+        android:id="@+id/signUpBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/activity_login_register_prompt"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/holo_green_light" />
+
+</LinearLayout>
