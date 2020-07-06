@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.TextView
 import com.apboutos.moneytrack.R
-import com.apboutos.moneytrack.model.repository.Repository
+import com.apboutos.moneytrack.model.repository.DatabaseRepository
 
 class MainActivity : Activity() {
 
@@ -14,5 +14,6 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val repository = DatabaseRepository(application)
     }
 }

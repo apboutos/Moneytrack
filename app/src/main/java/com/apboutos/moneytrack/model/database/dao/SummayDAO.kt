@@ -13,4 +13,7 @@ interface SummaryDAO {
 
     @Query("DELETE FROM summary")
     fun deleteAllSummaries()
+
+    @Query("SELECT * FROM summary")
+    fun selectAllSummaries() : List<Summary>
 }
