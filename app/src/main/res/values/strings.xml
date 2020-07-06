@@ -10,4 +10,6 @@
     <string name="activity_login_password_hint">password</string>
     <string name="activity_login_username_hint">username</string>
     <string name="activity_login_Logo">Moneytrack</string>
+    <string name="activity_login_username_error">You have entered a wrong username.</string>
+    <string name="activity_login_password_error">You have entered a wrong password.</string>
 </resources>

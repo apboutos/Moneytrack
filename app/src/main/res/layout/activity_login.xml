@@ -93,4 +93,15 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/holo_green_light" />
 
+    <!-- TODO Must fix the color of the progressBar -->
+    <ProgressBar
+        android:id="@+id/activity_login_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:indeterminateTint="@color/colorDarkGreen"
+        android:backgroundTint="@color/colorDarkGreen"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
