@@ -2,23 +2,18 @@ package com.apboutos.moneytrack.model.repository
 
 import android.app.Application
 import android.os.AsyncTask
-import com.apboutos.moneytrack.model.database.dao.CategoryDAO
-import com.apboutos.moneytrack.model.database.dao.EntryDAO
-import com.apboutos.moneytrack.model.database.dao.SummaryDAO
-import com.apboutos.moneytrack.model.database.dao.UserDAO
+import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
-import com.apboutos.moneytrack.model.database.entity.Category
-import com.apboutos.moneytrack.model.database.entity.Entry
-import com.apboutos.moneytrack.model.database.entity.Summary
-import com.apboutos.moneytrack.model.database.entity.User
+import com.apboutos.moneytrack.model.database.entity.*
 
 class DatabaseRepository(application: Application) {
 
-    private val database    = MoneytrackDatabase.invoke(application)
-    private val entryDAO    = database.EntryDAO()
-    private val userDAO     = database.UserDAO()
-    private val categoryDAO = database.CategoryDAO()
-    private val summaryDAO  = database.SummaryDAO()
+    private val database      = MoneytrackDatabase.invoke(application)
+    private val entryDAO      = database.EntryDAO()
+    private val userDAO       = database.UserDAO()
+    private val categoryDAO   = database.CategoryDAO()
+    private val summaryDAO    = database.SummaryDAO()
+    private val credentialDAO = database.CredentialDAO()
 
     fun insert(entry : Entry){
         InsertEntryAsyncTask(entryDAO).execute(entry)
@@ -80,22 +75,34 @@ class DatabaseRepository(application: Application) {
         return SelectAllSummaryAsyncTask(summaryDAO).execute(null).get()
     }
 
+    fun insertCredential(credential: Credential){
+        InsertCredentialAsyncTask(credentialDAO).execute(credential)
+    }
+
+    fun deleteCredential(){
+        DeleteCredentialAsyncTask(credentialDAO).execute(null)
+    }
+
+    fun selectCredential() : Credential{
+        return SelectCredentialAsyncTask(credentialDAO).execute(null).get()
+    }
+
     private class InsertEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) :Boolean {
             dao.insert(parameters[0])
-            return true;
+            return true
         }
     }
     private class UpdateEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) :Boolean {
             dao.update(parameters[0])
-            return true;
+            return true
         }
     }
     private class DeleteEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) :Boolean {
             dao.delete(parameters[0])
-            return true;
+            return true
         }
     }
     private class DateEntriesAsyncTask(val dao : EntryDAO,val date : String,val username : String) : AsyncTask<Void,Void,List<Entry>>(){
@@ -112,67 +119,86 @@ class DatabaseRepository(application: Application) {
     private class InsertUserAsyncTask(val dao : UserDAO) : AsyncTask<User,Void,Boolean>(){
         override fun doInBackground(vararg parameters : User) :Boolean {
             dao.insert(parameters[0])
-            return true;
+            return true
         }
     }
 
     private class UpdateUserAsyncTask(val dao : UserDAO) : AsyncTask<User,Void,Boolean>(){
         override fun doInBackground(vararg parameters : User) :Boolean {
             dao.update(parameters[0])
-            return true;
+            return true
         }
     }
 
     private class DeleteUserAsyncTask(val dao : UserDAO) : AsyncTask<User,Void,Boolean>(){
         override fun doInBackground(vararg parameters : User) :Boolean {
             dao.delete(parameters[0])
-            return true;
+            return true
         }
     }
 
     private class SelectUserAsyncTask(val dao : UserDAO, val username: String) : AsyncTask<Void,Void,User>(){
         override fun doInBackground(vararg parameters : Void) : User {
-            return dao.selectUserBy(username);
+            return dao.selectUserBy(username)
         }
     }
 
     private class InsertCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Category) :Boolean {
             dao.insert(parameters[0])
-            return true;
+            return true
         }
     }
     private class UpdateCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Category) :Boolean {
             dao.update(parameters[0])
-            return true;
+            return true
         }
     }
     private class DeleteCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Category) :Boolean {
             dao.delete(parameters[0])
-            return true;
+            return true
         }
     }
 
     private class InsertSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Summary,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Summary) :Boolean {
             dao.insert(parameters[0])
-            return true;
+            return true
         }
     }
 
     private class DeleteAllSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Void,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Void) :Boolean {
             dao.deleteAllSummaries()
-            return true;
+            return true
         }
     }
 
     private class SelectAllSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Void,Void,List<Summary>>(){
         override fun doInBackground(vararg parameters : Void) : List<Summary> {
-            return dao.selectAllSummaries();
+            return dao.selectAllSummaries()
         }
     }
 
+    private class InsertCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Credential,Void,Boolean>(){
+        override fun doInBackground(vararg parameters : Credential) :Boolean {
+            dao.insert(parameters[0])
+            return true
+        }
+    }
+
+    private class DeleteCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Void,Void,Boolean>(){
+        override fun doInBackground(vararg parameters : Void) :Boolean {
+            dao.delete()
+            return true
+        }
+    }
+
+    private class SelectCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Void,Void,Credential>(){
+        override fun doInBackground(vararg parameters : Void) : Credential {
+            return dao.select()
+        }
+    }
 }

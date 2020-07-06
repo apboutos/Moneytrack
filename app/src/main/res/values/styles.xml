@@ -13,7 +13,7 @@
     <!-- Options Menu style -->
     <style name="AppTheme.ItemTextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/colorLightGreen</item>
-        <item name="android:textSize">45dp</item>
+        <item name="android:textSize">45sp</item>
     </style>
 
 

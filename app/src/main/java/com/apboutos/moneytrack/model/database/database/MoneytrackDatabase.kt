@@ -4,23 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.apboutos.moneytrack.model.database.dao.CategoryDAO
-import com.apboutos.moneytrack.model.database.dao.UserDAO
-import com.apboutos.moneytrack.model.database.dao.EntryDAO
-import com.apboutos.moneytrack.model.database.dao.SummaryDAO
-import com.apboutos.moneytrack.model.database.entity.Entry
-import com.apboutos.moneytrack.model.database.entity.Summary
-import com.apboutos.moneytrack.model.database.entity.User
-import com.apboutos.moneytrack.model.database.entity.Category
+import com.apboutos.moneytrack.model.database.dao.*
+import com.apboutos.moneytrack.model.database.entity.*
 
 
-@Database(entities = [Entry::class, User::class, Category::class, Summary::class],version = 1)
+@Database(entities = [Entry::class, User::class, Category::class, Summary::class, Credential::class],version = 1)
 abstract class MoneytrackDatabase : RoomDatabase() {
 
     abstract fun EntryDAO() : EntryDAO
     abstract fun UserDAO() : UserDAO
     abstract fun CategoryDAO() : CategoryDAO
     abstract fun SummaryDAO() : SummaryDAO
+    abstract fun CredentialDAO() : CredentialDAO
 
     companion object{
 
