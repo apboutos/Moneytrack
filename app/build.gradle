@@ -22,6 +22,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+
 }
 
 dependencies {
@@ -43,14 +48,28 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    //Espresso
+    // Espresso dependencies
     def androidx_test_espresso = "3.2.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-web:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-idling-resource:$androidx_test_espresso"
 
     //androidx.test
     def androidx_test = "1.2.0"
     androidTestImplementation "androidx.test:runner:$androidx_test"
     androidTestImplementation "androidx.test:core:$androidx_test"
+    androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation "androidx.test.ext:junit-ktx:1.1.1"
-    
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+
+    // Assertions
+    androidTestImplementation "androidx.test.ext:truth:1.2.0"
+    androidTestImplementation "com.google.truth:truth:0.42"
+
+
+
 }

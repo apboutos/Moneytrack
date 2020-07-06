@@ -6,7 +6,7 @@
     >
 
     <TextView
-        android:id="@+id/logoBox"
+        android:id="@+id/activity_login_logoBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="65dp"
@@ -19,7 +19,7 @@
         android:textStyle="italic" />
 
     <EditText
-        android:id="@+id/usernameBox"
+        android:id="@+id/activity_login_usernameBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -36,7 +36,7 @@
         android:autofillHints="@string/activity_login_username_hint" />
 
     <EditText
-        android:id="@+id/passwordBox"
+        android:id="@+id/activity_login_passwordBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -53,7 +53,7 @@
         android:autofillHints="no" />
 
     <CheckBox
-        android:id="@+id/rememberBox"
+        android:id="@+id/activity_login_rememberMeBox"
         android:layout_width="168dp"
         android:layout_height="34dp"
         android:layout_marginEnd="8dp"
@@ -63,7 +63,7 @@
         android:textColor="@android:color/holo_green_light" />
 
     <TextView
-        android:id="@+id/forgotBox"
+        android:id="@+id/activity_login_forgotText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -73,7 +73,7 @@
         android:visibility="invisible" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/activity_login_loginButton"
         android:layout_width="119dp"
         android:layout_height="49dp"
         android:layout_marginBottom="26dp"
@@ -85,7 +85,7 @@
         android:textColor="@android:color/holo_green_light" />
 
     <TextView
-        android:id="@+id/signUpBox"
+        android:id="@+id/activity_login_signUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
