@@ -1,4 +1,4 @@
-package com.apboutos.moneytrack.model.entity
+package com.apboutos.moneytrack.model.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -18,7 +18,7 @@ data class Entry(
     var isDeleted : Boolean)
 {
     companion object{
-        fun createEmptyEntry() : Entry{
+        fun createEmptyEntry() : Entry {
             return Entry("","","","","",0.00,"","",false)
         }
     }

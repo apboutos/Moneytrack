@@ -1,7 +1,8 @@
-package com.apboutos.moneytrack.model.dao
+package com.apboutos.moneytrack.model.database.dao
 
 import androidx.room.*
-import com.apboutos.moneytrack.model.entity.User
+import com.apboutos.moneytrack.model.database.entity.User
+
 
 @Dao
 interface UserDAO {

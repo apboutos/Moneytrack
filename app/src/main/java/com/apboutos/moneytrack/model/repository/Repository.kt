@@ -4,8 +4,8 @@ import android.app.Application
 import android.os.AsyncTask
 import com.apboutos.moneytrack.model.database.dao.EntryDAO
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
+import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.database.entity.Summary
-import com.apboutos.moneytrack.model.entity.Entry
 
 class Repository(application: Application) {
 

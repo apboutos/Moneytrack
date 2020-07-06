@@ -4,8 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.TextView
 import com.apboutos.moneytrack.R
-import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
-import com.apboutos.moneytrack.model.entity.Entry
+import com.apboutos.moneytrack.model.repository.Repository
 
 class MainActivity : Activity() {
 
@@ -15,10 +14,5 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val e = Entry.createEmptyEntry()
-
-        //val ee = MoneytrackDatabase.invoke()
-
-        text.text = "Yolo"
     }
 }
