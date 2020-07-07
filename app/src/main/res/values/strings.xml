@@ -19,4 +19,7 @@
     <string name="activity_register_username_hint">username</string>
     <string name="activity_register_email_hint">e-mail</string>
     <string name="activity_register_signUp_button">Sign Up</string>
+    <string name="activity_register_user_error">This username is taken.</string>
+    <string name="activity_register_email_error">This e-mail is taken.</string>
+
 </resources>
