@@ -12,4 +12,11 @@
     <string name="activity_login_Logo">Moneytrack</string>
     <string name="activity_login_username_error">You have entered a wrong username.</string>
     <string name="activity_login_password_error">You have entered a wrong password.</string>
+
+    <!--Register Activity Labels -->
+    <string name="activity_register_Logo">Moneytrack</string>
+    <string name="activity_register_password_hint">password</string>
+    <string name="activity_register_username_hint">username</string>
+    <string name="activity_register_email_hint">e-mail</string>
+    <string name="activity_register_signUp_button">Sign Up</string>
 </resources>
