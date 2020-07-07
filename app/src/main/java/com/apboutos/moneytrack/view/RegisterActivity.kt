@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.apboutos.moneytrack.R
-import com.apboutos.moneytrack.model.database.entity.User
 import com.apboutos.moneytrack.viewmodel.RegisterActivityViewModel
 
 class RegisterActivity : Activity() {
@@ -29,7 +28,7 @@ class RegisterActivity : Activity() {
 
             if(!dataEnteredAreValid()) return@setOnClickListener
 
-            when (viewModel.registerNewUser(User(usernameBox.text.toString(),passwordBox.text.toString(),emailBox.text.toString(),"",""))){
+            when (viewModel.registerNewUser(usernameBox.text.toString(),passwordBox.text.toString(),emailBox.text.toString())){
 
                 RegisterActivityViewModel.RegisterError.NO_ERROR -> { Toast.makeText(applicationContext, "Registration completed.", Toast.LENGTH_SHORT).show(); finish() }
 
