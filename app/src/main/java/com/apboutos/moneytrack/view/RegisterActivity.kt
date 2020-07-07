@@ -1,10 +1,10 @@
 package com.apboutos.moneytrack.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import com.apboutos.moneytrack.R
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
