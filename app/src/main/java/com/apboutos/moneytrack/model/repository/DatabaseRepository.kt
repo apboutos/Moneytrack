@@ -83,7 +83,7 @@ class DatabaseRepository(application: Application) {
         DeleteCredentialAsyncTask(credentialDAO).execute(null)
     }
 
-    fun selectCredential() : Credential{
+    fun selectCredential() : Credential?{
         return SelectCredentialAsyncTask(credentialDAO).execute(null).get()
     }
 
@@ -196,8 +196,8 @@ class DatabaseRepository(application: Application) {
         }
     }
 
-    private class SelectCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Void,Void,Credential>(){
-        override fun doInBackground(vararg parameters : Void) : Credential {
+    private class SelectCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Void,Void,Credential?>(){
+        override fun doInBackground(vararg parameters : Void) : Credential? {
             return dao.select()
         }
     }
