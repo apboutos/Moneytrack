@@ -5,7 +5,6 @@ package com.apboutos.moneytrack.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.entity.Credential
-import com.apboutos.moneytrack.model.database.entity.User
 import com.apboutos.moneytrack.model.repository.DatabaseRepository
 import com.apboutos.moneytrack.model.repository.OnlineRepository
 
@@ -19,26 +18,14 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
         fun requestAuthentication( username : String, password : String) : LoginError {
                 val credential : Credential? = databaseRepository.selectCredential()
                 when {
-                    credential == null -> {
 
-                            val user : User? = onlineRepository.selectUserBy(username)
-                            if(user == null){
-                                    return LoginError.WRONG_USERNAME
-                            }
-                            else if(user.password != password){
-                                    return LoginError.WRONG_PASSWORD
-                            }
-                            return LoginError.NO_ERROR
-                    }
-                    credential.username != username -> {
-                            return LoginError.WRONG_USERNAME
-                    }
-                    credential.password != password -> {
-                            return LoginError.WRONG_PASSWORD
-                    }
-                    else -> {
-                            return LoginError.NO_ERROR
-                    }
+                    credential == null -> { return onlineRepository.authenticateUser(username,password) }
+
+                    credential.username != username -> { return LoginError.WRONG_USERNAME }
+
+                    credential.password != password -> { return LoginError.WRONG_PASSWORD }
+
+                    else -> { return LoginError.NO_ERROR }
                 }
         }
 
