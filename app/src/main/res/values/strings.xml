@@ -12,6 +12,8 @@
     <string name="activity_login_Logo">Moneytrack</string>
     <string name="activity_login_username_error">You have entered a wrong username.</string>
     <string name="activity_login_password_error">You have entered a wrong password.</string>
+    <string name="activity_login_no_internet_error">Login has failed. No available internet connection.</string>
+    <string name="activity_login_server_unreachable_error">Login has failed. Server is not responding.</string>
 
     <!--Register Activity Labels -->
     <string name="activity_register_Logo">Moneytrack</string>
@@ -21,5 +23,8 @@
     <string name="activity_register_signUp_button">Sign Up</string>
     <string name="activity_register_user_error">This username is taken.</string>
     <string name="activity_register_email_error">This e-mail is taken.</string>
+    <string name="activity_register_no_error">Registration completed.</string>
+    <string name="activity_register_no_internet_error">Registration has failed. No available internet connection.</string>
+    <string name="activity_register_server_unreachable_error">Registration has failed. Server is not responding.</string>
 
 </resources>

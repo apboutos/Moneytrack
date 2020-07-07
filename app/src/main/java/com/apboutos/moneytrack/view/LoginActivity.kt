@@ -57,7 +57,6 @@ class LoginActivity : Activity() {
 
         signUpText.setOnClickListener {
             startActivity(Intent(this,RegisterActivity::class.java))
-            finish()
         }
     }
 
