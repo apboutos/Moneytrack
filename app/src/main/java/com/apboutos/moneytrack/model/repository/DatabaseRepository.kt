@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.model.repository
 
 import android.app.Application
