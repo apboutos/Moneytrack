@@ -51,5 +51,5 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
                 databaseRepository.deleteCredential()
         }
 
-        enum class LoginError { NO_ERROR,WRONG_PASSWORD,WRONG_USERNAME }
+        enum class LoginError { NO_ERROR,WRONG_PASSWORD,WRONG_USERNAME,NO_INTERNET,SERVER_UNREACHABLE }
 }
