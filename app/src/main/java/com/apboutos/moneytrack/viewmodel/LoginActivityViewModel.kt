@@ -7,11 +7,12 @@ import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.entity.Credential
 import com.apboutos.moneytrack.model.repository.DatabaseRepository
 import com.apboutos.moneytrack.model.repository.OnlineRepository
+import com.apboutos.moneytrack.utilities.error.LoginError
 
 class LoginActivityViewModel(application: Application) : AndroidViewModel(application) {
 
         private val databaseRepository = DatabaseRepository(application)
-        private val onlineRepository = OnlineRepository()
+        private val onlineRepository = OnlineRepository(application)
 
         fun retrieveStoredCredential() : Credential? = databaseRepository.selectCredential()
 
@@ -38,5 +39,4 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
                 databaseRepository.deleteCredential()
         }
 
-        enum class LoginError { NO_ERROR,WRONG_PASSWORD,WRONG_USERNAME,NO_INTERNET,SERVER_UNREACHABLE }
 }

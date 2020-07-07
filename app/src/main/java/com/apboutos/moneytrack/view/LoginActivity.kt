@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.utilities.error.LoginError
 import com.apboutos.moneytrack.viewmodel.LoginActivityViewModel
 
 
@@ -37,20 +38,20 @@ class LoginActivity : Activity() {
             if(!credentialEnteredIsValid()) return@setOnClickListener
             when (viewModel.requestAuthentication(usernameBox.text.toString(),passwordBox.text.toString())){
 
-                LoginActivityViewModel.LoginError.NO_ERROR -> { startActivity(Intent(this,LedgerActivity::class.java).putExtra("username",usernameBox.text.toString()))
+                LoginError.NO_ERROR -> { startActivity(Intent(this,LedgerActivity::class.java).putExtra("username",usernameBox.text.toString()))
                                                                 if(rememberMeBox.isChecked) viewModel.saveUserCredential(usernameBox.text.toString(),passwordBox.text.toString())
                                                                 else viewModel.deleteStoredCredential()
                                                                 finish() }
 
-                LoginActivityViewModel.LoginError.WRONG_USERNAME -> { Toast.makeText(applicationContext, getString(R.string.activity_login_username_error), Toast.LENGTH_LONG).show()
+                LoginError.WRONG_USERNAME -> { Toast.makeText(applicationContext, getString(R.string.activity_login_username_error), Toast.LENGTH_LONG).show()
                                                                       rememberMeBox.visibility = View.VISIBLE }
 
-                LoginActivityViewModel.LoginError.WRONG_PASSWORD -> { Toast.makeText(applicationContext, getString(R.string.activity_login_password_error), Toast.LENGTH_LONG).show()
+                LoginError.WRONG_PASSWORD -> { Toast.makeText(applicationContext, getString(R.string.activity_login_password_error), Toast.LENGTH_LONG).show()
                                                                       rememberMeBox.visibility = View.VISIBLE }
 
-                LoginActivityViewModel.LoginError.NO_INTERNET -> { Toast.makeText(applicationContext, getString(R.string.activity_login_no_internet_error), Toast.LENGTH_LONG).show() }
+                LoginError.NO_INTERNET -> { Toast.makeText(applicationContext, getString(R.string.activity_login_no_internet_error), Toast.LENGTH_LONG).show() }
 
-                LoginActivityViewModel.LoginError.SERVER_UNREACHABLE -> { Toast.makeText(applicationContext, getString(R.string.activity_login_server_unreachable_error), Toast.LENGTH_LONG).show() }
+                LoginError.SERVER_UNREACHABLE -> { Toast.makeText(applicationContext, getString(R.string.activity_login_server_unreachable_error), Toast.LENGTH_LONG).show() }
             }
         }
 
