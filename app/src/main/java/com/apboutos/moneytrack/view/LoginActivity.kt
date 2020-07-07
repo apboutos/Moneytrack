@@ -47,6 +47,10 @@ class LoginActivity : Activity() {
 
                 LoginActivityViewModel.LoginError.WRONG_PASSWORD -> { Toast.makeText(applicationContext, getString(R.string.activity_login_password_error), Toast.LENGTH_LONG).show()
                                                                       rememberMeBox.visibility = View.VISIBLE }
+
+                LoginActivityViewModel.LoginError.NO_INTERNET -> { Toast.makeText(applicationContext, getString(R.string.activity_login_no_internet_error), Toast.LENGTH_LONG).show() }
+
+                LoginActivityViewModel.LoginError.SERVER_UNREACHABLE -> { Toast.makeText(applicationContext, getString(R.string.activity_login_server_unreachable_error), Toast.LENGTH_LONG).show() }
             }
         }
 
