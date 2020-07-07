@@ -33,13 +33,13 @@ class RegisterActivity : Activity() {
 
                 RegisterActivityViewModel.RegisterError.NO_ERROR -> { Toast.makeText(applicationContext, "Registration completed.", Toast.LENGTH_SHORT).show(); finish() }
 
-                RegisterActivityViewModel.RegisterError.USERNAME_TAKEN_ERROR -> { usernameBox.error = getString(R.string.activity_register_user_error) }
+                RegisterActivityViewModel.RegisterError.USERNAME_TAKEN -> { usernameBox.error = getString(R.string.activity_register_user_error) }
 
-                RegisterActivityViewModel.RegisterError.EMAIL_TAKEN_ERROR -> { emailBox.error = getString(R.string.activity_register_email_error) }
+                RegisterActivityViewModel.RegisterError.EMAIL_TAKEN -> { emailBox.error = getString(R.string.activity_register_email_error) }
 
-                RegisterActivityViewModel.RegisterError.NO_INTERNET_ERROR -> { Toast.makeText(applicationContext, getString(R.string.activity_register_no_internet_error), Toast.LENGTH_LONG).show()}
+                RegisterActivityViewModel.RegisterError.NO_INTERNET -> { Toast.makeText(applicationContext, getString(R.string.activity_register_no_internet_error), Toast.LENGTH_LONG).show()}
 
-                RegisterActivityViewModel.RegisterError.SERVER_UNREACHABLE_ERROR -> { Toast.makeText(applicationContext, getString(R.string.activity_register_server_unreachable_error), Toast.LENGTH_LONG).show() }
+                RegisterActivityViewModel.RegisterError.SERVER_UNREACHABLE -> { Toast.makeText(applicationContext, getString(R.string.activity_register_server_unreachable_error), Toast.LENGTH_LONG).show() }
             }
         }
     }
