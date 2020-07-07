@@ -3,7 +3,6 @@
 package com.apboutos.moneytrack.view
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,7 +12,7 @@ import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.viewmodel.LoginActivityViewModel
 
 
-
+//TODO Implement a progress bar dialog that appears while the user us waiting for login authentication.
 class LoginActivity : Activity() {
 
     private val TAG = "LoginActivity"
