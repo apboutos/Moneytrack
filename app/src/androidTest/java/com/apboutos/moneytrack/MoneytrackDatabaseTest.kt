@@ -5,6 +5,8 @@ import androidx.test.core.app.ApplicationProvider
 import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import androidx.room.Room
+import com.apboutos.moneytrack.model.database.converter.Date
+import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
 import com.apboutos.moneytrack.model.database.entity.Entry
@@ -15,7 +17,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
-import java.util.*
+
 
 @RunWith(AndroidJUnit4::class)
 class MoneytrackDatabaseTest{
@@ -85,22 +87,20 @@ class MoneytrackDatabaseTest{
     fun selectAllEntriesOfDate(){
 
         val list1 : List<Entry> = listOf(
-            Entry("ex2213","exophrenik","Expense","toEat","junk food",92.21,"2020-06-01","2020-06-01",false),
-            Entry("ex2214","exophrenik","Income","paycheck","paycheck",92.21,"2020-06-01","2020-06-01",false),
-            Entry("ex2215","exophrenik","Expense","toEat","junk food",92.21,"2020-06-02","2020-06-02",false),
-            Entry("ex2216","exophrenik","Expense","toEat","junk food",92.21,"2020-06-02","2020-06-02",false),
-            Entry("ex2217","exophrenik","Expense","toEat","junk food",92.21,"2020-06-02","2020-06-02",false))
+            Entry("ex2213","exophrenik","Expense","toEat","junk food",92.21, Date("2020-06-01"),Datetime("2020-06-01 23:41:22"),false),
+            Entry("ex2214","exophrenik","Income","paycheck","paycheck",92.21,Date("2020-06-01"),Datetime("2020-06-01 23:41:22"),false),
+            Entry("ex2215","exophrenik","Expense","toEat","junk food",92.21,Date("2020-06-02"),Datetime("2020-06-01 23:41:22"),false),
+            Entry("ex2216","exophrenik","Expense","toEat","junk food",92.21,Date("2020-06-02"),Datetime("2020-06-01 23:41:22"),false),
+            Entry("ex2217","exophrenik","Expense","toEat","junk food",92.21,Date("2020-06-02"), Datetime("2020-06-01 23:41:22"),false))
             for(i in list1){
                 entryDao.insert(i)
             }
-        val list2 = entryDao.selectAllEntriesOfDate("2020-06-01","exophrenik")
+        val list2 = entryDao.selectAllEntriesOfDate(Date("2020-06-01"),"exophrenik")
         Assert.assertNotEquals(list1,list2)
         val list3 = mutableListOf<Entry>()
         list3.addAll(list2)
-        list3.addAll(entryDao.selectAllEntriesOfDate("2020-06-02","exophrenik"))
+        list3.addAll(entryDao.selectAllEntriesOfDate(Date("2020-06-02"),"exophrenik"))
         Assert.assertEquals(list1,list3)
-
-        val date = Date()
 
     }
 

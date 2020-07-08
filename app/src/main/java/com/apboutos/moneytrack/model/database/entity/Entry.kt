@@ -1,9 +1,14 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.model.database.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.apboutos.moneytrack.model.database.converter.Date
+import com.apboutos.moneytrack.model.database.converter.Datetime
+
 
 @Entity(tableName = "entry")
+@TypeConverters(Date::class,Datetime::class)
 data class Entry(
 
     @PrimaryKey(autoGenerate = false)
@@ -13,13 +18,14 @@ data class Entry(
     var description : String,
     var category : String,
     var amount : Double,
-    var date : String,
-    var lastUpdate : String,
+    var date : Date,
+    var lastUpdate : Datetime,
     var isDeleted : Boolean)
 {
     companion object{
         fun createEmptyEntry() : Entry {
-            return Entry("","","","","",0.00,"","",false)
+            return Entry("","","","","",0.00,Date(""),Datetime(""),false)
         }
     }
+
 }

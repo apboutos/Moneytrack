@@ -4,6 +4,7 @@ package com.apboutos.moneytrack.model.repository
 
 import android.app.Application
 import android.os.AsyncTask
+import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
 import com.apboutos.moneytrack.model.database.entity.*
@@ -30,7 +31,7 @@ class DatabaseRepository(application: Application) {
     }
 
     fun selectAllEntriesOfDate(date : String, username : String) : List<Entry>{
-        return DateEntriesAsyncTask(entryDAO,date,username).execute(null).get()
+        return DateEntriesAsyncTask(entryDAO, Date(date),username).execute(null).get()
     }
 
     fun selectAllEntriesOfSummary(summary: Summary) : List<Entry>{
@@ -107,7 +108,7 @@ class DatabaseRepository(application: Application) {
             return true
         }
     }
-    private class DateEntriesAsyncTask(val dao : EntryDAO,val date : String,val username : String) : AsyncTask<Void,Void,List<Entry>>(){
+    private class DateEntriesAsyncTask(val dao : EntryDAO, val date : Date, val username : String) : AsyncTask<Void,Void,List<Entry>>(){
         override fun doInBackground(vararg parameters : Void?): List<Entry>? {
             return dao.selectAllEntriesOfDate(date,username)
         }
