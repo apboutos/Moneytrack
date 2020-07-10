@@ -16,4 +16,9 @@ interface RemoteServerAPI {
     @Headers("Content-Type: application/json")
     @POST("register.php")
     fun registerUser(@Body user : User) : Call<RegistrationResult>
+
+    @Headers("Content-Type: application/json")
+    @POST("retrieve.php")
+    fun retrieveCredentials(@Body retrieveRequestBody: RetrieveRequestBody) : Call<RetrieveRequestResult>
+
 }

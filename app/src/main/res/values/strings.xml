@@ -34,4 +34,5 @@
     <string name="activity_retrieve_email_box">e-mail</string>
     <string name="activity_retrieve_retrieve_button">Retrieve</string>
     <string name="activity_retrieve_confirmation">An e-mail containing your credentials has been sent to </string>
+    <string name="activity_retrieve_no_internet_error">No available internet connection</string>
 </resources>

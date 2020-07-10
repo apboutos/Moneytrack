@@ -41,7 +41,7 @@ class OnlineRepository(var application: Application) {
 
                     override fun onResponse(call: Call<AuthenticationRequestResult>, response: Response<AuthenticationRequestResult>) {
 
-                        Log.d(TAG,"response code:" + response.code())
+                        Log.d(TAG,"Response code: " + response.code())
                         Log.d(TAG,"Response body: " + response.body())
                         val intent = Intent()
                         if(response.body() == null){
@@ -79,7 +79,7 @@ class OnlineRepository(var application: Application) {
 
             override fun onResponse(call: Call<RegistrationResult>, response: Response<RegistrationResult>
             ) {
-                Log.d(TAG,"response code:" + response.code())
+                Log.d(TAG,"Response code: " + response.code())
                 Log.d(TAG,"Response body: " + response.body())
                 val intent = Intent()
                 if(response.body() == null){
@@ -95,6 +95,20 @@ class OnlineRepository(var application: Application) {
         })
     }
 
+    fun retrieveLostCredentials(email : String){
+
+        api.retrieveCredentials(RetrieveRequestBody(email)).enqueue(object : Callback<RetrieveRequestResult>{
+            override fun onFailure(call: Call<RetrieveRequestResult>, t: Throwable) {
+                Log.e(TAG,t.message,t)
+            }
+
+            override fun onResponse(call: Call<RetrieveRequestResult>, response: Response<RetrieveRequestResult>) {
+                Log.d(TAG,"Response code: " + response.code())
+                Log.d(TAG,"Response body: " + response.body())
+            }
+
+        })
+    }
 }
 
 
