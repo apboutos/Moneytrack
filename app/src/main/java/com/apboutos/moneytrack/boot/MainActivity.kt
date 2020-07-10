@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import com.apboutos.moneytrack.R
-import com.apboutos.moneytrack.model.repository.DatabaseRepository
 import com.apboutos.moneytrack.view.LoginActivity
 
 class MainActivity : Activity() {

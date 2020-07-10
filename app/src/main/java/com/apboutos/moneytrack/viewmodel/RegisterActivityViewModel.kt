@@ -6,7 +6,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.entity.User
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
-import com.apboutos.moneytrack.model.repository.OnlineRepository
+import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.error.RegisterError
 import java.text.SimpleDateFormat
 import java.util.*

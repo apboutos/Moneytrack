@@ -70,6 +70,8 @@ dependencies {
     androidTestImplementation "androidx.test.ext:truth:1.2.0"
     androidTestImplementation "com.google.truth:truth:0.42"
 
-
+    //
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
 
 }

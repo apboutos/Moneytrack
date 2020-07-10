@@ -6,7 +6,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.entity.Credential
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
-import com.apboutos.moneytrack.model.repository.OnlineRepository
+import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.error.LoginError
 
 class LoginActivityViewModel(application: Application) : AndroidViewModel(application) {
