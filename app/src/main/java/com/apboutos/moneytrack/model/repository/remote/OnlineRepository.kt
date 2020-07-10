@@ -8,6 +8,7 @@ import android.util.Log
 import com.apboutos.moneytrack.model.database.entity.User
 import com.apboutos.moneytrack.utilities.error.RegisterError
 import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
+import com.apboutos.moneytrack.viewmodel.receiver.RegisterReceiver
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,35 +57,42 @@ class OnlineRepository(var application: Application) {
                 })
     }
 
-    fun registerUser( user : User) : RegisterError {
-
+    fun registerUser( user : User) {
         if(!NetworkTester.internetConnectionIsAvailable(application)){
-            return RegisterError.NO_INTERNET
+            val intent = Intent()
+            intent.putExtra("error","SERVER_UNREACHABLE")
+            intent.addCategory(Intent.CATEGORY_DEFAULT)
+            intent.action = RegisterReceiver.SERVER_REGISTER_RESPONSE
+            application.sendBroadcast(intent)
+            return
         }
-
-        var result : RegistrationResult? = null
 
         api.registerUser(user).enqueue(object : Callback<RegistrationResult>{
             override fun onFailure(call: Call<RegistrationResult>, t: Throwable) {
                 Log.e(TAG,t.message,t)
+                val intent = Intent()
+                intent.putExtra("error","SERVER_UNREACHABLE")
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.action = RegisterReceiver.SERVER_REGISTER_RESPONSE
+                application.sendBroadcast(intent)
             }
 
             override fun onResponse(call: Call<RegistrationResult>, response: Response<RegistrationResult>
             ) {
-                result = response.body()
                 Log.d(TAG,"response code:" + response.code())
-                Log.d(TAG,result?.error)
+                Log.d(TAG,"Response body: " + response.body())
+                val intent = Intent()
+                if(response.body() == null){
+                    intent.putExtra("error","SERVER_UNREACHABLE")
+                }
+                else{
+                    intent.putExtra("error",response.body()!!.error)
+                }
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.action = RegisterReceiver.SERVER_REGISTER_RESPONSE
+                application.sendBroadcast(intent)
             }
         })
-
-        if(result == null){Log.e(TAG,"nullulululuulul")}
-        if(result == null) {return RegisterError.SERVER_UNREACHABLE}
-
-        if(result!!.error == "USER_EXISTS"){return RegisterError.USERNAME_TAKEN}
-
-        if(result!!.error == "EMAIL_TAKEN"){return RegisterError.EMAIL_TAKEN}
-
-        return RegisterError.NO_ERROR
     }
 
 }
