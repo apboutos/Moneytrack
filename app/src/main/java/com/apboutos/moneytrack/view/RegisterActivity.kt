@@ -31,19 +31,14 @@ class RegisterActivity : Activity() {
         val signUpButton  = findViewById<Button>(R.id.activity_register_signUp_button)
         signUpButton.setOnClickListener {
 
-            if(!dataEnteredAreValid()) return@setOnClickListener
-
-            when (viewModel.registerNewUser(usernameBox.text.toString(),passwordBox.text.toString(),emailBox.text.toString())){
-
-
-            }
+            if(dataEnteredAreValid()) viewModel.registerNewUser(usernameBox.text.toString(),passwordBox.text.toString(),emailBox.text.toString())
         }
     }
 
     fun handleResponse(error : RegisterError){
 
         when(error){
-            RegisterError.NO_ERROR -> { Toast.makeText(applicationContext, "Registration completed.", Toast.LENGTH_SHORT).show();
+            RegisterError.NO_ERROR -> { Toast.makeText(applicationContext, "Registration completed.", Toast.LENGTH_SHORT).show()
                                         viewModel.addUserToDatabase(usernameBox.text.toString(),passwordBox.text.toString(),emailBox.text.toString())
                                         finish() }
 
