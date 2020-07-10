@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.apboutos.moneytrack.model.repository
+package com.apboutos.moneytrack.model.repository.local
 
 import android.app.Application
 import android.os.AsyncTask
@@ -19,75 +19,115 @@ class DatabaseRepository(application: Application) {
     private val credentialDAO = database.CredentialDAO()
 
     fun insert(entry : Entry){
-        InsertEntryAsyncTask(entryDAO).execute(entry)
+        InsertEntryAsyncTask(
+            entryDAO
+        ).execute(entry)
     }
 
     fun update(entry : Entry){
-        UpdateEntryAsyncTask(entryDAO).execute(entry)
+        UpdateEntryAsyncTask(
+            entryDAO
+        ).execute(entry)
     }
 
     fun delete(entry : Entry){
-        DeleteEntryAsyncTask(entryDAO).execute(entry)
+        DeleteEntryAsyncTask(
+            entryDAO
+        ).execute(entry)
     }
 
     fun selectAllEntriesOfDate(date : String, username : String) : List<Entry>{
-        return DateEntriesAsyncTask(entryDAO, Date(date),username).execute(null).get()
+        return DateEntriesAsyncTask(
+            entryDAO,
+            Date(date),
+            username
+        ).execute(null).get()
     }
 
     fun selectAllEntriesOfSummary(summary: Summary) : List<Entry>{
-        return SummaryEntriesAsyncTask(entryDAO,summary).execute(null).get()
+        return SummaryEntriesAsyncTask(
+            entryDAO,
+            summary
+        ).execute(null).get()
     }
 
     fun insert(user : User){
-        InsertUserAsyncTask(userDAO).execute(user)
+        InsertUserAsyncTask(
+            userDAO
+        ).execute(user)
     }
 
     fun update(user : User){
-        UpdateUserAsyncTask(userDAO).execute(user)
+        UpdateUserAsyncTask(
+            userDAO
+        ).execute(user)
     }
 
     fun delete(user : User){
-        DeleteUserAsyncTask(userDAO).execute(user)
+        DeleteUserAsyncTask(
+            userDAO
+        ).execute(user)
     }
 
     fun selectUserBy(username : String) : User {
-        return SelectUserAsyncTask(userDAO,username).execute(null).get()
+        return SelectUserAsyncTask(
+            userDAO,
+            username
+        ).execute(null).get()
     }
 
     fun insert(category: Category){
-        InsertCategoryAsyncTask(categoryDAO).execute(category)
+        InsertCategoryAsyncTask(
+            categoryDAO
+        ).execute(category)
     }
 
     fun update(category: Category){
-        UpdateCategoryAsyncTask(categoryDAO).execute(category)
+        UpdateCategoryAsyncTask(
+            categoryDAO
+        ).execute(category)
     }
 
     fun delete(category: Category){
-        DeleteCategoryAsyncTask(categoryDAO).execute(category)
+        DeleteCategoryAsyncTask(
+            categoryDAO
+        ).execute(category)
     }
 
     fun insert(summary: Summary){
-        InsertSummaryAsyncTask(summaryDAO).execute(summary)
+        InsertSummaryAsyncTask(
+            summaryDAO
+        ).execute(summary)
     }
 
     fun deleteAllSummaries(){
-        DeleteAllSummaryAsyncTask(summaryDAO).execute(null)
+        DeleteAllSummaryAsyncTask(
+            summaryDAO
+        ).execute(null)
     }
 
     fun selectAllSummaries() : List<Summary>{
-        return SelectAllSummaryAsyncTask(summaryDAO).execute(null).get()
+        return SelectAllSummaryAsyncTask(
+            summaryDAO
+        ).execute(null).get()
     }
 
     fun insertCredential(credential: Credential){
-        InsertCredentialAsyncTask(credentialDAO).execute(credential)
+        InsertCredentialAsyncTask(
+            credentialDAO
+        ).execute(credential)
     }
 
     fun deleteCredential(){
-        DeleteCredentialAsyncTask(credentialDAO).execute(null)
+        DeleteCredentialAsyncTask(
+            credentialDAO
+        ).execute(null)
     }
 
     fun selectCredential() : Credential?{
-        return SelectCredentialAsyncTask(credentialDAO).execute(null).get()
+        return SelectCredentialAsyncTask(
+            credentialDAO
+        ).execute(null).get()
     }
 
     private class InsertEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
