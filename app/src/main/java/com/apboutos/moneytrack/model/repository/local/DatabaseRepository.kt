@@ -1,13 +1,15 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "PrivatePropertyName")
 
 package com.apboutos.moneytrack.model.repository.local
 
 import android.app.Application
 import android.os.AsyncTask
+import android.util.Log
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
 import com.apboutos.moneytrack.model.database.entity.*
+import java.lang.Exception
 
 class DatabaseRepository(application: Application) {
 
@@ -69,7 +71,7 @@ class DatabaseRepository(application: Application) {
         ).execute(user)
     }
 
-    fun selectUserBy(username : String) : User {
+    fun selectUserBy(username : String) : User? {
         return SelectUserAsyncTask(
             userDAO,
             username
@@ -161,7 +163,11 @@ class DatabaseRepository(application: Application) {
 
     private class InsertUserAsyncTask(val dao : UserDAO) : AsyncTask<User,Void,Boolean>(){
         override fun doInBackground(vararg parameters : User) :Boolean {
-            dao.insert(parameters[0])
+            try{ dao.insert(parameters[0]) }
+            catch (e : Exception){
+                Log.e("DatabaseRepository",e.message)
+                return false
+            }
             return true
         }
     }
@@ -180,8 +186,8 @@ class DatabaseRepository(application: Application) {
         }
     }
 
-    private class SelectUserAsyncTask(val dao : UserDAO, val username: String) : AsyncTask<Void,Void,User>(){
-        override fun doInBackground(vararg parameters : Void) : User {
+    private class SelectUserAsyncTask(val dao : UserDAO, val username: String) : AsyncTask<Void,Void,User?>(){
+        override fun doInBackground(vararg parameters : Void) : User? {
             return dao.selectUserBy(username)
         }
     }

@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.SummaryActivity"></activity>
+        <activity android:name=".view.SummaryActivity"/>
         <activity android:name=".view.LedgerActivity" />
         <activity android:name=".view.RetrieveActivity" />
         <activity android:name=".view.RegisterActivity" />
