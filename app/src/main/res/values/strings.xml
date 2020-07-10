@@ -28,4 +28,10 @@
     <string name="activity_register_no_internet_error">Registration has failed. No available internet connection.</string>
     <string name="activity_register_server_unreachable_error">Registration has failed. Server is not responding.</string>
 
+    <!--Retrieve Activity Labels -->
+    <string name="activity_retrieve_Logo">Moneytrack</string>
+    <string name="activity_retrieve_instructions_label">Enter your account\'s e-mail address and an e-mail will be sent containing your password.</string>
+    <string name="activity_retrieve_email_box">e-mail</string>
+    <string name="activity_retrieve_retrieve_button">Retrieve</string>
+    <string name="activity_retrieve_confirmation">An e-mail containing your credentials has been sent to </string>
 </resources>
