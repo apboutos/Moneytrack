@@ -3,6 +3,8 @@
 package com.apboutos.moneytrack.view
 
 import android.app.Activity
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.utilities.error.RegisterError
 import com.apboutos.moneytrack.viewmodel.RegisterActivityViewModel
+import com.apboutos.moneytrack.viewmodel.receiver.RegisterReceiver
 
 class RegisterActivity : Activity() {
 
@@ -19,6 +22,7 @@ class RegisterActivity : Activity() {
     private val passwordBox by lazy { findViewById<EditText>(R.id.activity_register_password_box) }
     private val passwordRetypeBox by lazy { findViewById<EditText>(R.id.activity_register_password_re_box) }
     private val emailBox by lazy { findViewById<EditText>(R.id.activity_register_email_box) }
+    private val receiver by lazy { RegisterReceiver(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,16 +35,25 @@ class RegisterActivity : Activity() {
 
             when (viewModel.registerNewUser(usernameBox.text.toString(),passwordBox.text.toString(),emailBox.text.toString())){
 
-                RegisterError.NO_ERROR -> { Toast.makeText(applicationContext, "Registration completed.", Toast.LENGTH_SHORT).show(); finish() }
 
-                RegisterError.USERNAME_TAKEN -> { usernameBox.error = getString(R.string.activity_register_user_error) }
-
-                RegisterError.EMAIL_TAKEN -> { emailBox.error = getString(R.string.activity_register_email_error) }
-
-                RegisterError.NO_INTERNET -> { Toast.makeText(applicationContext, getString(R.string.activity_register_no_internet_error), Toast.LENGTH_LONG).show()}
-
-                RegisterError.SERVER_UNREACHABLE -> { Toast.makeText(applicationContext, getString(R.string.activity_register_server_unreachable_error), Toast.LENGTH_LONG).show() }
             }
+        }
+    }
+
+    fun handleResponse(error : RegisterError){
+
+        when(error){
+            RegisterError.NO_ERROR -> { Toast.makeText(applicationContext, "Registration completed.", Toast.LENGTH_SHORT).show();
+                                        viewModel.addUserToDatabase(usernameBox.text.toString(),passwordBox.text.toString(),emailBox.text.toString())
+                                        finish() }
+
+            RegisterError.USERNAME_TAKEN -> { usernameBox.error = getString(R.string.activity_register_user_error) }
+
+            RegisterError.EMAIL_TAKEN -> { emailBox.error = getString(R.string.activity_register_email_error) }
+
+            RegisterError.NO_INTERNET -> { Toast.makeText(applicationContext, getString(R.string.activity_register_no_internet_error), Toast.LENGTH_LONG).show()}
+
+            RegisterError.SERVER_UNREACHABLE -> { Toast.makeText(applicationContext, getString(R.string.activity_register_server_unreachable_error), Toast.LENGTH_LONG).show() }
         }
     }
 
@@ -67,5 +80,18 @@ class RegisterActivity : Activity() {
         if (emailBox.text.toString().isEmpty()) { emailBox.error = "Enter an e-mail address."; return false }
 
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addCategory(Intent.CATEGORY_DEFAULT)
+        filter.addAction(RegisterReceiver.SERVER_REGISTER_RESPONSE)
+        registerReceiver(receiver,filter)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(receiver)
     }
 }
