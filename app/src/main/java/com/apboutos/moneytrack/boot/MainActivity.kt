@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.view.LedgerActivity
 import com.apboutos.moneytrack.view.LoginActivity
 
 class MainActivity : Activity() {
@@ -15,7 +16,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent : Intent = Intent(this,LoginActivity::class.java)
+        val intent : Intent = Intent(this, LedgerActivity::class.java)
         startActivity(intent)
         finish()
     }

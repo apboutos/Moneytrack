@@ -7,8 +7,9 @@
 
 
 
-
-    <color name="colorLightGreen">#99cc00</color>
+    <color name="entry_background">#FF4A4A49</color>
+    <color name="new_entry_button_background">#FF4A4A49</color>
+    <color name="colorLightGreen">#41EA41</color>
     <color name="colorDarkGreen">#669900</color>
     <color name="colorDeletedEntry">#FFF43636</color>
 </resources>
