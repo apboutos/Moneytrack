@@ -3,8 +3,10 @@
 package com.apboutos.moneytrack.view
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +16,7 @@ import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.utilities.error.LoginError
 import com.apboutos.moneytrack.viewmodel.LoginActivityViewModel
 import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
+import java.util.prefs.Preferences
 
 
 //TODO Implement a progress bar dialog that appears while the user us waiting for login authentication.
@@ -84,6 +87,7 @@ class LoginActivity : Activity() {
             LoginError.NO_ERROR -> { startActivity(Intent(this,LedgerActivity::class.java).putExtra("username",usernameBox.text.toString()))
                 if(rememberMeBox.isChecked) viewModel.saveUserCredential(usernameBox.text.toString(),passwordBox.text.toString())
                 else viewModel.deleteStoredCredential()
+                applicationContext.getSharedPreferences("session", Context.MODE_PRIVATE).edit().putString("username",usernameBox.text.toString()).apply()
                 finish() }
 
             LoginError.WRONG_USERNAME -> { Toast.makeText(applicationContext, getString(R.string.activity_login_username_error), Toast.LENGTH_LONG).show()

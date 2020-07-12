@@ -134,7 +134,11 @@ class DatabaseRepository(application: Application) {
 
     private class InsertEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) :Boolean {
-            dao.insert(parameters[0])
+            try{ dao.insert(parameters[0]) }
+            catch (e : Exception){
+                Log.e("DatabaseRepository",e.message)
+                return false
+            }
             return true
         }
     }
@@ -194,7 +198,11 @@ class DatabaseRepository(application: Application) {
 
     private class InsertCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Category) :Boolean {
-            dao.insert(parameters[0])
+            try{ dao.insert(parameters[0]) }
+            catch (e : Exception){
+                Log.e("DatabaseRepository",e.message)
+                return false
+            }
             return true
         }
     }
@@ -213,7 +221,11 @@ class DatabaseRepository(application: Application) {
 
     private class InsertSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Summary,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Summary) :Boolean {
-            dao.insert(parameters[0])
+            try{ dao.insert(parameters[0]) }
+            catch (e : Exception){
+                Log.e("DatabaseRepository",e.message)
+                return false
+            }
             return true
         }
     }
@@ -233,7 +245,11 @@ class DatabaseRepository(application: Application) {
 
     private class InsertCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Credential,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Credential) :Boolean {
-            dao.insert(parameters[0])
+            try{ dao.insert(parameters[0]) }
+            catch (e : Exception){
+                Log.e("DatabaseRepository",e.message)
+                return false
+            }
             return true
         }
     }
