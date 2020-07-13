@@ -17,7 +17,7 @@ import com.google.android.material.appbar.MaterialToolbar
 
 class LedgerActivity : AppCompatActivity() {
 
-    private val self = this
+    private val self : LedgerActivity = this
     private val tag = "LedgerActivity"
     private val viewModel by lazy { ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java) }
     private val toolbar by lazy { findViewById<MaterialToolbar>(R.id.activity_ledger_toolbar) }
@@ -51,12 +51,16 @@ class LedgerActivity : AppCompatActivity() {
     private fun registerRecyclerViewListener(){
         adapter.listener = object : LedgerRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                EditEntryDialog(self,viewModel.getEntry(position),position).show()
+                openDialog(position)
+                Log.d(tag,position.toString())
             }
 
         }
     }
 
+    private fun openDialog(position : Int){
+        EditEntryDialog(this,viewModel.getEntry(position),position).show()
+    }
     private fun registerTouchHelper(){
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
