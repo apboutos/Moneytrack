@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.utilities
 
 import android.icu.text.SimpleDateFormat
