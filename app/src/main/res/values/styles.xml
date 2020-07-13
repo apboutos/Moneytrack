@@ -1,39 +1,28 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:itemTextAppearance">@style/AppTheme.ItemTextStyle</item>
-        <item name="android:dateTextAppearance">@style/AppTheme.dateTextAppearance</item>
-        <item name="android:weekDayTextAppearance">@style/AppTheme.weekDayTextAppearance</item>
+        <item name="colorPrimary">@color/dark_grey</item>
+        <item name="colorOnPrimary">@color/dark_oily_green</item>
+        <item name="colorAccent">@color/dark_cyan</item>
+        <item name="colorError">@color/red</item>
+        <item name="colorOnError">@color/dark_cyan</item>
+
+        <item name="android:itemTextAppearance">@style/menuTextStyle</item>
+
+    </style>
+    
+    <style name="menuTextStyle" parent="android:TextAppearance.Material">
+      <item name="android:textColor">@color/dark_oily_green</item>
     </style>
 
-    <!-- Options Menu style -->
-    <style name="AppTheme.ItemTextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-        <item name="android:textColor">@color/colorLightGreen</item>
-        <item name="android:textSize">45sp</item>
+    <style name="floatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/dark_grey</item>
+        <item name="android:shadowColor">@color/light_black</item>
+        <item name="android:iconTint">@color/dark_oily_green</item>
+        <item name="android:tint">@color/dark_oily_green</item>
+        <item name="iconTint">@color/dark_oily_green</item>
+        <item name="iconSize">30dp</item>
     </style>
-
-
-    <!-- Calendar date style -->
-    <style name="AppTheme.dateTextAppearance" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:color">@color/colorPrimary</item>
-    </style>
-
-    <!-- Calendar week day style -->
-    <style name="AppTheme.weekDayTextAppearance" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/colorPrimary</item>
-    </style>
-
-    <style name="LoginProgressDialog" parent="Theme.AppCompat.Dialog">
-
-        <item name="android:windowBackground">@color/colorInvisible</item>
-        <item name="android:textColor">@color/colorLightGreen</item>
-        <item name="android:textColorPrimary">@color/colorDarkGreen</item>
-        <item name="colorAccent">@color/colorDarkGreen</item>
-    </style>
-
-
 </resources>

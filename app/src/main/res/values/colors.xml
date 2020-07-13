@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#99cc00</color>
-    <color name="colorPrimaryDark">#669900</color>
+
     <color name="colorInvisible">#00000000</color>
+    <color name="dark_grey">#FF4A4A49</color>
+    <color name="light_black">#202020</color>
+    <color name="black">#121212</color>
+    <color name="dark_black">#000000</color>
+    <color name="faint_green">#41EA41</color>
+    <color name="light_oily_green">#99cc00</color>
+    <color name="dark_oily_green">#669900</color>
+    <color name="red">#FFF43636</color>
+    <color name="dark_cyan">#1567A8</color>
+
     <color name="colorTest">#ff00c8</color>
-
-
-
-    <color name="entry_background">#202020</color>
-    <color name="bottom_button_background_tink">#121212</color>
-    <color name="new_entry_button_background">#FF4A4A49</color>
-    <color name="colorLightGreen">#41EA41</color>
-    <color name="colorDarkGreen">#669900</color>
-    <color name="colorDeletedEntry">#FFF43636</color>
 </resources>

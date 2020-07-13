@@ -2,7 +2,7 @@
     <string name="app_name">Moneytrack</string>
 
 
-    <!--Login Activity Labels -->
+    <!--Login Activity -->
     <string name="activity_login_register_prompt">I don\'t have an account</string>
     <string name="activity_login_Login_Button_Text">Login</string>
     <string name="activity_login_retrieve_credentials">I forgot my username and password</string>
@@ -16,7 +16,7 @@
     <string name="activity_login_server_unreachable_error">Login has failed. Server is not responding.</string>
 
 
-    <!--Register Activity Labels -->
+    <!--Register Activity -->
     <string name="activity_register_Logo">Moneytrack</string>
     <string name="activity_register_password_hint">password</string>
     <string name="activity_register_username_hint">username</string>
@@ -28,7 +28,7 @@
     <string name="activity_register_no_internet_error">Registration has failed. No available internet connection.</string>
     <string name="activity_register_server_unreachable_error">Registration has failed. Server is not responding.</string>
 
-    <!--Retrieve Activity Labels -->
+    <!--Retrieve Activity -->
     <string name="activity_retrieve_Logo">Moneytrack</string>
     <string name="activity_retrieve_instructions_label">Enter your account\'s e-mail address and an e-mail will be sent containing your password.</string>
     <string name="activity_retrieve_email_box">e-mail</string>
@@ -36,12 +36,20 @@
     <string name="activity_retrieve_confirmation">An e-mail containing your credentials has been sent to </string>
     <string name="activity_retrieve_no_internet_error">No available internet connection</string>
 
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <!--Ledger Activity -->
+    <string name="activity_ledger_Logo">Moneytrack</string>
+    <string name="activity_ledger_Logo_description">The application\'s logo</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--Toolbar Menu -->
+    <string name="toolbar_menu_calendar_item_title">Calendar</string>
+    <string name="toolbar_menu_calendar_item_description">Pick another date</string>
+    <string name="toolbar_menu_search_item_title">Search</string>
+    <string name="toolbar_menu_search_item_description">Search for entries</string>
+    <string name="toolbar_menu_settings_item_title">Settings</string>
+    <string name="toolbar_menu_settings_item_description">Change the application\'s settings</string>
+    <string name="toolbar_menu_logout_item_title">Logout</string>
+    <string name="toolbar_menu_logout_item_description">Logout</string>
+    <string name="toolbar_menu_ledger_item_title">Ledger</string>
+    <string name="toolbar_menu_ledger_item_description">See a report of your finances</string>
 </resources>
