@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/toolbar_menu_ledger"
+          android:icon="@drawable/ic_ledger"
+          android:title="@string/toolbar_menu_ledger_item_title"
+          android:contentDescription="@string/toolbar_menu_ledger_item_description"
+          app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item android:id="@+id/toolbar_menu_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/toolbar_menu_calendar_item_title"
+        android:contentDescription="@string/toolbar_menu_calendar_item_description"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/toolbar_menu_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/toolbar_menu_calendar_item_title"
+        android:contentDescription="@string/toolbar_menu_calendar_item_description"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/toolbar_menu_settings"
+        android:title="@string/toolbar_menu_settings_item_title"
+        android:contentDescription="@string/toolbar_menu_settings_item_description"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/toolbar_menu_logout"
+        android:title="@string/toolbar_menu_logout_item_title"
+        android:contentDescription="@string/toolbar_menu_logout_item_description"
+        app:showAsAction="never"/>
+</menu>
