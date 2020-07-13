@@ -6,65 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".view.LedgerActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/activity_ledger_toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/activity_ledger_toolbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:background="@color/colorDarkGreen"
-        android:elevation="10dp"
-        android:theme="@style/Widget.MaterialComponents.ActionBar.Solid"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/activity_ledger_toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:menu="@menu/activity_ledger_toolbar_menu"
+            app:title="@string/activity_ledger_Logo" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_ledger_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/activity_ledger_sumBox"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.857"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_toolbar_layout"
         tools:listitem="@layout/activity_ledger_row_item" />
 
-    <TextView
-        android:id="@+id/activity_ledger_sumBox"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        style="@style/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="-4576$"
-        android:textSize="30sp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintHorizontal_bias="0.976"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/activity_ledger_toolbar"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageButton
-        android:id="@+id/button"
-        android:layout_width="65dp"
-        android:layout_height="44dp"
-        android:backgroundTint="@color/new_entry_button_background"
-        android:src="@drawable/new_entry"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_recycler_view"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.988"
+        app:srcCompat="@drawable/ic_add"
+        android:onClick="onClickFloatingActionButton"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
