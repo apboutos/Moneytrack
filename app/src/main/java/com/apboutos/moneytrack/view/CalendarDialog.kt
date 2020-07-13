@@ -12,6 +12,7 @@ import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 import java.util.*
 
 class CalendarDialog(private val parentActivity: LedgerActivity, private val startingCurrentDate: String) : Dialog(parentActivity) {
+    /*
     private val calendarView: CalendarView by lazy { findViewById<CalendarView>(R.id.calendar_dialog_calendarView) }
     private val pickDayButton: Button by lazy { findViewById<Button>(R.id.calendar_dialog_pickDayButton)}
     private var selectedDate: String
@@ -54,5 +55,5 @@ class CalendarDialog(private val parentActivity: LedgerActivity, private val sta
     init {
         selectedDate = startingCurrentDate
         //TODO set the calendar to start from current selected date. This is important.
-    }
+    }*/
 }

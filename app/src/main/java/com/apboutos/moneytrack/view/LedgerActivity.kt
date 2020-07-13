@@ -2,47 +2,34 @@
 
 package com.apboutos.moneytrack.view
 
-import android.app.Activity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apboutos.moneytrack.R
-import com.apboutos.moneytrack.model.database.converter.Date
-import com.apboutos.moneytrack.model.database.converter.Datetime
-import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.viewmodel.LedgerActivityViewModel
 
 
-
-class LedgerActivity : Activity() {
-
-    val viewModel by lazy { ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java) }
-    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.activity_ledger_recycler_view) }
-    private val newEntryButton by lazy { findViewById<Button>(R.id.activity_ledger_newEntryButton)}
-    val dateButton by lazy { findViewById<Button>(R.id.activity_ledger_dateButton) }
-    private val sumBox by lazy { findViewById<TextView>(R.id.activity_ledger_sumBox) }
-    val adapter by lazy { LedgerRecyclerAdapter(viewModel.loadEntries(dateButton.text.toString()))}
+class LedgerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ledger_x)
+        setContentView(R.layout.activity_ledger)
 
-        viewModel.insertMockDataToDatabase()
-        recyclerView.adapter = adapter
+
+        val viewModel = ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java)
+        val adapter = LedgerRecyclerAdapter(viewModel.createMockData("2020-10-12","2020-10-12 23:23:23"))
+        val recyclerView = findViewById<RecyclerView>(R.id.activity_ledger_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
         recyclerView.hasFixedSize()
 
-        dateButton.setOnClickListener { openCalendar() }
     }
 
-    private fun openCalendar() {
-        val calendarDialog = CalendarDialog(this, dateButton.text.toString())
-        calendarDialog.setCancelable(true)
-        calendarDialog.setCanceledOnTouchOutside(false)
-        calendarDialog.show()
-    }
 
+    fun onClickFloatingActionButton(view: View){
+
+    }
 }

@@ -38,9 +38,9 @@
             android:hint="@string/activity_register_username_hint"
             android:inputType="textPersonName"
             android:textAlignment="center"
-            android:textColor="@color/colorLightGreen"
+            android:textColor="@color/dark_oily_green"
             android:autofillHints="username"
-            android:textColorHint="@color/colorLightGreen" />
+            android:textColorHint="@color/light_oily_green" />
 
         <EditText
             android:id="@+id/activity_register_password_box"
@@ -52,9 +52,9 @@
             android:hint="@string/activity_register_password_hint"
             android:inputType="textPassword"
             android:textAlignment="center"
-            android:textColor="@color/colorLightGreen"
+            android:textColor="@color/dark_oily_green"
             android:autofillHints="no"
-            android:textColorHint="@color/colorLightGreen" />
+            android:textColorHint="@color/light_oily_green" />
 
         <EditText
             android:id="@+id/activity_register_password_re_box"
@@ -66,9 +66,9 @@
             android:hint="@string/activity_register_password_hint"
             android:inputType="textPassword"
             android:textAlignment="center"
-            android:textColor="@color/colorLightGreen"
+            android:textColor="@color/dark_oily_green"
             android:autofillHints="no"
-            android:textColorHint="@color/colorLightGreen" />
+            android:textColorHint="@color/light_oily_green" />
 
         <EditText
             android:id="@+id/activity_register_email_box"
@@ -81,9 +81,9 @@
             android:inputType="textEmailAddress"
 
             android:textAlignment="center"
-            android:textColor="@color/colorLightGreen"
+            android:textColor="@color/dark_oily_green"
             android:autofillHints="e-mail"
-            android:textColorHint="@color/colorLightGreen" />
+            android:textColorHint="@color/light_oily_green" />
 
         <Button
             android:id="@+id/activity_register_signUp_button"
@@ -95,7 +95,7 @@
             android:paddingRight="20dp"
             android:text="@string/activity_register_signUp_button"
             android:textAlignment="center"
-            android:textColor="@color/colorLightGreen"
+            android:textColor="@color/dark_oily_green"
             android:textSize="20sp" />
 
 

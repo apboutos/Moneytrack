@@ -17,17 +17,15 @@
 
         <CalendarView
 
-            android:weekDayTextAppearance="@style/AppTheme.weekDayTextAppearance"
-            android:dateTextAppearance="@style/AppTheme.weekDayTextAppearance"
             android:id="@+id/calendar_dialog_calendarView"
             android:layout_width="match_parent"
             android:layout_height="452dp"
-            android:weekSeparatorLineColor="@color/colorDarkGreen"
-            android:weekNumberColor="@color/colorDarkGreen"
-            android:selectedDateVerticalBar="@color/colorLightGreen"
+            android:weekSeparatorLineColor="@color/dark_oily_green"
+            android:weekNumberColor="@color/dark_oily_green"
+            android:selectedDateVerticalBar="@color/light_oily_green"
             android:selectedWeekBackgroundColor="@color/colorInvisible"
-            android:focusedMonthDateColor="@color/colorLightGreen"
-            android:unfocusedMonthDateColor="@color/colorDarkGreen"
+            android:focusedMonthDateColor="@color/light_oily_green"
+            android:unfocusedMonthDateColor="@color/dark_oily_green"
             android:visibility="visible" />
 
 
@@ -35,7 +33,7 @@
             android:id="@+id/calendar_dialog_pickDayButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorLightGreen"
+            android:textColor="@color/light_oily_green"
             android:text="Pick Day" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

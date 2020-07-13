@@ -136,7 +136,7 @@ class DatabaseRepository(application: Application) {
         override fun doInBackground(vararg parameters : Entry) :Boolean {
             try{ dao.insert(parameters[0]) }
             catch (e : Exception){
-                Log.e("DatabaseRepository",e.message)
+                Log.e("DatabaseRepository",e.message ?: "")
                 return false
             }
             return true
@@ -169,7 +169,7 @@ class DatabaseRepository(application: Application) {
         override fun doInBackground(vararg parameters : User) :Boolean {
             try{ dao.insert(parameters[0]) }
             catch (e : Exception){
-                Log.e("DatabaseRepository",e.message)
+                Log.e("DatabaseRepository",e.message ?: "")
                 return false
             }
             return true
@@ -200,7 +200,7 @@ class DatabaseRepository(application: Application) {
         override fun doInBackground(vararg parameters : Category) :Boolean {
             try{ dao.insert(parameters[0]) }
             catch (e : Exception){
-                Log.e("DatabaseRepository",e.message)
+                Log.e("DatabaseRepository",e.message ?: "")
                 return false
             }
             return true
@@ -223,7 +223,7 @@ class DatabaseRepository(application: Application) {
         override fun doInBackground(vararg parameters : Summary) :Boolean {
             try{ dao.insert(parameters[0]) }
             catch (e : Exception){
-                Log.e("DatabaseRepository",e.message)
+                Log.e("DatabaseRepository",e.message ?: "")
                 return false
             }
             return true
@@ -247,7 +247,7 @@ class DatabaseRepository(application: Application) {
         override fun doInBackground(vararg parameters : Credential) :Boolean {
             try{ dao.insert(parameters[0]) }
             catch (e : Exception){
-                Log.e("DatabaseRepository",e.message)
+                Log.e("DatabaseRepository",e.message ?: "")
                 return false
             }
             return true
