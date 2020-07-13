@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "UNUSED_PARAMETER")
 
 package com.apboutos.moneytrack.view
 
@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apboutos.moneytrack.R
@@ -16,21 +17,22 @@ import com.google.android.material.appbar.MaterialToolbar
 
 class LedgerActivity : AppCompatActivity() {
 
+    private val self = this
     private val tag = "LedgerActivity"
-    val viewModel by lazy { ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java) }
-    val toolbar by lazy { findViewById<MaterialToolbar>(R.id.activity_ledger_toolbar) }
+    private val viewModel by lazy { ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java) }
+    private val toolbar by lazy { findViewById<MaterialToolbar>(R.id.activity_ledger_toolbar) }
+    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.activity_ledger_recycler_view) }
+    private val adapter by lazy { LedgerRecyclerAdapter(viewModel.entryList)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ledger)
 
-
-        val adapter = LedgerRecyclerAdapter(viewModel.createMockData("2020-10-12","2020-10-12 23:23:23"))
-        val recyclerView = findViewById<RecyclerView>(R.id.activity_ledger_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.hasFixedSize()
-
+        registerTouchHelper()
+        registerRecyclerViewListener()
 
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
@@ -42,6 +44,30 @@ class LedgerActivity : AppCompatActivity() {
                 else                       -> false
             }
         }
+
+
+    }
+
+    private fun registerRecyclerViewListener(){
+        adapter.listener = object : LedgerRecyclerAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                EditEntryDialog(self,viewModel.getEntry(position)).show()
+            }
+
+        }
+    }
+
+    private fun registerTouchHelper(){
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                viewModel.removeEntry(viewHolder.adapterPosition)
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+            }
+        }).attachToRecyclerView(recyclerView)
     }
 
     fun onClickFloatingActionButton(view: View){

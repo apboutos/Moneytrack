@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.viewmodel
 
 import android.app.Application
@@ -11,24 +13,51 @@ import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 
 class LedgerActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    val databaseRepository = DatabaseRepository(application)
-    val onlineRepository = OnlineRepository(application)
-    val username by lazy { application.getSharedPreferences("session", Context.MODE_PRIVATE).getString("username","root") as String}
-    val entryList : ArrayList<Entry> by lazy{ ArrayList<Entry>()}
+    val databaseRepository by lazy { DatabaseRepository(application) }
+    val onlineRepository by lazy { OnlineRepository(application) }
 
-    fun loadEntries (date : String) : ArrayList<Entry>{
-        entryList.addAll(databaseRepository.selectAllEntriesOfDate(date,username))
+    val username by lazy { application.getSharedPreferences("session", Context.MODE_PRIVATE).getString("username","root") as String}
+    var currentDate : String = "1-1-2020"
+
+    val entryList : ArrayList<Entry> by lazy{ createMockData("2020-07-13","2020-07-13 13:33:42")}
+
+
+    fun updateEntry(position: Int, entry: Entry){
+        entryList[position] = entry
+        /*
+        entryList[position].amount = entry.amount
+        entryList[position].type = entry.type
+        entryList[position].description = entry.description
+        entryList[position].category = entry.category
+        entryList[position].username = entry.username
+        entryList[position].date = entry.date
+        entryList[position].lastUpdate = entry.lastUpdate
+        entryList[position].isDeleted = entry.isDeleted
+
+         */
+    }
+
+    fun getEntry(position: Int) : Entry{
+        return entryList[position]
+    }
+
+    fun removeEntry(position : Int){
+        entryList.removeAt(position)
+    }
+
+    fun loadEntries () : ArrayList<Entry>{
+        entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate,username))
         return entryList
     }
 
-    fun insertMockDataToDatabase(){
+    private fun insertMockDataToDatabase(){
         val list = createMockData("2020-07-13","2020-07-13 13:33:42")
         for(i in list){
             databaseRepository.insert(i)
         }
     }
 
-    fun createMockData(date : String , dateTime : String) : ArrayList<Entry>{
+    private fun createMockData(date : String , dateTime : String) : ArrayList<Entry>{
         val entryList = ArrayList<Entry>()
 
         entryList.add(Entry("1","exophrenik","Income","paycheck","paycheck",456.00, Date(date),

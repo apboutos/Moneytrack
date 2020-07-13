@@ -6,6 +6,7 @@ package com.apboutos.moneytrack.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +14,24 @@ import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.database.entity.Entry
 
 
-class LedgerRecyclerAdapter(private val dataSet : ArrayList<Entry>) : RecyclerView.Adapter<LedgerRecyclerAdapter.EntryViewHolder>() {
+class LedgerRecyclerAdapter(val dataSet : ArrayList<Entry>) : RecyclerView.Adapter<LedgerRecyclerAdapter.EntryViewHolder>() {
 
-    class EntryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var listener : OnItemClickListener? = null
+
+    inner class EntryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val type : ImageView = itemView.findViewById(R.id.row_item_typeBox)
         val description : TextView = itemView.findViewById(R.id.row_item_descriptionBox)
         val category : TextView = itemView.findViewById(R.id.row_item_categoryBox)
         val amount : TextView = itemView.findViewById(R.id.row_item_amountBox)
+        init {
+            itemView.setOnClickListener{
+                if(listener!=null && adapterPosition != RecyclerView.NO_POSITION)
+                listener?.onItemClick(adapterPosition)
+            }
+        }
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType : Int): EntryViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_ledger_row_item,parent,false)
@@ -37,4 +48,9 @@ class LedgerRecyclerAdapter(private val dataSet : ArrayList<Entry>) : RecyclerVi
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    interface OnItemClickListener{
+        fun onItemClick(position : Int)
+    }
+
 }
