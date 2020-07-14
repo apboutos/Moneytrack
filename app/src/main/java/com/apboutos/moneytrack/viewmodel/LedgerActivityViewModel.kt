@@ -22,19 +22,14 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     val entryList : ArrayList<Entry> by lazy{ createMockData("2020-07-13","2020-07-13 13:33:42")}
 
 
+    fun createEntry(entry : Entry){
+        entryList.add(entry)
+        //TODO Entry must be also inserted in the database
+    }
+
     fun updateEntry(position: Int, entry: Entry){
         entryList[position] = entry
-        /*
-        entryList[position].amount = entry.amount
-        entryList[position].type = entry.type
-        entryList[position].description = entry.description
-        entryList[position].category = entry.category
-        entryList[position].username = entry.username
-        entryList[position].date = entry.date
-        entryList[position].lastUpdate = entry.lastUpdate
-        entryList[position].isDeleted = entry.isDeleted
-
-         */
+        //TODO Entry must be also updated in the database
     }
 
     fun getEntry(position: Int) : Entry{
