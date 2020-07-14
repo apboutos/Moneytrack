@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
@@ -27,22 +28,21 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_ledger_new_entry_dialog)
 
+        setUpBoxes()
+
         saveButton.setOnClickListener{
             if (validateUserInputFormat()) {
                 val entry = Entry.createEmptyEntry()
-               entry.id = Entry.createId(parentActivity.getSharedPreferences("session", Context.MODE_PRIVATE).getString("username","root") ?: "root")
-                if (typeSpinner.selectedItem.toString() == "Income") {
-                    entry.type = "Income"
-                } else {
-                    entry.type = "Expense"
-                }
+                entry.id = Entry.createId(parentActivity.getSharedPreferences("session",Context.MODE_PRIVATE).getString("username","root")?: "root")
+                entry.type = typeSpinner.selectedItem.toString()
                 entry.category = categorySpinner.selectedItem.toString()
                 entry.description = descriptionBox.text.toString()
                 entry.amount = amountBox.text.toString().toDouble()
                 entry.lastUpdate = Time.getTimestamp()
                 entry.date = Time.getDate()
                 entry.isDeleted = false
-
+                parentActivity.viewModel.createEntry(entry)
+                parentActivity.adapter.notifyItemInserted(parentActivity.adapter.itemCount + 1)
                 dismiss()
             }
         }
@@ -50,6 +50,15 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
         cancelButton.setOnClickListener{
             dismiss()
         }
+    }
+
+    private fun setUpBoxes(){
+        val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, arrayOf("Income", "Expense"))
+        typeSpinner.adapter = typeAdapter
+        typeSpinner.setSelection(0)
+        val categoryAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, getCategoriesList())
+        categorySpinner.adapter = categoryAdapter
+        categorySpinner.setSelection(1)
     }
 
     private fun getCategoriesList() : ArrayList<String>{
