@@ -5,6 +5,7 @@ package com.apboutos.moneytrack.model.database.entity
 import androidx.room.*
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.converter.Datetime
+import com.apboutos.moneytrack.utilities.Time
 
 
 @Entity(tableName = "entry")
@@ -25,6 +26,10 @@ data class Entry(
     companion object{
         fun createEmptyEntry() : Entry {
             return Entry("","","","","",0.00,Date(""),Datetime(""),false)
+        }
+
+        fun createId(username: String) : String {
+            return username + Time.getIdTimestamp()
         }
     }
 
