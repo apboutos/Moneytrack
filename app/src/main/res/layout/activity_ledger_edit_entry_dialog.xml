@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_ledger_edit_entry_dialog_amountBox" />
 
     <Button
-        android:id="@+id/activity_ledger_edit_entry_dialog_cancelButton2"
+        android:id="@+id/activity_ledger_edit_entry_dialog_cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
