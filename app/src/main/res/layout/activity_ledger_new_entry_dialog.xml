@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp">
+
+    <EditText
+        android:id="@+id/activity_ledger_new_entry_dialog_descriptionBox"
+        android:layout_width="260dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/dialog_entry_description_hint"
+        android:textColorHint="@color/dark_oily_green"
+        android:textColor="@color/light_oily_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_new_entry_dialog_typeSpinner" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_new_entry_dialog_categorySpinner"
+        android:layout_width="260dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/light_oily_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_new_entry_dialog_descriptionBox" />
+
+    <EditText
+        android:id="@+id/activity_ledger_new_entry_dialog_amountBox"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/dialog_entry_amount_hint"
+        android:textColor="@color/light_oily_green"
+        android:textColorHint="@color/dark_oily_green"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_new_entry_dialog_categorySpinner" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_new_entry_dialog_typeSpinner"
+        android:layout_width="260dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/light_oily_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/activity_ledger_new_entry_dialog_saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/dialog_entry_save_button"
+        android:textColor="@color/light_oily_green"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_new_entry_dialog_amountBox" />
+
+    <Button
+        android:id="@+id/activity_ledger_new_entry_dialog_cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/dialog_entry_cancel_button"
+        android:textAllCaps="false"
+        android:textColor="@color/light_oily_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_new_entry_dialog_amountBox" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
