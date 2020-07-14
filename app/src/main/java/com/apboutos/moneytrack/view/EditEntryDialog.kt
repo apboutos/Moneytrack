@@ -40,7 +40,8 @@ class EditEntryDialog(private val parentActivity : LedgerActivity,private val en
                 entry.amount = amountBox.text.toString().toDouble()
                 entry.lastUpdate = Time.getTimestamp()
                 entry.isDeleted = false
-                parentActivity.adapter.notifyItemChanged(position)
+                parentActivity.viewModel.createEntry(entry)
+                parentActivity.adapter.notifyItemInserted(parentActivity.adapter.itemCount + 1)
                 dismiss()
             }
         }
