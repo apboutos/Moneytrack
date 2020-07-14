@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -36,7 +37,9 @@ class LedgerActivity : AppCompatActivity() {
         registerRecyclerViewListener()
 
         viewModel.currentUser = intent.getStringExtra("username") ?: "root"
-
+        if(viewModel.currentDate == "root"){
+            Toast.makeText(this,"Logged in as the test user root.",Toast.LENGTH_LONG).show()
+        }
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.toolbar_menu_ledger   -> onClickLedgerMenuIcon()

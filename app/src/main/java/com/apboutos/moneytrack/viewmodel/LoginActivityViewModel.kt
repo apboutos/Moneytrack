@@ -10,6 +10,8 @@ import com.apboutos.moneytrack.model.repository.remote.NetworkTester
 import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.error.LoginError
 
+//TODO Login is taking too long. Must look into it.
+//TODO Server domain must move to https
 class LoginActivityViewModel(application: Application) : AndroidViewModel(application) {
 
         private val databaseRepository = DatabaseRepository(application)
