@@ -1,7 +1,8 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.view
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.Window
 import android.widget.ArrayAdapter
@@ -12,26 +13,20 @@ import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.utilities.Time
 
-class EditEntryDialog(parent : LedgerActivity,private val entry : Entry,private val position : Int) : Dialog(parent) {
+class EditEntryDialog(private val parentActivity : LedgerActivity,private val entry : Entry,private val position : Int) : Dialog(parentActivity) {
 
-    //private val updateButton by lazy { findViewById<Button>(R.id.activity_ledger_edit_entry_dialog_updateButton) }
-    //private val cancelButton by lazy { findViewById<Button>(R.id.activity_ledger_edit_entry_dialog_cancelButton) }
-    //private val typeSpinner by lazy { findViewById<Spinner>(R.id.activity_ledger_edit_entry_dialog_typeBox) }
-    //private val descriptionBox by lazy { findViewById<EditText>(R.id.activity_ledger_edit_entry_dialog__descriptionBox) }
-    //private val categorySpinner by lazy { findViewById<Spinner>(R.id.activity_ledger_edit_entry_dialog_categoryBox) }
-    //private val amountBox by lazy { findViewById<EditText>(R.id.activity_ledger_edit_entry_dialog_amountBox) }
+    private val updateButton by lazy { findViewById<Button>(R.id.activity_ledger_edit_entry_dialog_updateButton) }
+    private val cancelButton by lazy { findViewById<Button>(R.id.activity_ledger_edit_entry_dialog_cancelButton) }
+    private val typeSpinner by lazy { findViewById<Spinner>(R.id.activity_ledger_edit_entry_dialog_typeSpinner) }
+    private val descriptionBox by lazy { findViewById<EditText>(R.id.activity_ledger_edit_entry_dialog_descriptionBox) }
+    private val categorySpinner by lazy { findViewById<Spinner>(R.id.activity_ledger_edit_entry_dialog_categorySpinner) }
+    private val amountBox by lazy { findViewById<EditText>(R.id.activity_ledger_edit_entry_dialog_amountBox) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_ledger_edit_entry_dialog)
-    }
-     /*
-    init {
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-
-        //setUpBoxes()
+        setUpBoxes()
 
         updateButton.setOnClickListener{
             if (validateUserInputFormat()) {
@@ -51,10 +46,10 @@ class EditEntryDialog(parent : LedgerActivity,private val entry : Entry,private 
         }
 
         cancelButton.setOnClickListener{
-           dismiss()
-        }*/
-   // }
-        /*
+            dismiss()
+        }
+    }
+
     private fun setUpBoxes(){
         val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, arrayOf("Income", "Expense"))
         typeSpinner.adapter = typeAdapter
@@ -84,5 +79,4 @@ class EditEntryDialog(parent : LedgerActivity,private val entry : Entry,private 
         }
         return flag
     }
-*/
 }

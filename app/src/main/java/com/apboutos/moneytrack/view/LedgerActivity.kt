@@ -51,7 +51,7 @@ class LedgerActivity : AppCompatActivity() {
     private fun registerRecyclerViewListener(){
         adapter.listener = object : LedgerRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                //openDialog(position)
+                openDialog(position)
                 Log.d(tag,position.toString())
             }
 
@@ -78,7 +78,6 @@ class LedgerActivity : AppCompatActivity() {
 
     fun onClickFloatingActionButton(view: View){
         Log.d(tag,"ActionButton")
-        openDialog(1)
     }
 
     private fun onClickLedgerMenuIcon() : Boolean{
