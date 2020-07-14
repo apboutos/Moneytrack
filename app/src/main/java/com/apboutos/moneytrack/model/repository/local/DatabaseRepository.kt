@@ -20,22 +20,22 @@ class DatabaseRepository(application: Application) {
     private val summaryDAO    = database.SummaryDAO()
     private val credentialDAO = database.CredentialDAO()
 
-    fun insert(entry : Entry){
-        InsertEntryAsyncTask(
+    fun insert(entry : Entry) : Boolean{
+        return InsertEntryAsyncTask(
             entryDAO
-        ).execute(entry)
+        ).execute(entry).get()
     }
 
-    fun update(entry : Entry){
-        UpdateEntryAsyncTask(
+    fun update(entry : Entry) : Boolean{
+        return UpdateEntryAsyncTask(
             entryDAO
-        ).execute(entry)
+        ).execute(entry).get()
     }
 
-    fun delete(entry : Entry){
-        DeleteEntryAsyncTask(
+    fun delete(entry : Entry) : Boolean{
+        return DeleteEntryAsyncTask(
             entryDAO
-        ).execute(entry)
+        ).execute(entry).get()
     }
 
     fun selectAllEntriesOfDate(date : String, username : String) : List<Entry>{
@@ -132,7 +132,7 @@ class DatabaseRepository(application: Application) {
         ).execute(null).get()
     }
 
-    private class InsertEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
+    private class InsertEntryAsyncTask(val dao : EntryDAO) :AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) :Boolean {
             try{ dao.insert(parameters[0]) }
             catch (e : Exception){
@@ -144,13 +144,21 @@ class DatabaseRepository(application: Application) {
     }
     private class UpdateEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) :Boolean {
-            dao.update(parameters[0])
+            try{ dao.update(parameters[0]) }
+            catch (e : Exception){
+                Log.e("DatabaseRepository",e.message ?: "")
+                return false
+            }
             return true
         }
     }
     private class DeleteEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Entry) :Boolean {
-            dao.delete(parameters[0])
+        override fun doInBackground(vararg parameters : Entry) : Boolean {
+            try{ dao.delete(parameters[0]) }
+            catch (e : Exception){
+                Log.e("DatabaseRepository",e.message ?: "")
+                return false
+            }
             return true
         }
     }

@@ -34,6 +34,7 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
             if (validateUserInputFormat()) {
                 val entry = Entry.createEmptyEntry()
                 entry.id = Entry.createId(parentActivity.viewModel.currentUser)
+                entry.username = parentActivity.viewModel.currentUser
                 entry.type = typeSpinner.selectedItem.toString()
                 entry.category = categorySpinner.selectedItem.toString()
                 entry.description = descriptionBox.text.toString()

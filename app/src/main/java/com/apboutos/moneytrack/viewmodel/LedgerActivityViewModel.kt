@@ -4,6 +4,7 @@ package com.apboutos.moneytrack.viewmodel
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.converter.Datetime
@@ -13,13 +14,14 @@ import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 
 class LedgerActivityViewModel(application: Application) : AndroidViewModel(application) {
 
+    val tag = "LedgerActivityViewModel"
     val databaseRepository by lazy { DatabaseRepository(application) }
     val onlineRepository by lazy { OnlineRepository(application) }
 
     lateinit var currentUser : String
-    var currentDate : String = "1-1-2020"
+    var currentDate : String = "2020-07-14"
 
-    val entryList : ArrayList<Entry> by lazy{ createMockData("2020-07-13","2020-07-13 13:33:42")}
+    val entryList : ArrayList<Entry> by lazy{ ArrayList<Entry>() }
 
 
     fun chanceDate(date: String){
@@ -27,13 +29,23 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     }
 
     fun createEntry(entry : Entry){
-        entryList.add(entry)
-        //TODO Entry must be also inserted in the database
+        if(databaseRepository.insert(entry)){
+            entryList.add(entry)
+            Log.d(tag,"Entry Insert success. id: " + entry.id + " username: " + entry.username + " date: " + entry.date)
+        }
+        else{
+            Log.d(tag,"Entry Insert failed. id: " + entry.id)
+        }
     }
 
     fun updateEntry(position: Int, entry: Entry){
-        entryList[position] = entry
-        //TODO Entry must be also updated in the database
+        Log.d(tag,"called")
+        if(databaseRepository.update(entry)){
+            entryList[position] = entry
+            Log.d(tag,"Entry update success. id: " + entry.id)
+        }else{
+            Log.d(tag,"Entry update failed. id: " + entry.id)
+        }
     }
 
     fun getEntry(position: Int) : Entry{
@@ -41,11 +53,19 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     }
 
     fun removeEntry(position : Int){
-        entryList.removeAt(position)
+        if(databaseRepository.delete(entryList[position])){
+                entryList.removeAt(position)
+                Log.d(tag,"Entry Delete success. id: ")
+        }else{
+            Log.d(tag,"Entry Delete failed. id: " + entryList[position].id + " username: " + entryList[position].username + " date: " + entryList[position].date)
+        }
+
     }
 
     fun loadEntries () : ArrayList<Entry>{
+        entryList.clear()
         entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate,currentUser))
+        Log.d("tag","entryList.size: " + entryList.size)
         return entryList
     }
 

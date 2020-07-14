@@ -16,6 +16,8 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         if(getSharedPreferences("autoLogin",Context.MODE_PRIVATE).getBoolean("autoLogin",false)){
             val intent = Intent(this, LedgerActivity::class.java)
             intent.putExtra("username",DatabaseRepository(application).selectCredential()?.username ?: "root")
@@ -23,8 +25,8 @@ class MainActivity : Activity() {
 
         }
         else{
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+             val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
 
         }
         finish()

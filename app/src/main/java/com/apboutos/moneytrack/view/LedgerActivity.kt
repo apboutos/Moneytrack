@@ -40,6 +40,8 @@ class LedgerActivity : AppCompatActivity() {
         if(viewModel.currentDate == "root"){
             Toast.makeText(this,"Logged in as the test user root.",Toast.LENGTH_LONG).show()
         }
+        viewModel.loadEntries()
+        adapter.notifyDataSetChanged()
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.toolbar_menu_ledger   -> onClickLedgerMenuIcon()
