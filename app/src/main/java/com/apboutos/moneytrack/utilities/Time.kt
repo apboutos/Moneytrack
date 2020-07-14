@@ -20,5 +20,4 @@ object Time {
     fun getIdTimestamp() : String {
         return SimpleDateFormat("yyyyMMddHHmmss", Locale.US).format(java.util.Date())
     }
-
 }
