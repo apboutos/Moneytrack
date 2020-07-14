@@ -19,7 +19,7 @@ class LedgerActivity : AppCompatActivity() {
 
     private val self : LedgerActivity = this
     private val tag = "LedgerActivity"
-    private val viewModel by lazy { ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java) }
+    internal val viewModel by lazy { ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java) }
     private val toolbar by lazy { findViewById<MaterialToolbar>(R.id.activity_ledger_toolbar) }
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.activity_ledger_recycler_view) }
     internal val adapter by lazy { LedgerRecyclerAdapter(viewModel.entryList)}
@@ -51,15 +51,24 @@ class LedgerActivity : AppCompatActivity() {
     private fun registerRecyclerViewListener(){
         adapter.listener = object : LedgerRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                openDialog(position)
+                openEditDialog(position)
                 Log.d(tag,position.toString())
             }
 
         }
     }
 
-    private fun openDialog(position : Int){
+
+    private fun openNewDialog(){
+        val dialog = NewEntryDialog(this)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.create()
+        dialog.show()
+    }
+
+    private fun openEditDialog(position : Int){
         val dialog = EditEntryDialog(this,viewModel.getEntry(position),position)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.create()
         dialog.show()
     }
@@ -77,6 +86,7 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     fun onClickFloatingActionButton(view: View){
+        openNewDialog()
         Log.d(tag,"ActionButton")
     }
 
