@@ -33,7 +33,7 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
         saveButton.setOnClickListener{
             if (validateUserInputFormat()) {
                 val entry = Entry.createEmptyEntry()
-                entry.id = Entry.createId(parentActivity.getSharedPreferences("session",Context.MODE_PRIVATE).getString("username","root")?: "root")
+                entry.id = Entry.createId(parentActivity.viewModel.currentUser)
                 entry.type = typeSpinner.selectedItem.toString()
                 entry.category = categorySpinner.selectedItem.toString()
                 entry.description = descriptionBox.text.toString()

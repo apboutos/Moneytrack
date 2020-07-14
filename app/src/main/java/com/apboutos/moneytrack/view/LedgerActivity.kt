@@ -35,6 +35,8 @@ class LedgerActivity : AppCompatActivity() {
         registerTouchHelper()
         registerRecyclerViewListener()
 
+        viewModel.currentUser = intent.getStringExtra("username") ?: "root"
+
         toolbar.setOnMenuItemClickListener{menuItem ->
             when(menuItem.itemId){
                 R.id.toolbar_menu_ledger   -> onClickLedgerMenuIcon()
@@ -112,9 +114,9 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     private fun onClickLogoutMenuIcon() : Boolean{
-        val preferences = getSharedPreferences("autoLogIn", Context.MODE_PRIVATE)
+        val preferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.putBoolean("autoLogIn", false)
+        editor.putBoolean("autoLogin", false)
         editor.apply()
         finish()
         return true

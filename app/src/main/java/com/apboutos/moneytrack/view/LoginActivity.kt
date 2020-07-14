@@ -85,9 +85,11 @@ class LoginActivity : Activity() {
     fun handleResponse(error: LoginError){
         when(error){
             LoginError.NO_ERROR -> { startActivity(Intent(this,LedgerActivity::class.java).putExtra("username",usernameBox.text.toString()))
-                if(rememberMeBox.isChecked) viewModel.saveUserCredential(usernameBox.text.toString(),passwordBox.text.toString())
+                if(rememberMeBox.isChecked) {
+                    viewModel.saveUserCredential(usernameBox.text.toString(),passwordBox.text.toString())
+                    getSharedPreferences("autoLogin",Context.MODE_PRIVATE).edit().putBoolean("autoLogin",true).apply()
+                }
                 else viewModel.deleteStoredCredential()
-                applicationContext.getSharedPreferences("session", Context.MODE_PRIVATE).edit().putString("username",usernameBox.text.toString()).apply()
                 finish() }
 
             LoginError.WRONG_USERNAME -> { Toast.makeText(applicationContext, getString(R.string.activity_login_username_error), Toast.LENGTH_LONG).show()

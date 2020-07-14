@@ -16,7 +16,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     val databaseRepository by lazy { DatabaseRepository(application) }
     val onlineRepository by lazy { OnlineRepository(application) }
 
-    val username by lazy { application.getSharedPreferences("session", Context.MODE_PRIVATE).getString("username","root") as String}
+    lateinit var currentUser : String
     var currentDate : String = "1-1-2020"
 
     val entryList : ArrayList<Entry> by lazy{ createMockData("2020-07-13","2020-07-13 13:33:42")}
@@ -45,7 +45,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     }
 
     fun loadEntries () : ArrayList<Entry>{
-        entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate,username))
+        entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate,currentUser))
         return entryList
     }
 
