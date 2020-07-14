@@ -51,7 +51,7 @@ class LedgerActivity : AppCompatActivity() {
     private fun registerRecyclerViewListener(){
         adapter.listener = object : LedgerRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                openDialog(position)
+                //openDialog(position)
                 Log.d(tag,position.toString())
             }
 
@@ -59,7 +59,9 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     private fun openDialog(position : Int){
-        EditEntryDialog(this,viewModel.getEntry(position),position).show()
+        val dialog = EditEntryDialog(this,viewModel.getEntry(position),position)
+        dialog.create()
+        dialog.show()
     }
     private fun registerTouchHelper(){
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -76,6 +78,7 @@ class LedgerActivity : AppCompatActivity() {
 
     fun onClickFloatingActionButton(view: View){
         Log.d(tag,"ActionButton")
+        openDialog(1)
     }
 
     private fun onClickLedgerMenuIcon() : Boolean{

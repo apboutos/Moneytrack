@@ -52,4 +52,11 @@
     <string name="toolbar_menu_logout_item_description">Logout</string>
     <string name="toolbar_menu_ledger_item_title">Ledger</string>
     <string name="toolbar_menu_ledger_item_description">See a report of your finances</string>
+
+    <!--Entry Dialog-->
+    <string name="dialog_entry_amount_hint">amount</string>
+    <string name="dialog_entry_description_hint">description</string>
+    <string name="dialog_entry_update_button">Update</string>
+    <string name="dialog_entry_cancel_button">Cancel</string>
+    <string name="dialog_entry_save_button">Save</string>
 </resources>
