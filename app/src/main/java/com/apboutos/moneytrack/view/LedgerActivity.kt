@@ -2,6 +2,7 @@
 
 package com.apboutos.moneytrack.view
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -111,7 +112,11 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     private fun onClickLogoutMenuIcon() : Boolean{
-        Log.d(tag,"Logout")
+        val preferences = getSharedPreferences("autoLogIn", Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putBoolean("autoLogIn", false)
+        editor.apply()
+        finish()
         return true
     }
 }
