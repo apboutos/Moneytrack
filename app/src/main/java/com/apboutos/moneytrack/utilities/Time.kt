@@ -17,4 +17,8 @@ object Time {
         return Date(SimpleDateFormat("yyyy-MM-dd", Locale.US).format(java.util.Date()))
     }
 
+    fun getIdTimestamp() : String {
+        return SimpleDateFormat("yyyyMMddHHmmss", Locale.US).format(java.util.Date())
+    }
+
 }
