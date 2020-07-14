@@ -22,6 +22,10 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     val entryList : ArrayList<Entry> by lazy{ createMockData("2020-07-13","2020-07-13 13:33:42")}
 
 
+    fun chanceDate(date: String){
+        currentDate = date
+    }
+
     fun createEntry(entry : Entry){
         entryList.add(entry)
         //TODO Entry must be also inserted in the database
@@ -69,7 +73,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
             Datetime(dateTime),false))
         entryList.add(Entry("7","exophrenik","Expense","eggs","food",3.00, Date(date),
             Datetime(dateTime),false))
-        entryList.add(Entry("8","exophrenik","Expense","electricity","bill",173.33, Date(date),
+        /*entryList.add(Entry("8","exophrenik","Expense","electricity","bill",173.33, Date(date),
             Datetime(dateTime),false))
         entryList.add(Entry("9","exophrenik","Expense","water","bill",73.33, Date(date),
             Datetime(dateTime),false))
@@ -216,7 +220,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         entryList.add(Entry("79","exophrenik","Expense","caprice","junk food",3.10, Date(date),
             Datetime(dateTime),false))
         entryList.add(Entry("80","exophrenik","Expense","cheetos","junk food",0.98, Date(date),
-            Datetime(dateTime),false))
+            Datetime(dateTime),false))*/
         return entryList
     }
 
