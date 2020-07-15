@@ -5,6 +5,7 @@ package com.apboutos.moneytrack.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import com.apboutos.moneytrack.model.database.entity.Category
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
 import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
@@ -19,6 +20,17 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     lateinit var currentUser : String
     var currentDate : String = Time.getDate().date
     val entryList : ArrayList<Entry> by lazy{ ArrayList<Entry>() }
+
+    init {
+        setBaseCategoriesList()
+    }
+    private fun setBaseCategoriesList(){
+        val list = arrayListOf("bill","consumable","electronic","entertainment","food","gift","house item","junk food","loan"
+            ,"medical","miscellaneous","paycheck","transportation")
+        for (i in list){
+            databaseRepository.insert(Category(i))
+        }
+    }
 
     fun createEntry(entry : Entry){
         if(databaseRepository.insert(entry)){
@@ -59,5 +71,14 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate,currentUser))
         Log.d("tag","entryList.size: " + entryList.size)
         return entryList
+    }
+
+    fun getCategories() : ArrayList<String>{
+        val list = databaseRepository.selectAllCategories()
+        val arrayList = ArrayList<String>()
+        for(i in list){
+            arrayList.add(i.name)
+        }
+        return arrayList
     }
 }
