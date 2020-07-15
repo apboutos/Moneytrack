@@ -99,6 +99,9 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     private fun onClickLedgerMenuIcon() : Boolean{
+        val report = ReportDialog(this)
+        report.create()
+        report.show()
         Log.d(tag,"Ledger")
         return true
     }
