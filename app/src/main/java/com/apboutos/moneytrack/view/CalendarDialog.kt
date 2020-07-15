@@ -11,11 +11,11 @@ import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 import java.util.*
 
-class CalendarDialog(private val parentActivity: LedgerActivity, private val startingCurrentDate: String) : Dialog(parentActivity) {
+class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parentActivity) {
 
     private val calendarView: CalendarView by lazy { findViewById<CalendarView>(R.id.calendar_dialog_calendarView) }
     private val pickDayButton: Button by lazy { findViewById<Button>(R.id.calendar_dialog_pickDayButton)}
-    private var selectedDate: String
+    private var selectedDate = parentActivity.viewModel.currentDate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -29,12 +29,13 @@ class CalendarDialog(private val parentActivity: LedgerActivity, private val sta
 
             parentActivity.viewModel.currentDate = selectedDate
             parentActivity.viewModel.loadEntries()
+            parentActivity.adapter.notifyDataSetChanged()
             closeDialog()
         }
     }
 
     private fun setInitialDisplayDate() {
-        val date = startingCurrentDate
+        val date = parentActivity.viewModel.currentDate
         val parts = date.split("-".toRegex()).toTypedArray()
         val day = parts[2].toInt()
         var month = parts[1].toInt()
@@ -50,10 +51,5 @@ class CalendarDialog(private val parentActivity: LedgerActivity, private val sta
 
     private fun closeDialog() {
         dismiss()
-    }
-
-    init {
-        selectedDate = startingCurrentDate
-        //TODO set the calendar to start from current selected date. This is important.
     }
 }

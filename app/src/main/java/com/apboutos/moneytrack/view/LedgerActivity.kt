@@ -104,7 +104,7 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     private fun onClickCalendarMenuIcon() : Boolean{
-        val calendar = CalendarDialog(this,"2020-07-15")
+        val calendar = CalendarDialog(this)
         calendar.setCanceledOnTouchOutside(false)
         calendar.create()
         calendar.show()
