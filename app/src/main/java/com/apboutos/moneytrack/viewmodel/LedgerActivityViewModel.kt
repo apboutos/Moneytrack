@@ -5,6 +5,7 @@ package com.apboutos.moneytrack.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.entity.Category
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
@@ -24,12 +25,22 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     init {
         setBaseCategoriesList()
     }
+
+
     private fun setBaseCategoriesList(){
         val list = arrayListOf("bill","consumable","electronic","entertainment","food","gift","house item","junk food","loan"
             ,"medical","miscellaneous","paycheck","transportation")
         for (i in list){
             databaseRepository.insert(Category(i))
         }
+    }
+
+    fun getSumOfDateRange(from: Date,until: Date) : Double{
+        return databaseRepository.selectSumAmountOfDateRange(currentUser,from,until)
+    }
+
+    fun getSumOfLifetime() : Double{
+        return databaseRepository.selectSumAmountOfLifetime(currentUser)
     }
 
     fun createEntry(entry : Entry){
