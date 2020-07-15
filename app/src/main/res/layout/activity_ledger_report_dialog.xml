@@ -6,7 +6,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="16dp"
-    android:paddingRight="12dp">
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp">
 
 
     <Spinner
@@ -14,24 +15,20 @@
         style="@style/ReportLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/dialog_report_todayLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/activity_ledger_report_dialog_monthLabel"
         style="@style/ReportLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/dialog_report_monthLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +39,8 @@
         style="@style/ReportLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/dialog_report_yearLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +49,11 @@
     <TextView
         android:id="@+id/activity_ledger_report_dialog_lifeTimeLabel"
         style="@style/ReportLabels"
-        android:paddingLeft="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:paddingLeft="8dp"
         android:text="@string/dialog_report_lifetimeSum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -71,7 +65,7 @@
         style="@style/ReportSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="16dp"
         android:text="32.32 $"
         app:layout_constraintStart_toEndOf="@+id/activity_ledger_report_dialog_monthLabel"
