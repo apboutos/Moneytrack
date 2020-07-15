@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.view
 
 import android.app.Dialog
