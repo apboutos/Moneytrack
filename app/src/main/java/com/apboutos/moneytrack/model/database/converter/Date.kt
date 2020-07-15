@@ -2,23 +2,15 @@
 
 package com.apboutos.moneytrack.model.database.converter
 
-import android.annotation.SuppressLint
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import java.text.SimpleDateFormat
 
 class Date() {
 
     lateinit var date : String
-    lateinit var year : String
-    lateinit var month : String
-    lateinit var day : String
 
     constructor(date : String) : this(){
         this.date = date
-        year = date.substring(0..3)
-        month = date.substring(5..6)
-        day = date.substring(8..9)
     }
 
     override fun toString(): String {
