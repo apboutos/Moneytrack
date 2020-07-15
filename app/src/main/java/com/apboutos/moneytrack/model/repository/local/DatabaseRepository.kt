@@ -38,6 +38,14 @@ class DatabaseRepository(application: Application) {
         ).execute(entry).get()
     }
 
+    fun selectSumAmountOfLifetime(username: String) : Double{
+        return SumOfLifetimeAsyncTask(entryDAO,username).execute(null).get()
+    }
+
+    fun selectSumAmountOfDateRange(username: String, from: Date, until: Date) : Double{
+        return SumOfDateRangeAsyncTask(entryDAO,username,from,until).execute(null).get()
+    }
+
     fun selectAllEntriesOfDate(date : String, username : String) : List<Entry>{
         return DateEntriesAsyncTask(
             entryDAO,
@@ -134,6 +142,29 @@ class DatabaseRepository(application: Application) {
         return SelectCredentialAsyncTask(
             credentialDAO
         ).execute(null).get()
+    }
+
+    private class SumOfDateRangeAsyncTask(val dao : EntryDAO,val username: String, val from: Date, val until: Date) : AsyncTask<Void,Void,Double>(){
+        override fun doInBackground(vararg p0: Void): Double {
+            return try{
+                dao.selectEntrySumOfDateRange(username,from,until)
+            }catch (e : Exception){
+                Log.e("DatabaseRepository",e.message ?: "")
+                0.00
+            }
+        }
+
+    }
+
+    private class SumOfLifetimeAsyncTask(val dao : EntryDAO, val username: String) : AsyncTask<Void,Void,Double>(){
+        override fun doInBackground(vararg parameters : Void) : Double {
+            return try{
+                dao.selectEntrySumOfLifetime(username)
+            } catch (e : Exception){
+                Log.e("DatabaseRepository",e.message ?: "")
+                0.00
+            }
+        }
     }
 
     private class InsertEntryAsyncTask(val dao : EntryDAO) :AsyncTask<Entry,Void,Boolean>(){

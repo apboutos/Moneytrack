@@ -27,5 +27,5 @@ interface EntryDAO {
     fun selectEntrySumOfLifetime(username: String) : Double
 
     @Query("SELECT SUM(amount) FROM entry WHERE username = :username AND date >= :from AND date <= :until")
-    fun selectEntrySumOfYear(username: String, from: Date, until: Date) : Double
+    fun selectEntrySumOfDateRange(username: String, from: Date, until: Date) : Double
 }
