@@ -7,10 +7,8 @@ import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.CalendarView
-import android.widget.CalendarView.OnDateChangeListener
 import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
-import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parentActivity) {
