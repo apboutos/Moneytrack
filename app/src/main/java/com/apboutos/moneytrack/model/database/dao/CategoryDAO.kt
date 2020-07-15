@@ -1,9 +1,6 @@
 package com.apboutos.moneytrack.model.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.room.*
 import com.apboutos.moneytrack.model.database.entity.Category
 
 @Dao
@@ -17,5 +14,8 @@ interface CategoryDAO {
 
     @Delete
     fun delete(category: Category)
+
+    @Query("SELECT * FROM category")
+    fun selectAllCategories() : List<Category>
 
 }

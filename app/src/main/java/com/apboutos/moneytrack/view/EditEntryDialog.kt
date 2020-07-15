@@ -55,17 +55,11 @@ class EditEntryDialog(private val parentActivity : LedgerActivity,private val en
         val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, arrayOf("Income", "Expense"))
         typeSpinner.adapter = typeAdapter
         typeSpinner.setSelection(typeAdapter.getPosition(entry.type))
-        val categoryAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, getCategoriesList())
+        val categoryAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, parentActivity.viewModel.getCategories())
         categorySpinner.adapter = categoryAdapter
         categorySpinner.setSelection(categoryAdapter.getPosition(entry.category))
         descriptionBox.setText(entry.description)
         amountBox.setText(entry.amount.toString())
-    }
-
-    private fun getCategoriesList() : ArrayList<String>{
-        //TODO this is a mock for testing. This function must be implemented to draw categories from the database
-        return arrayListOf("bill","consumable","electronic","entertainment","food","gift","house item","junk food","loan"
-                            ,"medical","miscellaneous","paycheck","transportation")
     }
 
     private fun validateUserInputFormat(): Boolean {

@@ -96,6 +96,10 @@ class DatabaseRepository(application: Application) {
         ).execute(category)
     }
 
+    fun selectAllCategories() : List<Category>{
+        return SelectAllCategoriesAsyncTask(categoryDAO).execute().get()
+    }
+
     fun insert(summary: Summary){
         InsertSummaryAsyncTask(
             summaryDAO
@@ -225,6 +229,13 @@ class DatabaseRepository(application: Application) {
             dao.delete(parameters[0])
             return true
         }
+    }
+
+    private class SelectAllCategoriesAsyncTask(val dao : CategoryDAO) : AsyncTask<Void,Void,List<Category>>(){
+        override fun doInBackground(vararg p0: Void?): List<Category> {
+            return dao.selectAllCategories()
+        }
+
     }
 
     private class InsertSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Summary,Void,Boolean>(){
