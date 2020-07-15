@@ -5,11 +5,14 @@ package com.apboutos.moneytrack.view
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.utilities.converter.CurrencyConverter
 
 class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentActivity) {
 
@@ -26,6 +29,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
     private var currentDay = "01"
     private var currentMonth = "01"
     private var currentYear = "1324"
+    private var currency = "$"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,50 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         setUpDaySpinner()
         setUpMonthSpinner()
         setUpYearSpinner()
+        getLifetimeSum()
+
+        daySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                TODO("Not yet implemented")
+            }
+        }
+    }
+
+    private fun getLifetimeSum(){
+        val sum = parentActivity.viewModel.getSumOfLifetime()
+        lifetimeSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
+        if(sum < 0){
+            lifetimeSum.setTextColor(parentActivity.resources.getColor(R.color.red))
+        }else{
+            lifetimeSum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+        }
+
     }
 
     private fun setUpStartingDate(){
