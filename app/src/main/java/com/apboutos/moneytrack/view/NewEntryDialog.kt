@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.utilities.Time
 
@@ -40,7 +41,7 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
                 entry.description = descriptionBox.text.toString()
                 entry.amount = amountBox.text.toString().toDouble()
                 entry.lastUpdate = Time.getTimestamp()
-                entry.date = Time.getDate()
+                entry.date = Date(parentActivity.viewModel.currentDate)
                 entry.isDeleted = false
                 parentActivity.viewModel.createEntry(entry)
                 parentActivity.adapter.notifyItemInserted(parentActivity.adapter.itemCount + 1)
