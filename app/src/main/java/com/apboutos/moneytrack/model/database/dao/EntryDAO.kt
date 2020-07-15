@@ -22,4 +22,10 @@ interface EntryDAO {
 
     @Query("SELECT * FROM entry WHERE username = :username AND category = :category AND type = :type AND date >= :fromDate AND date <= :untilDate")
     fun selectAllEntriesOfSummary(username: String, category: String, type : String, fromDate : Date, untilDate : Date) : List<Entry>
+
+    @Query("SELECT SUM(amount) FROM entry WHERE username = :username")
+    fun selectEntrySumOfLifetime(username: String) : Double
+
+    @Query("SELECT SUM(amount) FROM entry WHERE username = :username AND date >= :from AND date <= :until")
+    fun selectEntrySumOfYear(username: String, from: Date, until: Date) : Double
 }
