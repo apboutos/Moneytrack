@@ -59,4 +59,21 @@
     <string name="dialog_entry_update_button">Update</string>
     <string name="dialog_entry_cancel_button">Cancel</string>
     <string name="dialog_entry_save_button">Save</string>
+
+    <!--Report Dialog-->
+    <string name="dialog_report_lifetimeSum">Lifetime</string>
+
+    <!--Months-->
+    <string name="month1">January</string>
+    <string name="month2">February</string>
+    <string name="month3">March</string>
+    <string name="month4">April</string>
+    <string name="month5">May</string>
+    <string name="month6">June</string>
+    <string name="month7">July</string>
+    <string name="month8">August</string>
+    <string name="month9">September</string>
+    <string name="month10">October</string>
+    <string name="month11">November</string>
+    <string name="month12">December</string>
 </resources>

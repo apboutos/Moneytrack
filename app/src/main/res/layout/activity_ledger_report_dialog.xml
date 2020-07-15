@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingRight="12dp">
+
+
+    <Spinner
+        android:id="@+id/activity_ledger_report_dialog_todayLabel"
+        style="@style/ReportLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_report_todayLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Spinner
+        android:id="@+id/activity_ledger_report_dialog_monthLabel"
+        style="@style/ReportLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_report_monthLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_todayLabel" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_report_dialog_yearLabel"
+        style="@style/ReportLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_report_yearLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_monthLabel" />
+
+    <TextView
+        android:id="@+id/activity_ledger_report_dialog_lifeTimeLabel"
+        style="@style/ReportLabels"
+        android:paddingLeft="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_report_lifetimeSum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_yearLabel" />
+
+    <TextView
+        android:id="@+id/activity_ledger_report_dialog_todaySum"
+        style="@style/ReportSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:text="32.32 $"
+        app:layout_constraintStart_toEndOf="@+id/activity_ledger_report_dialog_monthLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="32.63 $" />
+
+    <TextView
+        android:id="@+id/activity_ledger_report_dialog_monthSum"
+        style="@style/ReportSum"
+        android:text="450.02 $"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/activity_ledger_report_dialog_todaySum"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_todaySum"
+        tools:text="469.36 $"/>
+
+    <TextView
+        android:id="@+id/activity_ledger_report_dialog_yearSum"
+        android:text="45,098.23 $"
+        style="@style/ReportSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/activity_ledger_report_dialog_monthSum"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_monthSum"
+        tools:text="32.63 $"/>
+
+    <TextView
+        android:id="@+id/activity_ledger_report_dialog_lifeTimeSum"
+        style="@style/ReportSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="14,245,098.45 $"
+        app:layout_constraintEnd_toEndOf="@+id/activity_ledger_report_dialog_yearSum"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_yearSum"
+        tools:text="32.63 $" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/activity_ledger_report_dialog_todaySum"
+        app:layout_constraintStart_toStartOf="@+id/activity_ledger_report_dialog_todayLabel"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_todayLabel" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/activity_ledger_report_dialog_monthSum"
+        app:layout_constraintStart_toStartOf="@+id/activity_ledger_report_dialog_monthLabel"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_monthLabel" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/activity_ledger_report_dialog_yearSum"
+        app:layout_constraintStart_toStartOf="@+id/activity_ledger_report_dialog_yearLabel"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_report_dialog_yearLabel" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_ledger_report_dialog_lifeTimeLabel"
+        app:layout_constraintEnd_toStartOf="@+id/activity_ledger_report_dialog_lifeTimeSum"
+        app:layout_constraintTop_toTopOf="@+id/activity_ledger_report_dialog_todayLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
