@@ -3,16 +3,19 @@ package com.apboutos.moneytrack.view
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
 import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parentActivity) {
 
+    private val tag = "CalendarDialog"
     private val calendarView: CalendarView by lazy { findViewById<CalendarView>(R.id.calendar_dialog_calendarView) }
     private val pickDayButton: Button by lazy { findViewById<Button>(R.id.calendar_dialog_pickDayButton)}
     private var selectedDate = parentActivity.viewModel.currentDate
@@ -31,6 +34,7 @@ class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parent
             parentActivity.viewModel.loadEntries()
             parentActivity.adapter.notifyDataSetChanged()
             closeDialog()
+            Log.d(tag,"Date: ${parentActivity.viewModel.currentDate}")
         }
     }
 

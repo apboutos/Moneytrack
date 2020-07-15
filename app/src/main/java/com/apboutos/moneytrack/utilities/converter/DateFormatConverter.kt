@@ -7,8 +7,10 @@ object DateFormatConverter : Serializable {
         val tmp = StringBuilder()
         tmp.append(year)
         tmp.append("-")
+        if(month < 10) tmp.append("0")
         tmp.append(month)
         tmp.append("-")
+        if(day < 10) tmp.append("0")
         tmp.append(day)
         return tmp.toString()
     }
