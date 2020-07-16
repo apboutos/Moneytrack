@@ -25,7 +25,7 @@ data class Entry(
 {
     companion object{
         fun createEmptyEntry() : Entry {
-            return Entry("","","","","",0.00,Date(""),Datetime(""),false)
+            return Entry("","","","","",0.00,Date("2020-12-12"),Datetime("2020-12-12 12:12:12"),false)
         }
 
         fun createId(username: String) : String {
