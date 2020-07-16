@@ -43,6 +43,27 @@ class MoneytrackDatabaseTest{
     }
 
     @Test
+    fun selectAllEntryDatesOfUser(){
+
+        entryDao.insert(Entry("ex2213","exophrenik","Expense","toEat","junk food",92.21, Date("2020-07-01"),Datetime("2020-06-01 23:41:22"),false))
+        entryDao.insert(Entry("ex2214","exophrenik","Income","paycheck","paycheck",92.21,Date("2021-07-01"),Datetime("2020-06-01 23:41:22"),false))
+        entryDao.insert(Entry("ex2215","exophrenik","Expense","toEat","junk food",92.21,Date("2022-07-01"),Datetime("2020-06-01 23:41:22"),false))
+        entryDao.insert(Entry("ex2216","exophrenik","Expense","toEat","junk food",92.21,Date("2021-07-01"),Datetime("2020-06-01 23:41:22"),false))
+        entryDao.insert(Entry("ex2217","exophrenik","Expense","toEat","junk food",92.21,Date("2020-07-01"), Datetime("2020-06-01 23:41:22"),false))
+
+        val list = entryDao.selectAllEntryDatesOfUser("exophrenik")
+        Assert.assertEquals(listOf(Date("2020-07-01"),Date("2021-07-01"),Date("2022-07-01"),Date("2021-07-01"),Date("2020-07-01")),list)
+
+        var set = setOf<String>()
+        for (i in list){
+            //set.addAll(listOf(i.year))
+            set = set.plus(i.year)
+        }
+        Assert.assertEquals(mutableSetOf("2020","2021","2022"),set)
+        Assert.assertEquals(arrayOf("2020","2021","2022"),set.toTypedArray())
+    }
+
+    @Test
     @Throws(Exception::class)
     fun insertUser() {
         val user = User("exophrenik","ma582468","exophrenik@gmail.com","2020-07-06","2020-07-6 23:43:23")
