@@ -31,49 +31,115 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_grey"
-        app:layout_constraintBottom_toTopOf="@id/activity_ledger_recycler_view"
-        app:layout_constraintTop_toBottomOf="@id/activity_ledger_toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/activity_ledger_toolbar_layout"
+        app:layout_constraintVertical_bias="0.57">
 
         <Button
             android:id="@+id/activity_ledger_dateToolbar_previousButton"
             style="@style/dateButton"
-            android:textSize="30sp"
-            android:textColor="@color/dark_cyan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_weight="0.15"
             android:onClick="onClickPreviousButton"
             android:text="@string/previousDateButton"
-            android:layout_marginStart="8dp"
-            />
+            android:textColor="@color/dark_cyan"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/activity_ledger_dateToolbar_dateBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textColor="@color/light_oily_green"
             android:layout_marginHorizontal="20dp"
-            tools:text="23 September 2020"/>
+            android:textColor="@color/light_oily_green"
+            android:textSize="30sp"
+            tools:text="23 September 2020" />
 
         <Button
             android:id="@+id/activity_ledger_dateToolbar_nextButton"
             style="@style/dateButton"
-            android:textSize="30sp"
-            android:textColor="@color/dark_cyan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:onClick="onClickNextButton"
-            android:text="@string/nextDateButton"
-            android:elevation="0dp"
-            android:shadowColor="@color/transparent"
             android:layout_marginEnd="8dp"
-            />
+            android:layout_weight="0.15"
+            android:elevation="0dp"
+            android:onClick="onClickNextButton"
+            android:shadowColor="@color/transparent"
+            android:text="@string/nextDateButton"
+            android:textColor="@color/dark_cyan"
+            android:textSize="30sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/activity_ledger_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_ledger_dateToolbar"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintVertical_bias="0.0">
+        <TextView
+            android:id="@+id/row_item_amountBox"
+            android:layout_width="110dp"
+            android:layout_height="25dp"
+            android:textSize="18sp"
+            android:gravity="end"
+            android:textColor="@color/dark_cyan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.021"
+            android:text="Amount"
+            tools:text="Amount" />
+
+        <TextView
+            android:id="@+id/row_item_categoryBox"
+            android:layout_width="130dp"
+            android:layout_height="25dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:gravity="center"
+            android:textColor="@color/dark_cyan"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:text="Category"
+            tools:text="Category"/>
+
+        <TextView
+            android:id="@+id/row_item_descriptionBox"
+            android:layout_width="135dp"
+            android:layout_height="25dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:textColor="@color/dark_cyan"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.022"
+            android:text="Description"
+            tools:text="Description"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_ledger_recycler_view"
@@ -87,7 +153,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_dateToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_header"
         tools:listitem="@layout/activity_ledger_row_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
