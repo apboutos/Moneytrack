@@ -12,7 +12,9 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.utilities.converter.CurrencyConverter
+import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 
 class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentActivity) {
 
@@ -28,7 +30,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
 
     private var currentDay = "01"
     private var currentMonth = "01"
-    private var currentYear = "1324"
+    private var currentYear = "2020"
     private var currency = "$"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,38 +43,62 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         setUpMonthSpinner()
         setUpYearSpinner()
         getLifetimeSum()
+        calculateYearlySum()
+        calculateMonthlySum()
+        calculateDailySum()
 
         daySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                TODO("Not yet implemented")
+                calculateDailySum()
             }
 
         }
 
         monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                TODO("Not yet implemented")
+                calculateMonthlySum()
+                calculateDailySum()
             }
 
         }
 
         yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                TODO("Not yet implemented")
+                calculateYearlySum()
+                calculateMonthlySum()
+                calculateDailySum()
             }
         }
+    }
+
+    private fun calculateDailySum(){
+        currentDay = DateFormatConverter.normalizeDay(daySpinner.selectedItem.toString())
+        val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-$currentMonth-$currentDay"),Date("$currentYear-$currentMonth-$currentDay"))
+        todaySum.text = CurrencyConverter.toPresentableAmount(sum,currency)
+    }
+
+    private fun calculateMonthlySum(){
+        currentMonth = DateFormatConverter.getMonthNumber(monthSpinner.selectedItem.toString(),parentActivity)
+        val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-$currentMonth-01"),Date("$currentYear-$currentMonth-${DateFormatConverter.getLastDayOfMonth(currentMonth)}"))
+        monthSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
+    }
+
+    private fun calculateYearlySum(){
+        currentYear = yearSpinner.selectedItem.toString()
+        val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-01-01"),Date("$currentYear-12-31"))
+        yearSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
     }
 
     private fun getLifetimeSum(){
@@ -94,17 +120,17 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
     }
 
     private fun setUpDaySpinner(){
-        val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_report_spinner, getDaysOfMonth(currentMonth))
+        val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_report_spinner, DateFormatConverter.getDaysOfMonth(currentMonth))
         daySpinner.adapter = typeAdapter
-        daySpinner.setSelection(typeAdapter.getPosition(cropStartingZeroFrom(currentDay)))
-        Log.d(tag,"Current day: $currentDay getDay: ${getMonth(currentMonth)}")
+        daySpinner.setSelection(typeAdapter.getPosition(DateFormatConverter.cropStartingZeroFrom(currentDay)))
+
     }
 
     private fun setUpMonthSpinner(){
-        val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, getListOfMonths())
+        val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, DateFormatConverter.getListOfMonths(parentActivity))
         monthSpinner.adapter = typeAdapter
-        monthSpinner.setSelection(typeAdapter.getPosition(getMonth(currentMonth)))
-        Log.d(tag,"Current Month: $currentMonth getMonth: ${getMonth(currentMonth)}")
+        monthSpinner.setSelection(typeAdapter.getPosition(DateFormatConverter.getMonthName(currentMonth,parentActivity)))
+        Log.d(tag,"Current Month: $currentMonth getMonth: ${DateFormatConverter.getMonthName(currentMonth,parentActivity)}")
     }
 
     private fun setUpYearSpinner(){
@@ -113,53 +139,15 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         yearSpinner.setSelection(typeAdapter.getPosition(currentYear))
     }
 
-    private fun cropStartingZeroFrom(day : String) : String{
-        if(day.startsWith("0")) return day.drop(1)
-        return day
-    }
+
 
     private fun getYearsThatContainEntries() : Array<String>{
         //TODO Data are mocked must be returned by database query.
         return arrayOf("2020","2021")
     }
 
-    private fun getDaysOfMonth(month : String) : Array<String>{
-        return when(month){
-            "1","3","4","5","6","8","10","12" -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31")
-            "2"                               -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
-            else                              -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30")
-        }
-    }
 
-    private fun getMonth(month : String) : String{
-        return when (month){
-            "01" -> parentActivity.resources.getString(R.string.month1)
-            "02" -> parentActivity.resources.getString(R.string.month2)
-            "03" -> parentActivity.resources.getString(R.string.month3)
-            "04" -> parentActivity.resources.getString(R.string.month4)
-            "05" -> parentActivity.resources.getString(R.string.month5)
-            "06" -> parentActivity.resources.getString(R.string.month6)
-            "07" -> parentActivity.resources.getString(R.string.month7)
-            "08" -> parentActivity.resources.getString(R.string.month8)
-            "09" -> parentActivity.resources.getString(R.string.month9)
-            "10" -> parentActivity.resources.getString(R.string.month10)
-            "11" -> parentActivity.resources.getString(R.string.month11)
-            else -> parentActivity.resources.getString(R.string.month12)
-        }
-    }
 
-    private fun getListOfMonths() : Array<String>{
-        return arrayOf(parentActivity.resources.getString(R.string.month1),
-            parentActivity.resources.getString(R.string.month2),
-            parentActivity.resources.getString(R.string.month3),
-            parentActivity.resources.getString(R.string.month4),
-            parentActivity.resources.getString(R.string.month5),
-            parentActivity.resources.getString(R.string.month6),
-            parentActivity.resources.getString(R.string.month7),
-            parentActivity.resources.getString(R.string.month8),
-            parentActivity.resources.getString(R.string.month9),
-            parentActivity.resources.getString(R.string.month10),
-            parentActivity.resources.getString(R.string.month11),
-            parentActivity.resources.getString(R.string.month12))
-    }
+
+
 }

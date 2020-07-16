@@ -26,4 +26,14 @@ class CurrencyConverterTest{
         assertEquals("31.2",(31.2).toString())
 
     }
+
+    @Test
+    fun normalizeAmount() {
+        assertEquals(32.11,CurrencyConverter.normalizeAmount(32.11,"Income"),0.001)
+        assertEquals(32.11,CurrencyConverter.normalizeAmount(-32.11,"Income"),0.001)
+        assertEquals(-32.11,CurrencyConverter.normalizeAmount(32.11,"Expense"),0.001)
+        assertEquals(-32.11,CurrencyConverter.normalizeAmount(-32.11,"Expense"),0.001)
+        assertEquals(32.11,CurrencyConverter.normalizeAmount(32.1111,"Income"),0.001)
+
+    }
 }
