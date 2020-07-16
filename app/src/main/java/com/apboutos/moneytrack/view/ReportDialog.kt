@@ -87,18 +87,36 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         currentDay = DateFormatConverter.normalizeDay(daySpinner.selectedItem.toString())
         val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-$currentMonth-$currentDay"),Date("$currentYear-$currentMonth-$currentDay"))
         todaySum.text = CurrencyConverter.toPresentableAmount(sum,currency)
+        if(sum < 0){
+            todaySum.setTextColor(parentActivity.resources.getColor(R.color.red))
+        }else{
+            todaySum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+        }
+        Log.d(tag,"TodaySum= $sum")
     }
 
     private fun calculateMonthlySum(){
         currentMonth = DateFormatConverter.getMonthNumber(monthSpinner.selectedItem.toString(),parentActivity)
         val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-$currentMonth-01"),Date("$currentYear-$currentMonth-${DateFormatConverter.getLastDayOfMonth(currentMonth)}"))
         monthSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
+        if(sum < 0){
+            monthSum.setTextColor(parentActivity.resources.getColor(R.color.red))
+        }else{
+            monthSum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+        }
+        Log.d(tag,"MonthlySum= $sum")
     }
 
     private fun calculateYearlySum(){
         currentYear = yearSpinner.selectedItem.toString()
         val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-01-01"),Date("$currentYear-12-31"))
         yearSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
+        if(sum < 0){
+            yearSum.setTextColor(parentActivity.resources.getColor(R.color.red))
+        }else{
+            yearSum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+        }
+        Log.d(tag,"YearlySum= $sum")
     }
 
     private fun getLifetimeSum(){
@@ -109,7 +127,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         }else{
             lifetimeSum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
         }
-
+        Log.d(tag,"LifetimeSum= $sum")
     }
 
     private fun setUpStartingDate(){
@@ -130,7 +148,6 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, DateFormatConverter.getListOfMonths(parentActivity))
         monthSpinner.adapter = typeAdapter
         monthSpinner.setSelection(typeAdapter.getPosition(DateFormatConverter.getMonthName(currentMonth,parentActivity)))
-        Log.d(tag,"Current Month: $currentMonth getMonth: ${DateFormatConverter.getMonthName(currentMonth,parentActivity)}")
     }
 
     private fun setUpYearSpinner(){
@@ -142,7 +159,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
 
 
     private fun getYearsThatContainEntries() : Array<String>{
-        //TODO Data are mocked must be returned by database query.
+
         return arrayOf("2020","2021")
     }
 
