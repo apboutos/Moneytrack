@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 import com.apboutos.moneytrack.viewmodel.LedgerActivityViewModel
 import com.google.android.material.appbar.MaterialToolbar
 
@@ -25,6 +27,7 @@ class LedgerActivity : AppCompatActivity() {
     private val toolbar by lazy { findViewById<MaterialToolbar>(R.id.activity_ledger_toolbar) }
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.activity_ledger_recycler_view) }
     internal val adapter by lazy { LedgerRecyclerAdapter(viewModel.entryList,this)}
+    internal val dateBox by lazy { findViewById<TextView>(R.id.activity_ledger_dateToolbar_dateBox) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,7 @@ class LedgerActivity : AppCompatActivity() {
         recyclerView.hasFixedSize()
         registerTouchHelper()
         registerRecyclerViewListener()
+        dateBox.text = DateFormatConverter.parseToDisplayableDate(viewModel.currentDate,this)
 
         viewModel.currentUser = intent.getStringExtra("username") ?: "root"
         if(viewModel.currentDate == "root"){
@@ -91,6 +95,18 @@ class LedgerActivity : AppCompatActivity() {
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
             }
         }).attachToRecyclerView(recyclerView)
+    }
+
+    fun onClickPreviousButton(view: View){
+        viewModel.goToPreviousDay()
+        adapter.notifyDataSetChanged()
+        dateBox.text = DateFormatConverter.parseToDisplayableDate(viewModel.currentDate,this)
+    }
+
+    fun onClickNextButton(view: View){
+        viewModel.goToNextDay()
+        adapter.notifyDataSetChanged()
+        dateBox.text = DateFormatConverter.parseToDisplayableDate(viewModel.currentDate,this)
     }
 
     fun onClickFloatingActionButton(view: View){

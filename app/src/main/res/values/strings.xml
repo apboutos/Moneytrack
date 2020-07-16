@@ -76,4 +76,8 @@
     <string name="month10">October</string>
     <string name="month11">November</string>
     <string name="month12">December</string>
+
+    <!--Date Buttons-->
+    <string name="previousDateButton">&#60;</string>
+    <string name="nextDateButton">&#62;</string>
 </resources>

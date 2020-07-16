@@ -16,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:focusedMonthDateColor="@color/light_oily_green"
         android:selectedDateVerticalBar="@color/light_oily_green"
-        android:selectedWeekBackgroundColor="@color/colorInvisible"
+        android:selectedWeekBackgroundColor="@color/transparent"
         android:unfocusedMonthDateColor="@color/dark_oily_green"
         android:visibility="visible"
         android:weekNumberColor="@color/dark_oily_green"

@@ -31,6 +31,7 @@ class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parent
             parentActivity.viewModel.currentDate = selectedDate
             parentActivity.viewModel.loadEntries()
             parentActivity.adapter.notifyDataSetChanged()
+            parentActivity.dateBox.text = DateFormatConverter.parseToDisplayableDate(parentActivity.viewModel.currentDate,parentActivity)
             closeDialog()
             Log.d(tag,"Date: ${parentActivity.viewModel.currentDate}")
         }

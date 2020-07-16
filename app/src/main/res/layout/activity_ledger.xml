@@ -26,6 +26,52 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/activity_ledger_dateToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_grey"
+        app:layout_constraintBottom_toTopOf="@id/activity_ledger_recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/activity_ledger_toolbar_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/activity_ledger_dateToolbar_previousButton"
+            style="@style/dateButton"
+            android:textSize="30sp"
+            android:textColor="@color/dark_cyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:onClick="onClickPreviousButton"
+            android:text="@string/previousDateButton"
+            />
+
+        <TextView
+            android:id="@+id/activity_ledger_dateToolbar_dateBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/light_oily_green"
+            tools:text="23 September 2020"/>
+
+        <Button
+            android:id="@+id/activity_ledger_dateToolbar_nextButton"
+            style="@style/dateButton"
+            android:textSize="30sp"
+            android:textColor="@color/dark_cyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:onClick="onClickNextButton"
+            android:text="@string/nextDateButton"
+            android:elevation="0dp"
+            android:shadowColor="@color/transparent"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_ledger_recycler_view"
         android:layout_width="match_parent"
@@ -38,7 +84,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_toolbar_layout"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_dateToolbar"
         tools:listitem="@layout/activity_ledger_row_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
