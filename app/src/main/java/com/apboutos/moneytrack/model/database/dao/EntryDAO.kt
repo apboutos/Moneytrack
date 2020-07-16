@@ -17,6 +17,9 @@ interface EntryDAO {
     @Delete
     fun delete(entry : Entry)
 
+    @Query("SELECT date FROM entry WHERE username = :username")
+    fun selectAllEntryDatesOfUser(username: String) : List<Date>
+
     @Query("SELECT * FROM entry WHERE date = :date AND username = :username")
     fun selectAllEntriesOfDate(date : Date, username : String) : List<Entry>
 

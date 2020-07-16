@@ -38,6 +38,10 @@ class DatabaseRepository(application: Application) {
         ).execute(entry).get()
     }
 
+    fun selectAllEntryDateOfUser(username: String) : List<Date>{
+        return AllEntryDatesOfUserAsyncTask(entryDAO,username).execute(null).get()
+    }
+
     fun selectSumAmountOfLifetime(username: String) : Double{
         return SumOfLifetimeAsyncTask(entryDAO,username).execute(null).get()
     }
@@ -142,6 +146,17 @@ class DatabaseRepository(application: Application) {
         return SelectCredentialAsyncTask(
             credentialDAO
         ).execute(null).get()
+    }
+
+    private class AllEntryDatesOfUserAsyncTask(val dao: EntryDAO, val username: String) : AsyncTask<Void,Void,List<Date>>(){
+        override fun doInBackground(vararg p0: Void?): List<Date> {
+            return try{
+                dao.selectAllEntryDatesOfUser(username)
+            }catch (e : Exception){
+                Log.e("DatabaseRepository",e.message ?: "")
+                listOf()
+            }
+        }
     }
 
     private class SumOfDateRangeAsyncTask(val dao : EntryDAO,val username: String, val from: Date, val until: Date) : AsyncTask<Void,Void,Double>(){
