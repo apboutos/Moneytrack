@@ -11,6 +11,8 @@ import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
 import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.Time
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class LedgerActivityViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -26,6 +28,17 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         setBaseCategoriesList()
     }
 
+    fun goToNextDay(){
+        val tmp = LocalDate.parse(currentDate).plusDays(1)
+        currentDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(tmp)
+        loadEntries()
+    }
+
+    fun goToPreviousDay(){
+        val tmp = LocalDate.parse(currentDate).minusDays(1)
+        currentDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(tmp)
+        loadEntries()
+    }
 
     private fun setBaseCategoriesList(){
         val list = arrayListOf("bill","consumable","electronic","entertainment","food","gift","house item","junk food","loan"
