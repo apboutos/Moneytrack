@@ -49,16 +49,16 @@ object DateFormatConverter : Serializable {
     fun getMonthNumber(month : String, context: Context) : String{
         return when(month){
             context.resources.getString(R.string.month1) -> "01"
-            context.resources.getString(R.string.month1) -> "02"
-            context.resources.getString(R.string.month1) -> "03"
-            context.resources.getString(R.string.month1) -> "04"
-            context.resources.getString(R.string.month1) -> "05"
-            context.resources.getString(R.string.month1) -> "06"
-            context.resources.getString(R.string.month1) -> "07"
-            context.resources.getString(R.string.month1) -> "08"
-            context.resources.getString(R.string.month1) -> "09"
-            context.resources.getString(R.string.month1) -> "10"
-            context.resources.getString(R.string.month1) -> "11"
+            context.resources.getString(R.string.month2) -> "02"
+            context.resources.getString(R.string.month3) -> "03"
+            context.resources.getString(R.string.month4) -> "04"
+            context.resources.getString(R.string.month5) -> "05"
+            context.resources.getString(R.string.month6) -> "06"
+            context.resources.getString(R.string.month7) -> "07"
+            context.resources.getString(R.string.month8) -> "08"
+            context.resources.getString(R.string.month9) -> "09"
+            context.resources.getString(R.string.month10) -> "10"
+            context.resources.getString(R.string.month11) -> "11"
             else -> "12"
         }
     }
