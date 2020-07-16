@@ -2,6 +2,7 @@ package com.apboutos.moneytrack.utilities.converter
 
 import android.content.Context
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.model.database.converter.Date
 import java.io.Serializable
 
 object DateFormatConverter : Serializable {
@@ -93,5 +94,16 @@ object DateFormatConverter : Serializable {
             "02"                                    -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
             else                                    -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30")
         }
+    }
+
+    fun parseToDisplayableDate(date : String, context: Context) : String{
+        val tmp = Date(date)
+        val sb = StringBuilder()
+        sb.append(cropStartingZeroFrom(tmp.day))
+        sb.append(" ")
+        sb.append(getMonthName(tmp.month,context))
+        sb.append(" ")
+        sb.append(tmp.year)
+        return sb.toString()
     }
 }
