@@ -14,6 +14,7 @@ import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.utilities.Time
+import com.apboutos.moneytrack.utilities.converter.CurrencyConverter
 
 class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(parentActivity) {
 
@@ -39,7 +40,7 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
                 entry.type = typeSpinner.selectedItem.toString()
                 entry.category = categorySpinner.selectedItem.toString()
                 entry.description = descriptionBox.text.toString()
-                entry.amount = amountBox.text.toString().toDouble()
+                entry.amount = CurrencyConverter.normalizeAmount(amountBox.text.toString().toDouble(),entry.type)
                 entry.lastUpdate = Time.getTimestamp()
                 entry.date = Date(parentActivity.viewModel.currentDate)
                 entry.isDeleted = false

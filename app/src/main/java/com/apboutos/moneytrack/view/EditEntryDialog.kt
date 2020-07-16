@@ -12,6 +12,7 @@ import android.widget.Spinner
 import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.utilities.Time
+import com.apboutos.moneytrack.utilities.converter.CurrencyConverter
 
 class EditEntryDialog(private val parentActivity : LedgerActivity,private val entry : Entry,private val position : Int) : Dialog(parentActivity) {
 
@@ -37,7 +38,7 @@ class EditEntryDialog(private val parentActivity : LedgerActivity,private val en
                 }
                 entry.category = categorySpinner.selectedItem.toString()
                 entry.description = descriptionBox.text.toString()
-                entry.amount = amountBox.text.toString().toDouble()
+                entry.amount = CurrencyConverter.normalizeAmount(amountBox.text.toString().toDouble(),entry.type)
                 entry.lastUpdate = Time.getTimestamp()
                 entry.isDeleted = false
                 parentActivity.viewModel.updateEntry(position,entry)

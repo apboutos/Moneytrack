@@ -13,4 +13,13 @@ object CurrencyConverter {
 
         return "${formatter.format(amount)} $currency"
     }
+
+    fun normalizeAmount(amount : Double , type : String) : Double{
+        val tmp = if(amount < 0 && type == "Income") amount*(-1)
+        else if(amount >= 0 && type == "Income") amount
+        else if(amount <  0 && type == "Expense") amount
+        else amount*(-1)
+        //Drop all decimal digits after the twi first ones
+        return (tmp*100).toInt()/100.0
+    }
 }
