@@ -46,6 +46,7 @@
             android:layout_weight="0.15"
             android:onClick="onClickPreviousButton"
             android:text="@string/previousDateButton"
+            android:layout_marginStart="8dp"
             />
 
         <TextView
@@ -54,6 +55,7 @@
             android:layout_height="wrap_content"
             android:textSize="30sp"
             android:textColor="@color/light_oily_green"
+            android:layout_marginHorizontal="20dp"
             tools:text="23 September 2020"/>
 
         <Button
@@ -68,6 +70,7 @@
             android:text="@string/nextDateButton"
             android:elevation="0dp"
             android:shadowColor="@color/transparent"
+            android:layout_marginEnd="8dp"
             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
