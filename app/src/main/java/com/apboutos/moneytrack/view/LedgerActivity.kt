@@ -24,7 +24,7 @@ class LedgerActivity : AppCompatActivity() {
     internal val viewModel by lazy { ViewModelProvider.AndroidViewModelFactory(application).create(LedgerActivityViewModel::class.java) }
     private val toolbar by lazy { findViewById<MaterialToolbar>(R.id.activity_ledger_toolbar) }
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.activity_ledger_recycler_view) }
-    internal val adapter by lazy { LedgerRecyclerAdapter(viewModel.entryList)}
+    internal val adapter by lazy { LedgerRecyclerAdapter(viewModel.entryList,this)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
