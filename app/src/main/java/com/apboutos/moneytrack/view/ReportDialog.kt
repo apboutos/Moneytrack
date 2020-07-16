@@ -88,9 +88,9 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-$currentMonth-$currentDay"),Date("$currentYear-$currentMonth-$currentDay"))
         todaySum.text = CurrencyConverter.toPresentableAmount(sum,currency)
         if(sum < 0){
-            todaySum.setTextColor(parentActivity.resources.getColor(R.color.red))
+            todaySum.setTextColor(parentActivity.getColor(R.color.red))
         }else{
-            todaySum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+            todaySum.setTextColor(parentActivity.getColor(R.color.light_oily_green))
         }
         Log.d(tag,"TodaySum= $sum")
     }
@@ -100,9 +100,9 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-$currentMonth-01"),Date("$currentYear-$currentMonth-${DateFormatConverter.getLastDayOfMonth(currentMonth)}"))
         monthSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
         if(sum < 0){
-            monthSum.setTextColor(parentActivity.resources.getColor(R.color.red))
+            monthSum.setTextColor(parentActivity.getColor(R.color.red))
         }else{
-            monthSum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+            monthSum.setTextColor(parentActivity.getColor(R.color.light_oily_green))
         }
         Log.d(tag,"MonthlySum= $sum")
     }
@@ -112,9 +112,9 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         val sum = parentActivity.viewModel.getSumOfDateRange(Date("$currentYear-01-01"),Date("$currentYear-12-31"))
         yearSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
         if(sum < 0){
-            yearSum.setTextColor(parentActivity.resources.getColor(R.color.red))
+            yearSum.setTextColor(parentActivity.getColor(R.color.red))
         }else{
-            yearSum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+            yearSum.setTextColor(parentActivity.getColor(R.color.light_oily_green))
         }
         Log.d(tag,"YearlySum= $sum")
     }
@@ -123,9 +123,9 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         val sum = parentActivity.viewModel.getSumOfLifetime()
         lifetimeSum.text = CurrencyConverter.toPresentableAmount(sum,currency)
         if(sum < 0){
-            lifetimeSum.setTextColor(parentActivity.resources.getColor(R.color.red))
+            lifetimeSum.setTextColor(parentActivity.getColor(R.color.red))
         }else{
-            lifetimeSum.setTextColor(parentActivity.resources.getColor(R.color.light_oily_green))
+            lifetimeSum.setTextColor(parentActivity.getColor(R.color.light_oily_green))
         }
         Log.d(tag,"LifetimeSum= $sum")
     }
