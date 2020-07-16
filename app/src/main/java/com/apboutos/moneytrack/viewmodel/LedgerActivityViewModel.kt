@@ -35,6 +35,9 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
+    fun getYearsThatContainEntries() : Array<String>{
+        val list = databaseRepository.selectAllEntryDatesOfUser(currentUser)
+    }
     fun getSumOfDateRange(from: Date,until: Date) : Double{
         return databaseRepository.selectSumAmountOfDateRange(currentUser,from,until)
     }

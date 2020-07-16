@@ -159,8 +159,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
 
 
     private fun getYearsThatContainEntries() : Array<String>{
-
-        return arrayOf("2020","2021")
+        return parentActivity.viewModel.getYearsThatContainEntries()
     }
 
 

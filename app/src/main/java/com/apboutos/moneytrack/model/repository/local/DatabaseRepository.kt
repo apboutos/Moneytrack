@@ -38,7 +38,7 @@ class DatabaseRepository(application: Application) {
         ).execute(entry).get()
     }
 
-    fun selectAllEntryDateOfUser(username: String) : List<Date>{
+    fun selectAllEntryDatesOfUser(username: String) : List<Date>{
         return AllEntryDatesOfUserAsyncTask(entryDAO,username).execute(null).get()
     }
 
