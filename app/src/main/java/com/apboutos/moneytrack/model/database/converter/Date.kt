@@ -39,5 +39,4 @@ class Date() {
 
     @TypeConverter
     fun dateToTimestamp(date : Date): Long = SimpleDateFormat("yyyy-MM-dd").parse(date.date).time;
-
 }
