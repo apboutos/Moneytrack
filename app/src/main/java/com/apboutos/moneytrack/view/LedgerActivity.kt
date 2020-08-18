@@ -132,6 +132,10 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     private fun onClickSearchMenuIcon() : Boolean{
+        val search = SearchDialog(this)
+        search.setCanceledOnTouchOutside(false)
+        search.create()
+        search.show()
         Log.d(tag,"Search")
         return true
     }

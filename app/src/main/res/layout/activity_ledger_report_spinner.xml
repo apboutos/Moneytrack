@@ -8,4 +8,5 @@
     android:layout_margin="10dp"
     android:ellipsize="marquee"
     android:textSize="18sp"
+    android:textAlignment="textStart"
     android:textColor="@color/dark_oily_green"/>

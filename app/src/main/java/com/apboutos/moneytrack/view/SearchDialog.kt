@@ -25,7 +25,7 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_ledger_report_dialog)
+        setContentView(R.layout.activity_ledger_search_dialog)
 
         setUpTypeSpinner()
         setUpCategorySpinner()
