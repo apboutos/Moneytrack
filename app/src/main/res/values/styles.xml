@@ -31,6 +31,16 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="SearchLabels">
+        <item name="android:textColor">@color/dark_oily_green</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SearchFields">
+        <item name="android:textColor">@color/light_oily_green</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="ReportSum">
         <item name="android:textColor">@color/light_oily_green</item>
         <item name="android:textSize">18sp</item>

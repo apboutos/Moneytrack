@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ledger_search_dialog_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
+
+    <TextView
+        android:id="@+id/activity_ledger_search_dialog_typeLabel"
+        style="@style/SearchLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_search_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_typeSpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_typeLabel" />
+
+    <TextView
+        android:id="@+id/activity_ledger_search_dialog_categoryLabel"
+        style="@style/SearchLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_search_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_typeSpinner" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_categorySpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_categoryLabel" />
+
+    <TextView
+        android:id="@+id/activity_ledger_search_dialog_descriptionLabel"
+        style="@style/SearchLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_search_description"
+        android:autofillHints="@string/dialog_entry_description_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_categorySpinner" />
+
+    <EditText
+        android:id="@+id/activity_ledger_search_dialog_descriptionBox"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_descriptionLabel"
+        tools:text="Bus Ticket"
+        android:hint="@string/dialog_entry_description_hint"
+        android:autofillHints="@string/dialog_search_description_hint" />
+
+    <TextView
+        android:id="@+id/activity_ledger_search_dialog_fromLabel"
+        style="@style/SearchLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/dialog_search_from"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_descriptionBox"
+        tools:text="From" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_fromDaySpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_fromLabel" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_fromMonthSpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/activity_ledger_search_dialog_fromDaySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_fromLabel" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_fromYearSpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/activity_ledger_search_dialog_fromMonthSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_fromLabel" />
+
+    <TextView
+        android:id="@+id/activity_ledger_search_dialog_untilLabel"
+        style="@style/SearchLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/dialog_search_until"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_fromDaySpinner" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_untilDaySpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_untilLabel" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_untilMonthSpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/activity_ledger_search_dialog_untilDaySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_untilLabel" />
+
+    <Spinner
+        android:id="@+id/activity_ledger_search_dialog_untilYearSpinner"
+        style="@style/SearchFields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/activity_ledger_search_dialog_untilMonthSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_untilLabel" />
+
+    <Button
+        android:id="@+id/activity_ledger_search_dialog_searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/dialog_search_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_ledger_search_dialog_untilDaySpinner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

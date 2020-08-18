@@ -63,6 +63,15 @@
     <!--Report Dialog-->
     <string name="dialog_report_lifetimeSum">Lifetime</string>
 
+    <!--Search Dialog-->
+    <string name="dialog_search_type">Type</string>
+    <string name="dialog_search_category">Category</string>
+    <string name="dialog_search_description">Description</string>
+    <string name="dialog_search_description_hint"> </string>
+    <string name="dialog_search_from">From</string>
+    <string name="dialog_search_until">Until</string>
+    <string name="dialog_search_search">Search</string>
+
     <!--Months-->
     <string name="month1">January</string>
     <string name="month2">February</string>
