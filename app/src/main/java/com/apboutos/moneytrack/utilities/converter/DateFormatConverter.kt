@@ -1,6 +1,7 @@
 package com.apboutos.moneytrack.utilities.converter
 
 import android.content.Context
+import android.icu.util.GregorianCalendar
 import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.database.converter.Date
 import java.io.Serializable
@@ -88,10 +89,27 @@ object DateFormatConverter : Serializable {
         }
     }
 
+    fun getLastDayOfMonth(month: String, year: String) : String{
+        return when(month){
+            "01","03","05","06","07","08","10","12" -> "31"
+            "02" -> if(isLeapYear(year)) "29" else "29"
+            else -> "30"
+        }
+    }
+
     fun getDaysOfMonth(month : String) : Array<String>{
         return when(month){
             "01","03","05","06","07","08","10","12" -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31")
             "02"                                    -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+            else                                    -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30")
+        }
+    }
+
+    fun getDaysOfMonth(month : String, year: String) : Array<String>{
+        return when(month){
+            "01","03","05","06","07","08","10","12" -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31")
+            "02"                                    -> if(isLeapYear(year)) arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29")
+                                                       else arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
             else                                    -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30")
         }
     }
@@ -105,5 +123,9 @@ object DateFormatConverter : Serializable {
         sb.append(" ")
         sb.append(tmp.year)
         return sb.toString()
+    }
+
+    private fun isLeapYear(year : String) : Boolean{
+        return GregorianCalendar().isLeapYear(Integer.parseInt(year))
     }
 }
