@@ -13,6 +13,7 @@ data class Summary(
     val username : String,
     val category: String,
     val type : String,
+    val description : String,
     val fromDate : Date,
     val untilDate : Date)
 {
