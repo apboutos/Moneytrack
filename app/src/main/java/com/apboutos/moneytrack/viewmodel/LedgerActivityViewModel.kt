@@ -115,6 +115,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         entryList.clear()
         entryList.addAll(databaseRepository.selectAllEntriesOfSummary(summary))
         Log.d(tag,"entryList.size: " + entryList.size)
+        databaseRepository.insert(summary)
         return entryList
     }
 
