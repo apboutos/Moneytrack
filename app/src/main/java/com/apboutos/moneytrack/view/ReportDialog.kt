@@ -53,7 +53,10 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+                currentDay = DateFormatConverter.normalizeDay(daySpinner.selectedItem.toString())
                 calculateDailySum()
+                //Log.d(tag,"Day = $currentDay  Month = $currentMonth Year = $currentYear")
             }
 
         }
@@ -64,9 +67,15 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+                currentMonth = DateFormatConverter.getMonthNumber(monthSpinner.selectedItem.toString(),parentActivity)
+                if(currentDay > DateFormatConverter.getLastDayOfMonth(currentMonth,currentYear)){
+                    currentDay = DateFormatConverter.getLastDayOfMonth(currentMonth,currentYear)
+                }
                 setUpDaySpinner()
                 calculateMonthlySum()
                 calculateDailySum()
+               // Log.d(tag,"Day = $currentDay  Month = $currentMonth Year = $currentYear")
             }
 
         }
@@ -77,10 +86,17 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                currentYear = yearSpinner.selectedItem.toString()
+                if(currentDay > DateFormatConverter.getLastDayOfMonth(currentMonth,currentYear)){
+                    currentDay = DateFormatConverter.getLastDayOfMonth(currentMonth,currentYear)
+                    Log.d(tag,"Im in here")
+                }
                 setUpDaySpinner()
                 calculateYearlySum()
                 calculateMonthlySum()
                 calculateDailySum()
+                Log.d(tag,"Day = $currentDay  Month = $currentMonth Year = $currentYear")
+                //TODO There is a small bug that must be investigated. When the date is 29 of February and the year changes to a non leap year the day defaults to 1 instead of 28.
             }
         }
     }
@@ -137,13 +153,13 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         currentYear = parts[0]
         currentMonth = parts[1]
         currentDay = parts[2]
+        Log.d(tag,"Day = $currentDay  Month = $currentMonth Year = $currentYear")
     }
 
     private fun setUpDaySpinner(){
         val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_report_spinner, DateFormatConverter.getDaysOfMonth(currentMonth,currentYear))
         daySpinner.adapter = typeAdapter
         daySpinner.setSelection(typeAdapter.getPosition(DateFormatConverter.cropStartingZeroFrom(currentDay)))
-
     }
 
     private fun setUpMonthSpinner(){
