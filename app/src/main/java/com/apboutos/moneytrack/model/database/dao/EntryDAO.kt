@@ -1,6 +1,5 @@
 package com.apboutos.moneytrack.model.database.dao
 
-import androidx.annotation.Nullable
 import androidx.room.*
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.entity.Entry
