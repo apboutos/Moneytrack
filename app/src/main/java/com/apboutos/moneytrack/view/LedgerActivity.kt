@@ -161,6 +161,7 @@ class LedgerActivity : AppCompatActivity() {
 
     fun loadSearchResults(summary: Summary){
         viewModel.loadEntriesOfSearch(summary)
+        adapter.notifyDataSetChanged()
         dateBox.text = "${DateFormatConverter.parseToDisplayableFormat(summary.fromDate.toString(),this)} to ${DateFormatConverter.parseToDisplayableFormat(summary.untilDate.toString(),this)}"
         nextDayButton.visibility = View.INVISIBLE
         previousDayButton.visibility = View.INVISIBLE
