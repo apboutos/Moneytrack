@@ -13,6 +13,7 @@ import java.lang.Exception
 
 class DatabaseRepository(application: Application) {
 
+    private val tag = "DatabaseRepository"
     private val database      = MoneytrackDatabase.invoke(application)
     private val entryDAO      = database.EntryDAO()
     private val userDAO       = database.UserDAO()
@@ -192,6 +193,7 @@ class DatabaseRepository(application: Application) {
             return true
         }
     }
+
     private class UpdateEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) :Boolean {
             try{ dao.update(parameters[0]) }
@@ -202,6 +204,7 @@ class DatabaseRepository(application: Application) {
             return true
         }
     }
+
     private class DeleteEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Entry) : Boolean {
             try{ dao.delete(parameters[0]) }
@@ -212,14 +215,28 @@ class DatabaseRepository(application: Application) {
             return true
         }
     }
+
     private class DateEntriesAsyncTask(val dao : EntryDAO, val date : Date, val username : String) : AsyncTask<Void,Void,List<Entry>>(){
         override fun doInBackground(vararg parameters : Void?): List<Entry>? {
             return dao.selectAllEntriesOfDate(date,username)
         }
     }
+
     private class SummaryEntriesAsyncTask(val dao : EntryDAO,val summary: Summary) : AsyncTask<Void,Void,List<Entry>>(){
         override fun doInBackground(vararg parameters : Void?): List<Entry>? {
-            return dao.selectAllEntriesOfSummary(summary.username,summary.category,summary.type,summary.fromDate,summary.untilDate)
+            var type : String? = null
+            var category : String? = null
+            var description : String? = null
+            if(summary.type != "Any"){
+                type = summary.type
+            }
+            if(summary.category != "Any"){
+                category = summary.category
+            }
+            if(summary.description != ""){
+                description = summary.description
+            }
+            return dao.selectAllEntriesOfSummary(summary.username,summary.fromDate,summary.untilDate,type,category,description)
         }
     }
 
@@ -264,12 +281,14 @@ class DatabaseRepository(application: Application) {
             return true
         }
     }
+
     private class UpdateCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Category) :Boolean {
             dao.update(parameters[0])
             return true
         }
     }
+
     private class DeleteCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Category) :Boolean {
             dao.delete(parameters[0])
