@@ -111,7 +111,9 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
     }
 
     private fun setUpCategorySpinner(){
-        val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, parentActivity.viewModel.getCategories())
+        val categories = parentActivity.viewModel.getCategories()
+        categories.add(0,"Any")
+        val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, categories)
         categorySpinner.adapter = typeAdapter
         categorySpinner.setSelection(0)
     }
