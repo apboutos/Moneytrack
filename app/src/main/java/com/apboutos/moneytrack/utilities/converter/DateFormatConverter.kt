@@ -125,6 +125,16 @@ object DateFormatConverter : Serializable {
         return sb.toString()
     }
 
+    fun parseToDisplayableFormat(date: String, context: Context) : String{
+        val tmp = Date(date)
+        val sb = StringBuilder()
+        sb.append(cropStartingZeroFrom(tmp.day))
+        sb.append("-")
+        sb.append(cropStartingZeroFrom(tmp.month))
+        sb.append("-")
+        sb.append(tmp.year)
+        return sb.toString()
+    }
     private fun isLeapYear(year : String) : Boolean{
         return GregorianCalendar().isLeapYear(Integer.parseInt(year))
     }
