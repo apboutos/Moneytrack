@@ -107,14 +107,14 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     fun loadEntries () : ArrayList<Entry>{
         entryList.clear()
         entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate,currentUser))
-        Log.d("tag","entryList.size: " + entryList.size)
+        Log.d(tag,"entryList.size: " + entryList.size)
         return entryList
     }
 
     fun loadEntriesOfSearch(summary: Summary) : ArrayList<Entry>{
         entryList.clear()
-
-
+        entryList.addAll(databaseRepository.selectAllEntriesOfSummary(summary))
+        Log.d(tag,"entryList.size: " + entryList.size)
         return entryList
     }
 
