@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,9 @@ class LedgerActivity : AppCompatActivity() {
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.activity_ledger_recycler_view) }
     internal val adapter by lazy { LedgerRecyclerAdapter(viewModel.entryList,this)}
     internal val dateBox by lazy { findViewById<TextView>(R.id.activity_ledger_dateToolbar_dateBox) }
+    private val previousDayButton by lazy {findViewById<Button>(R.id.activity_ledger_dateToolbar_previousButton)}
+    private val nextDayButton by lazy {findViewById<Button>(R.id.activity_ledger_dateToolbar_nextButton)}
+    private var searchResultsAreDisplayed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -156,7 +160,24 @@ class LedgerActivity : AppCompatActivity() {
     }
 
     fun loadSearchResults(summary: Summary){
+        viewModel.loadEntriesOfSearch(summary)
+        dateBox.text = "${DateFormatConverter.parseToDisplayableFormat(summary.fromDate.toString(),this)} to ${DateFormatConverter.parseToDisplayableFormat(summary.untilDate.toString(),this)}"
+        nextDayButton.visibility = View.INVISIBLE
+        previousDayButton.visibility = View.INVISIBLE
+        searchResultsAreDisplayed = true
+    }
 
-
+    override fun onBackPressed() {
+        if (searchResultsAreDisplayed){
+            searchResultsAreDisplayed = false
+            previousDayButton.visibility = View.VISIBLE
+            nextDayButton.visibility = View.VISIBLE
+            viewModel.loadEntries()
+            adapter.notifyDataSetChanged()
+            dateBox.text = DateFormatConverter.parseToDisplayableDate(viewModel.currentDate,this)
+        }
+        else{
+            super.onBackPressed()
+        }
     }
 }
