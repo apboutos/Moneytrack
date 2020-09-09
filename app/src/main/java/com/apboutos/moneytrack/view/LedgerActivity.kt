@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.model.database.entity.Summary
 import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 import com.apboutos.moneytrack.viewmodel.LedgerActivityViewModel
 import com.google.android.material.appbar.MaterialToolbar
@@ -152,5 +153,10 @@ class LedgerActivity : AppCompatActivity() {
         editor.apply()
         finish()
         return true
+    }
+
+    fun loadSearchResults(summary: Summary){
+
+
     }
 }

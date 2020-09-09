@@ -2,10 +2,13 @@ package com.apboutos.moneytrack.view
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.*
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.model.database.converter.Date
+import com.apboutos.moneytrack.model.database.entity.Summary
 import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 
 class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentActivity){
@@ -80,7 +83,23 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
 
         }
 
-        searchButton.setOnClickListener { /*TODO*/}
+        searchButton.setOnClickListener {
+            val fromDate = fromYearSpinner.selectedItem.toString() +
+                           "-" +
+                           DateFormatConverter.getMonthNumber(fromMonthSpinner.selectedItem.toString(),parentActivity) +
+                           "-" +
+                           DateFormatConverter.normalizeDay(fromDaySpinner.selectedItem.toString())
+            val untilDate = untilYearSpinner.selectedItem.toString() +
+                            "-" +
+                            DateFormatConverter.getMonthNumber(untilMonthSpinner.selectedItem.toString(),parentActivity) +
+                            "-" +
+                            DateFormatConverter.normalizeDay(untilDaySpinner.selectedItem.toString())
+            val searchSummary = Summary(parentActivity.viewModel.currentUser,categorySpinner.selectedItem.toString(),typeSpinner.selectedItem.toString(),descriptionBox.text.toString(),Date(fromDate),Date(untilDate))
+            Log.d(tag,"fromDate $fromDate")
+            Log.d(tag, "untilDate $untilDate")
+            parentActivity.loadSearchResults(searchSummary)
+            dismiss()
+        }
     }
 
 

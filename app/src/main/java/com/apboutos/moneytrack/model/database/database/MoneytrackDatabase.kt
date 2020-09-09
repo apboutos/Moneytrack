@@ -13,7 +13,7 @@ import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.entity.*
 
 
-@Database(entities = [Entry::class, User::class, Category::class, Summary::class, Credential::class],version = 1)
+@Database(entities = [Entry::class, User::class, Category::class, Summary::class, Credential::class],version = 2)
 @TypeConverters(Date::class, Datetime::class)
 abstract class MoneytrackDatabase : RoomDatabase() {
 
@@ -36,7 +36,7 @@ abstract class MoneytrackDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context) : MoneytrackDatabase {
-            return Room.databaseBuilder(context, MoneytrackDatabase::class.java, "Moneytrack_Database.db").build()
+            return Room.databaseBuilder(context, MoneytrackDatabase::class.java, "Moneytrack_Database.db").fallbackToDestructiveMigration().build()
         }
     }
 }

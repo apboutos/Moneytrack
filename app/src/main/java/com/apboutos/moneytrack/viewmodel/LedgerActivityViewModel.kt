@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.entity.Category
 import com.apboutos.moneytrack.model.database.entity.Entry
+import com.apboutos.moneytrack.model.database.entity.Summary
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
 import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.Time
@@ -107,6 +108,13 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         entryList.clear()
         entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate,currentUser))
         Log.d("tag","entryList.size: " + entryList.size)
+        return entryList
+    }
+
+    fun loadEntriesOfSearch(summary: Summary) : ArrayList<Entry>{
+        entryList.clear()
+
+
         return entryList
     }
 

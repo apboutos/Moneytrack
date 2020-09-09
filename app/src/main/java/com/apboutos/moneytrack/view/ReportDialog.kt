@@ -64,6 +64,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                setUpDaySpinner()
                 calculateMonthlySum()
                 calculateDailySum()
             }
@@ -76,6 +77,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                setUpDaySpinner()
                 calculateYearlySum()
                 calculateMonthlySum()
                 calculateDailySum()
@@ -138,7 +140,7 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
     }
 
     private fun setUpDaySpinner(){
-        val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_report_spinner, DateFormatConverter.getDaysOfMonth(currentMonth))
+        val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_report_spinner, DateFormatConverter.getDaysOfMonth(currentMonth,currentYear))
         daySpinner.adapter = typeAdapter
         daySpinner.setSelection(typeAdapter.getPosition(DateFormatConverter.cropStartingZeroFrom(currentDay)))
 
