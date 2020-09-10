@@ -1,6 +1,7 @@
 package com.apboutos.moneytrack.model.repository.remote
 
 
+import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.database.entity.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -21,4 +22,7 @@ interface RemoteServerAPI {
     @POST("retrieve.php")
     fun retrieveCredentials(@Body retrieveRequestBody: RetrieveRequestBody) : Call<RetrieveRequestResult>
 
+    @Headers("Content-Type: application/json")
+    @POST("pullData.php")
+    fun pullData(@Body pullDataRequestBody : PullDataRequestBody) : Call<ArrayList<Entry>>
 }
