@@ -130,14 +130,12 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     fun loadEntries(): ArrayList<Entry> {
         entryList.clear()
         entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate, currentUser))
-        Log.d(tag, "entryList.size: " + entryList.size)
         return entryList
     }
 
     fun loadEntriesOfSearch(summary: Summary): ArrayList<Entry> {
         entryList.clear()
         entryList.addAll(databaseRepository.selectAllEntriesOfSummary(summary))
-        Log.d(tag, "entryList.size: " + entryList.size)
         databaseRepository.insert(summary)
         return entryList
     }
@@ -159,9 +157,12 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         for (i in entryList){
             if(!databaseRepository.insert(i)){
                 val tmp = databaseRepository.selectEntry(i.id)
+                Log.d(tag,"entry in database ${tmp.id} ${tmp.description} ${tmp.lastUpdate} ${tmp.isDeleted}")
                 if(tmp.lastUpdate.isBefore(i.lastUpdate) && tmp.id != ""){
+                    Log.d(tag,"${tmp.description} ${tmp.lastUpdate} is before ${i.description} ${i.lastUpdate}")
                     if(i.isDeleted){
                         databaseRepository.delete(i)
+                        Log.d(tag,"${i.description} ${i.lastUpdate} ${i.isDeleted} was deleted")
                     }
                     else{
                         databaseRepository.update(i)
