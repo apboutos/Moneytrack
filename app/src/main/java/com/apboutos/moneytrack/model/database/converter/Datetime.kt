@@ -33,6 +33,13 @@ class Datetime() : Parcelable{
         return datetime.hashCode()
     }
 
+    fun isBefore(dateTime: Datetime) : Boolean {
+        val tmp1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.datetime)
+        val tmp2 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateTime.datetime)
+        if (tmp1.before(tmp2)) return true
+        return false
+    }
+
     @TypeConverter
     fun timestampToDatetime(value : Long): Datetime = Datetime(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(java.util.Date(value)))
 
@@ -67,6 +74,7 @@ class Datetime() : Parcelable{
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
             return current.format(formatter)
         }
+
     }
 
 }
