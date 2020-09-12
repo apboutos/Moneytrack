@@ -76,7 +76,7 @@ class OnlineRepository(var application: Application) {
             override fun onResponse(call: Call<List<Entry>>, response: Response<List<Entry>>) {
                 Log.d(TAG, "Response code: " + response.code())
                 Log.d(TAG, "Response body: " + response.body())
-                Log.d(TAG,"Request data: $lastPullRequestDatetime")
+                Log.d(TAG,"Request data: $username $lastPullRequestDatetime")
 
                 val tmpArrayList : ArrayList<Entry> = ArrayList()
                 tmpArrayList.addAll(response.body() ?: listOf())
