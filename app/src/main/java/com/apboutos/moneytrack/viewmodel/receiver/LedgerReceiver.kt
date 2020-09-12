@@ -16,6 +16,10 @@ class LedgerReceiver(private val parentActivity: LedgerActivity) : BroadcastRece
 
         val list = intent?.getParcelableArrayListExtra<Entry>("entryList")
         if(list != null) parentActivity.viewModel.updateDatabaseWithReceivedRemoteEntries(list)
+        parentActivity.updateLastPullRequestDatetime()
+        parentActivity.hideSynchronizeProgressBar()
+        parentActivity.viewModel.loadEntries()
+        parentActivity.adapter.notifyDataSetChanged()
 
     }
 

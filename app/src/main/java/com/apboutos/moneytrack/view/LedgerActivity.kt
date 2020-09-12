@@ -3,10 +3,13 @@
 package com.apboutos.moneytrack.view
 
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,9 +18,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.entity.Summary
 import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 import com.apboutos.moneytrack.viewmodel.LedgerActivityViewModel
+import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
+import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
 import com.google.android.material.appbar.MaterialToolbar
 
 
@@ -33,6 +39,9 @@ class LedgerActivity : AppCompatActivity() {
     private val previousDayButton by lazy {findViewById<Button>(R.id.activity_ledger_dateToolbar_previousButton)}
     private val nextDayButton by lazy {findViewById<Button>(R.id.activity_ledger_dateToolbar_nextButton)}
     private var searchResultsAreDisplayed = false
+    private val receiver by lazy { LedgerReceiver(this) }
+    private val synchronizeProgressBar by lazy { findViewById<ProgressBar>(R.id.activity_ledger_synchronizeProgressBar) }
+    private val synchronizeLabel by lazy { findViewById<TextView>(R.id.activity_ledger_synchronizeLabel)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +54,14 @@ class LedgerActivity : AppCompatActivity() {
         registerRecyclerViewListener()
         dateBox.text = DateFormatConverter.parseToDisplayableDate(viewModel.currentDate,this)
 
+
         viewModel.currentUser = intent.getStringExtra("username") ?: "root"
         if(viewModel.currentDate == "root"){
             Toast.makeText(this,"Logged in as the test user root.",Toast.LENGTH_LONG).show()
         }
+        showSynchronizeProgressBar()
+        viewModel.lastPullRequestDatetime = getSharedPreferences("Preferences${viewModel.currentUser}",Context.MODE_PRIVATE).getString("lastPullRequestDatetime","0000-0-0 00:00:00") ?: "0000-0-0 00:00:00"
+        viewModel.pullDataFromRemoteDatabase()
         viewModel.loadEntries()
         adapter.notifyDataSetChanged()
         toolbar.setOnMenuItemClickListener{menuItem ->
@@ -180,5 +193,33 @@ class LedgerActivity : AppCompatActivity() {
         else{
             super.onBackPressed()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(receiver)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addCategory(Intent.CATEGORY_DEFAULT)
+        filter.addAction(LedgerReceiver.SERVER_PULL_DATA_RESPONSE)
+        filter.addAction(LedgerReceiver.SERVER_PUSH_DATA_RESPONSE)
+        registerReceiver(receiver,filter)
+    }
+
+    fun hideSynchronizeProgressBar(){
+        synchronizeLabel.visibility = View.INVISIBLE
+        synchronizeProgressBar.visibility = View.INVISIBLE
+    }
+
+    fun showSynchronizeProgressBar(){
+        synchronizeLabel.visibility = View.VISIBLE
+        synchronizeProgressBar.visibility = View.VISIBLE
+    }
+
+    fun updateLastPullRequestDatetime(){
+        getSharedPreferences("Preferences${viewModel.currentUser}",Context.MODE_PRIVATE).edit().putString("lastPullRequestDatetime",Datetime.currentDatetime()).apply()
     }
 }
