@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.viewmodel.receiver
 
 import android.content.BroadcastReceiver
@@ -13,7 +15,7 @@ class LedgerReceiver(private val parentActivity: LedgerActivity) : BroadcastRece
     override fun onReceive(context: Context?, intent: Intent?) {
 
         val list = intent?.getParcelableArrayListExtra<Entry>("entryList")
-        parentActivity.viewModel.updateDatabaseWithReceivedRemoteEntries(list)
+        if(list != null) parentActivity.viewModel.updateDatabaseWithReceivedRemoteEntries(list)
 
     }
 
