@@ -5,10 +5,8 @@ package com.apboutos.moneytrack.model.repository.remote
 import android.app.Application
 import android.content.Intent
 import android.util.Log
-import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.database.entity.User
-import com.apboutos.moneytrack.utilities.error.RegisterError
 import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.RegisterReceiver
