@@ -5,7 +5,6 @@ package com.apboutos.moneytrack.model.database.converter
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.TypeConverter
-import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
