@@ -2,12 +2,17 @@
 
 package com.apboutos.moneytrack.model.database.converter
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.TypeConverter
+import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
 
-class Datetime(){
+
+class Datetime() : Parcelable{
 
     lateinit var datetime : String
+
     constructor(datetime : String) : this(){
         this.datetime = datetime
     }
@@ -34,5 +39,27 @@ class Datetime(){
     fun datetimeToTimestamp(dateTime: Datetime) : Long = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateTime.datetime).time
 
 
+    //Parcelable implementation.
+    constructor(parcel: Parcel) : this() {
+        datetime = parcel.readString() ?: "parcel error"
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(datetime)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Datetime> {
+        override fun createFromParcel(parcel: Parcel): Datetime {
+            return Datetime(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Datetime?> {
+            return arrayOfNulls(size)
+        }
+    }
 
 }
