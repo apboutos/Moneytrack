@@ -7,6 +7,8 @@ import android.os.Parcelable
 import androidx.room.TypeConverter
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class Datetime() : Parcelable{
@@ -59,6 +61,12 @@ class Datetime() : Parcelable{
 
         override fun newArray(size: Int): Array<Datetime?> {
             return arrayOfNulls(size)
+        }
+
+        fun currentDatetime() : String {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            return current.format(formatter)
         }
     }
 
