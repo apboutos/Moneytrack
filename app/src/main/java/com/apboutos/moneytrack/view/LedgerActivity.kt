@@ -23,7 +23,6 @@ import com.apboutos.moneytrack.model.database.entity.Summary
 import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 import com.apboutos.moneytrack.viewmodel.LedgerActivityViewModel
 import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
-import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
 import com.google.android.material.appbar.MaterialToolbar
 
 
