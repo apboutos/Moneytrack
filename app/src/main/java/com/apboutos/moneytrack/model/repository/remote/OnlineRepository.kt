@@ -5,8 +5,11 @@ package com.apboutos.moneytrack.model.repository.remote
 import android.app.Application
 import android.content.Intent
 import android.util.Log
+import com.apboutos.moneytrack.model.database.converter.Date
+import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.database.entity.User
 import com.apboutos.moneytrack.utilities.error.RegisterError
+import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.RegisterReceiver
 import com.google.gson.GsonBuilder
@@ -21,7 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class OnlineRepository(var application: Application) {
 
     private val TAG = "OnlineRepository"
-    private val retro : Retrofit = Retrofit.Builder().baseUrl("http://exophrenik.com/moneytrack/").addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create())).build()
+    private val retro : Retrofit = Retrofit.Builder().baseUrl("http://exophrenik.com/moneytrack/")
+                                                     .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+                                                     .build()
     private val api : RemoteServerAPI = retro.create(RemoteServerAPI::class.java)
 
     private lateinit var loginResult: AuthenticationRequestResult
@@ -55,6 +60,39 @@ class OnlineRepository(var application: Application) {
                         application.sendBroadcast(intent)
                     }
                 })
+    }
+
+    fun pullData(username: String,lastPullRequestDatetime : String){
+        api.pullData(PullDataRequestBody(username,lastPullRequestDatetime)).enqueue(object : Callback<List<Entry>> {
+            override fun onFailure(call: Call<List<Entry>>, t: Throwable) {
+                Log.e(TAG, t.message, t)
+                val intent = Intent()
+                intent.putExtra("error", "SERVER_UNREACHABLE")
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.action = LedgerReceiver.SERVER_PULL_DATA_RESPONSE
+                application.sendBroadcast(intent)
+            }
+
+            override fun onResponse(call: Call<List<Entry>>, response: Response<List<Entry>>) {
+                Log.d(TAG, "Response code: " + response.code())
+                Log.d(TAG, "Response body: " + response.body())
+                Log.d(TAG,"Request data: $lastPullRequestDatetime")
+
+                val tmpArrayList : ArrayList<Entry> = ArrayList()
+                tmpArrayList.addAll(response.body() ?: listOf())
+
+                for (i in tmpArrayList){
+                    Log.d(TAG,"${i.description}  ${i.date}  ${i.lastUpdate}")
+                }
+
+                val intent = Intent()
+                intent.putParcelableArrayListExtra("entryList",tmpArrayList)
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.action = LedgerReceiver.SERVER_PULL_DATA_RESPONSE
+                application.sendBroadcast(intent)
+
+            }
+        })
     }
 
     fun registerUser( user : User) {
