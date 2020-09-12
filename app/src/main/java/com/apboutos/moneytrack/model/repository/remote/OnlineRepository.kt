@@ -82,7 +82,7 @@ class OnlineRepository(var application: Application) {
                 tmpArrayList.addAll(response.body() ?: listOf())
 
                 for (i in tmpArrayList){
-                    Log.d(TAG,"${i.description}  ${i.date}  ${i.lastUpdate}")
+                    Log.d(TAG,"${i.description}  ${i.date}  ${i.lastUpdate} ${i.isDeleted}")
                 }
 
                 val intent = Intent()
