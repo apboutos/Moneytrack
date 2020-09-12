@@ -3,20 +3,16 @@
 package com.apboutos.moneytrack.viewmodel
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.converter.Date
-import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.entity.Category
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.database.entity.Summary
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
 import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.Time
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class LedgerActivityViewModel(application: Application) : AndroidViewModel(application) {
