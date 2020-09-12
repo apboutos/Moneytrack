@@ -39,6 +39,10 @@ class DatabaseRepository(application: Application) {
         ).execute(entry).get()
     }
 
+    fun selectEntry(id : String) : Entry{
+        return SelectEntryAsyncTask(entryDAO,id).execute(null).get()
+    }
+
     fun selectAllEntryDatesOfUser(username: String) : List<Date>{
         return AllEntryDatesOfUserAsyncTask(entryDAO,username).execute(null).get()
     }
@@ -147,6 +151,17 @@ class DatabaseRepository(application: Application) {
         return SelectCredentialAsyncTask(
             credentialDAO
         ).execute(null).get()
+    }
+
+    private class SelectEntryAsyncTask(val dao : EntryDAO, val id : String) : AsyncTask<Void,Void,Entry>(){
+        override fun doInBackground(vararg p0: Void?): Entry {
+            return try{
+                dao.selectEntry(id)
+            }catch (e : Exception){
+                Log.e("DatabaseRepository",e.message ?: "")
+                Entry.createEmptyEntry()
+            }
+        }
     }
 
     private class AllEntryDatesOfUserAsyncTask(val dao: EntryDAO, val username: String) : AsyncTask<Void,Void,List<Date>>(){
