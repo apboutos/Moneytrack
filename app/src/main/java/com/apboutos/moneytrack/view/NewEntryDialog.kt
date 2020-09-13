@@ -5,6 +5,7 @@ package com.apboutos.moneytrack.view
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -18,6 +19,7 @@ import com.apboutos.moneytrack.utilities.converter.CurrencyConverter
 
 class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(parentActivity) {
 
+    private val tag = "NewEntryDialog"
     private val saveButton by lazy { findViewById<Button>(R.id.activity_ledger_new_entry_dialog_saveButton) }
     private val cancelButton by lazy { findViewById<Button>(R.id.activity_ledger_new_entry_dialog_cancelButton) }
     private val typeSpinner by lazy { findViewById<Spinner>(R.id.activity_ledger_new_entry_dialog_typeSpinner) }
@@ -47,6 +49,7 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
                 parentActivity.viewModel.createEntry(entry)
                 parentActivity.adapter.notifyItemInserted(parentActivity.adapter.itemCount + 1)
                 dismiss()
+                Log.d(tag,"New entry: ${entry.description} ${entry.date} ${entry.lastUpdate}")
             }
         }
 
