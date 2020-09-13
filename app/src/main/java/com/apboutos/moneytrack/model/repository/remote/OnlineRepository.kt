@@ -60,6 +60,35 @@ class OnlineRepository(var application: Application) {
                 })
     }
 
+    fun pushData(entryList : List<Entry>){
+        api.pushData(entryList).enqueue(object : Callback<PushDataRequestResult> {
+            override fun onFailure(call: Call<PushDataRequestResult>, t: Throwable) {
+                Log.e(TAG, t.message, t)
+                val intent = Intent()
+                intent.putExtra("error", "SERVER_UNREACHABLE")
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.action = LedgerReceiver.SERVER_PUSH_DATA_RESPONSE
+                application.sendBroadcast(intent)
+            }
+
+            override fun onResponse(call: Call<PushDataRequestResult>, response: Response<PushDataRequestResult>
+            ) {
+                Log.d(TAG, "Response code: " + response.code())
+                Log.d(TAG, "Response body: " + response.body())
+                val intent = Intent()
+                if(response.body() == null){
+                    intent.putExtra("error","SERVER_UNREACHABLE")
+                }
+                else{
+                    intent.putExtra("error",response.body()!!.error)
+                }
+                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                intent.action = LedgerReceiver.SERVER_PUSH_DATA_RESPONSE
+                application.sendBroadcast(intent)
+            }
+        })
+    }
+
     fun pullData(username: String,lastPullRequestDatetime : String){
         api.pullData(PullDataRequestBody(username,lastPullRequestDatetime)).enqueue(object : Callback<List<Entry>> {
             override fun onFailure(call: Call<List<Entry>>, t: Throwable) {
