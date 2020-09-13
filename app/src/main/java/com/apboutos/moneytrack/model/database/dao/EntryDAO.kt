@@ -2,6 +2,7 @@ package com.apboutos.moneytrack.model.database.dao
 
 import androidx.room.*
 import com.apboutos.moneytrack.model.database.converter.Date
+import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.entity.Entry
 
 
@@ -19,6 +20,9 @@ interface EntryDAO {
 
     @Query("SELECT * FROM entry WHERE id = :id")
     fun selectEntry(id : String) : Entry
+
+    @Query("SELECT * FROM entry WHERE username = :username AND lastUpdate > :lastPushDatetime")
+    fun selectModifiedEntries(username: String, lastPushDatetime : Datetime) : List<Entry>
 
     @Query("SELECT date FROM entry WHERE username = :username")
     fun selectAllEntryDatesOfUser(username: String) : List<Date>
