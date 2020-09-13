@@ -197,6 +197,9 @@ class LedgerActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         unregisterReceiver(receiver)
+        viewModel.lastPushRequestDatetime = getSharedPreferences("Preferences${viewModel.currentUser}",Context.MODE_PRIVATE)
+                                           .getString("lastPushRequestDatetime","0000-00-00 00:00:00") ?: "0000-00-00 00:00:00"
+        viewModel.pushModifiedDataToRemoteDatabase()
     }
 
     override fun onResume() {
@@ -221,4 +224,9 @@ class LedgerActivity : AppCompatActivity() {
     fun updateLastPullRequestDatetime(){
         getSharedPreferences("Preferences${viewModel.currentUser}",Context.MODE_PRIVATE).edit().putString("lastPullRequestDatetime",Datetime.currentDatetime()).apply()
     }
+
+    fun updateLastPushRequestDatetime(){
+        getSharedPreferences("Preferences${viewModel.currentUser}",Context.MODE_PRIVATE).edit().putString("lastPushRequestDatetime",Datetime.currentDatetime()).apply()
+    }
+
 }
