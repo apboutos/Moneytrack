@@ -6,6 +6,7 @@ import android.app.Application
 import android.os.AsyncTask
 import android.util.Log
 import com.apboutos.moneytrack.model.database.converter.Date
+import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
 import com.apboutos.moneytrack.model.database.entity.*
@@ -41,6 +42,10 @@ class DatabaseRepository(application: Application) {
 
     fun selectEntry(id : String) : Entry{
         return SelectEntryAsyncTask(entryDAO,id).execute(null).get()
+    }
+
+    fun selectModifiedEntries(username: String, lastPushDatetime : Datetime) : List<Entry> {
+        return SelectModifiedEntriesAsyncTask(entryDAO,username,lastPushDatetime).execute(null).get()
     }
 
     fun selectAllEntryDatesOfUser(username: String) : List<Date>{
@@ -151,6 +156,18 @@ class DatabaseRepository(application: Application) {
         return SelectCredentialAsyncTask(
             credentialDAO
         ).execute(null).get()
+    }
+
+    private class SelectModifiedEntriesAsyncTask(val dao : EntryDAO, val username: String, val lastPushDatetime: Datetime) : AsyncTask<Void,Void,List<Entry>>(){
+        override fun doInBackground(vararg p0: Void?): List<Entry> {
+            return try{
+                dao.selectModifiedEntries(username,lastPushDatetime)
+            }catch (e : Exception){
+                Log.e("DatabaseRepository",e.message ?: "")
+                listOf()
+            }
+        }
+
     }
 
     private class SelectEntryAsyncTask(val dao : EntryDAO, val id : String) : AsyncTask<Void,Void,Entry>(){
