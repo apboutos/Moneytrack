@@ -25,4 +25,8 @@ interface RemoteServerAPI {
     @Headers("Content-Type: application/json")
     @POST("pullData.php")
     fun pullData(@Body pullDataRequestBody : PullDataRequestBody) : Call<List<Entry>>
+
+    @Headers("Content-Type: application/json")
+    @POST("pushData.php")
+    fun pushData(@Body pushDataRequestBody: List<Entry>) : Call<PushDataRequestResult>
 }
