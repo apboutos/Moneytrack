@@ -6,6 +6,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.apboutos.moneytrack.model.database.converter.Date
+import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.entity.Category
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.database.entity.Summary
@@ -23,6 +24,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
 
     lateinit var currentUser: String
     lateinit var lastPullRequestDatetime : String
+    lateinit var lastPushRequestDatetime : String
     var currentDate: String = Time.getDate().date
     val entryList: ArrayList<Entry> by lazy { ArrayList<Entry>() }
 
@@ -169,4 +171,11 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
 
         loadEntries()
     }
+
+    fun pushModifiedDataToRemoteDatabase(){
+
+        val list = databaseRepository.selectModifiedEntries(currentUser, Datetime(lastPushRequestDatetime))
+        onlineRepository.pushData(list)
+    }
+
 }
