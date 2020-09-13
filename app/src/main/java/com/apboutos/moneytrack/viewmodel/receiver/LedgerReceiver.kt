@@ -14,12 +14,19 @@ class LedgerReceiver(private val parentActivity: LedgerActivity) : BroadcastRece
     private val tag = "LedgerReceiver"
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        val list = intent?.getParcelableArrayListExtra<Entry>("entryList")
-        if(list != null) parentActivity.viewModel.updateDatabaseWithReceivedRemoteEntries(list)
-        parentActivity.updateLastPullRequestDatetime()
-        parentActivity.hideSynchronizeProgressBar()
-        parentActivity.viewModel.loadEntries()
-        parentActivity.adapter.notifyDataSetChanged()
+        if(intent?.action == SERVER_PULL_DATA_RESPONSE){
+            val list = intent?.getParcelableArrayListExtra<Entry>("entryList")
+            if(list != null) parentActivity.viewModel.updateDatabaseWithReceivedRemoteEntries(list)
+            parentActivity.updateLastPullRequestDatetime()
+            parentActivity.hideSynchronizeProgressBar()
+            parentActivity.viewModel.loadEntries()
+            parentActivity.adapter.notifyDataSetChanged()
+        }
+        if(intent?.action == SERVER_PUSH_DATA_RESPONSE){
+            if (intent.getStringExtra("error") == "NO_ERROR"){
+                parentActivity.updateLastPushRequestDatetime()
+            }
+        }
 
     }
 
