@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.apboutos.moneytrack.model.repository.remote
 
 
@@ -28,5 +30,5 @@ interface RemoteServerAPI {
 
     @Headers("Content-Type: application/json")
     @POST("pushData.php")
-    fun pushData(@Body pushDataRequestBody: List<Entry>) : Call<PushDataRequestResult>
+    fun pushData(@Body pushDataRequestBody: PushDataRequestBody) : Call<PushDataRequestResult>
 }
