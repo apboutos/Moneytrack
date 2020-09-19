@@ -23,7 +23,7 @@ class OnlineRepository(var application: Application) {
 
     private val TAG = "OnlineRepository"
     private val retro : Retrofit = Retrofit.Builder().baseUrl("http://exophrenik.com/moneytrack/")
-                                                     .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+                                                     .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().excludeFieldsWithoutExposeAnnotation().create()))
                                                      .build()
     private val api : RemoteServerAPI = retro.create(RemoteServerAPI::class.java)
 
@@ -61,7 +61,10 @@ class OnlineRepository(var application: Application) {
     }
 
     fun pushData(entryList : List<Entry>){
-        api.pushData(entryList).enqueue(object : Callback<PushDataRequestResult> {
+        for (i in entryList){
+            Log.d(TAG,"List Item : ${i.description} ${i.date} ${i.lastUpdate} ${i.isDeleted}")
+        }
+        api.pushData(PushDataRequestBody(entryList)).enqueue(object : Callback<PushDataRequestResult> {
             override fun onFailure(call: Call<PushDataRequestResult>, t: Throwable) {
                 Log.e(TAG, t.message, t)
                 val intent = Intent()
@@ -73,8 +76,8 @@ class OnlineRepository(var application: Application) {
 
             override fun onResponse(call: Call<PushDataRequestResult>, response: Response<PushDataRequestResult>
             ) {
-                Log.d(TAG, "Response code: " + response.code())
-                Log.d(TAG, "Response body: " + response.body())
+                Log.d(TAG, "PushData Response code: " + response.code())
+                Log.d(TAG, "PushData Response body: " + response.body())
                 val intent = Intent()
                 if(response.body() == null){
                     intent.putExtra("error","SERVER_UNREACHABLE")
@@ -82,6 +85,7 @@ class OnlineRepository(var application: Application) {
                 else{
                     intent.putExtra("error",response.body()!!.error)
                 }
+                Log.d(TAG,"${response.body()}")
                 intent.addCategory(Intent.CATEGORY_DEFAULT)
                 intent.action = LedgerReceiver.SERVER_PUSH_DATA_RESPONSE
                 application.sendBroadcast(intent)
@@ -101,9 +105,9 @@ class OnlineRepository(var application: Application) {
             }
 
             override fun onResponse(call: Call<List<Entry>>, response: Response<List<Entry>>) {
-                Log.d(TAG, "Response code: " + response.code())
-                Log.d(TAG, "Response body: " + response.body())
-                Log.d(TAG,"Request data: $username $lastPullRequestDatetime")
+                Log.d(TAG, "PullData Response code: " + response.code())
+                Log.d(TAG, "PullData Response body: " + response.body())
+                Log.d(TAG,"PullData Request data: $username $lastPullRequestDatetime")
 
                 val tmpArrayList : ArrayList<Entry> = ArrayList()
                 tmpArrayList.addAll(response.body() ?: listOf())

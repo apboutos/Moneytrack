@@ -5,11 +5,15 @@ package com.apboutos.moneytrack.model.database.converter
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.TypeConverter
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
 
 class Date() : Parcelable{
 
+    @SerializedName("date")
+    @Expose
     lateinit var date : String
     lateinit var year : String
     lateinit var month: String

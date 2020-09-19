@@ -5,6 +5,8 @@ package com.apboutos.moneytrack.model.database.converter
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.TypeConverter
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -12,6 +14,8 @@ import java.time.format.DateTimeFormatter
 
 class Datetime() : Parcelable{
 
+    @SerializedName("lastUpdate")
+    @Expose
     lateinit var datetime : String
 
     constructor(datetime : String) : this(){

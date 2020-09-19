@@ -175,6 +175,10 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     fun pushModifiedDataToRemoteDatabase(){
 
         val list = databaseRepository.selectModifiedEntries(currentUser, Datetime(lastPushRequestDatetime))
+        Log.d(tag,"lastPushRequestDatetime = $lastPushRequestDatetime")
+        for (i in list){
+            Log.d(tag,"For pushing ${i.description} ${i.date} ${i.lastUpdate} ${i.isDeleted}")
+        }
         onlineRepository.pushData(list)
     }
 

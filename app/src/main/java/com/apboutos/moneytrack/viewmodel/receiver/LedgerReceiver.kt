@@ -5,6 +5,7 @@ package com.apboutos.moneytrack.viewmodel.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.view.LedgerActivity
 
@@ -15,6 +16,7 @@ class LedgerReceiver(private val parentActivity: LedgerActivity) : BroadcastRece
     override fun onReceive(context: Context?, intent: Intent?) {
 
         if(intent?.action == SERVER_PULL_DATA_RESPONSE){
+            Log.d(tag, "in pull action")
             val list = intent?.getParcelableArrayListExtra<Entry>("entryList")
             if(list != null) parentActivity.viewModel.updateDatabaseWithReceivedRemoteEntries(list)
             parentActivity.updateLastPullRequestDatetime()
@@ -25,6 +27,8 @@ class LedgerReceiver(private val parentActivity: LedgerActivity) : BroadcastRece
         if(intent?.action == SERVER_PUSH_DATA_RESPONSE){
             if (intent.getStringExtra("error") == "NO_ERROR"){
                 parentActivity.updateLastPushRequestDatetime()
+                Log.d(tag, "in push action")
+                Log.d(tag,"Got no error at push receive")
             }
         }
 
