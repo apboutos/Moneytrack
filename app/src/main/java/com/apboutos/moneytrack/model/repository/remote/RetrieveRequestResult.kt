@@ -1,3 +1,5 @@
 package com.apboutos.moneytrack.model.repository.remote
 
-data class RetrieveRequestResult (var result : String)
+import com.google.gson.annotations.Expose
+
+data class RetrieveRequestResult (@Expose var result : String)

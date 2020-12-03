@@ -1,4 +1,6 @@
 package com.apboutos.moneytrack.model.repository.remote
 
-data class AuthenticationRequestResult (var error : String){
+import com.google.gson.annotations.Expose
+
+data class AuthenticationRequestResult (@Expose var error : String){
 }

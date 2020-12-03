@@ -1,3 +1,5 @@
 package com.apboutos.moneytrack.model.repository.remote
 
-data class PushDataRequestResult(var error : String)
+import com.google.gson.annotations.Expose
+
+data class PushDataRequestResult(@Expose var error : String)
