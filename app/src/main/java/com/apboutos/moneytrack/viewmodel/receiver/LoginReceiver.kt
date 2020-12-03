@@ -12,6 +12,7 @@ class LoginReceiver(private val parentActivity: LoginActivity) : BroadcastReceiv
     private val tag = "LoginReceiver"
     override fun onReceive(context: Context, intent: Intent) {
         Log.e(tag,"I'm receiving.")
+        Log.e(tag,intent.getStringExtra("error") ?: "empty")
         when (intent.getStringExtra("error")) {
             "SERVER_UNREACHABLE" -> parentActivity.handleResponse(LoginError.SERVER_UNREACHABLE)
             "WRONG_USERNAME" -> parentActivity.handleResponse(LoginError.WRONG_USERNAME)

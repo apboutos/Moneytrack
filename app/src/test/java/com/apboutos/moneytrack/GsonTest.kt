@@ -13,7 +13,6 @@ class GsonTest {
 
 
         val builder = GsonBuilder().setLenient().excludeFieldsWithoutExposeAnnotation().create()
-
         val list = arrayListOf<Entry>()
         list.add(Entry("TestId","exophrenik","Income","Test","paycheck",12.23,
             Date("2020-09-13"), Datetime("2020-09-13 00:00:00"),false))
