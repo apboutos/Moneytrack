@@ -5,12 +5,16 @@ package com.apboutos.moneytrack.model.repository.remote
 import android.app.Application
 import android.content.Intent
 import android.util.Log
+import com.apboutos.moneytrack.model.database.converter.Datetime
+import com.apboutos.moneytrack.model.database.converter.DatetimeDeserializer
 import com.apboutos.moneytrack.model.database.entity.Entry
 import com.apboutos.moneytrack.model.database.entity.User
 import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.RegisterReceiver
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,8 +26,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 class OnlineRepository(var application: Application) {
 
     private val TAG = "OnlineRepository"
+
     private val retro : Retrofit = Retrofit.Builder().baseUrl("http://exophrenik.com/moneytrack/")
-                                                     .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().excludeFieldsWithoutExposeAnnotation().create()))
+                                                     .addConverterFactory(GsonConverterFactory
+                                                         .create(GsonBuilder()
+                                                             .setLenient()
+                                                             .excludeFieldsWithoutExposeAnnotation()
+                                                             .registerTypeAdapter(Datetime::class.java,DatetimeDeserializer())
+                                                         .create()))
+                                                     .client(OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)).build())
                                                      .build()
     private val api : RemoteServerAPI = retro.create(RemoteServerAPI::class.java)
 
@@ -32,9 +43,11 @@ class OnlineRepository(var application: Application) {
 
     fun authenticateUser(username : String , password : String) {
 
+                Log.d(TAG,"username : $username password : $password")
                 api.authenticateUser(AuthenticationRequestData(username, password)).enqueue(object : Callback<AuthenticationRequestResult> {
                     override fun onFailure(call: Call<AuthenticationRequestResult>, t: Throwable) {
                         Log.e(TAG,t.message,t)
+                        Log.e(TAG,"failed")
                         val intent = Intent()
                         intent.putExtra("error","SERVER_UNREACHABLE")
                         intent.addCategory(Intent.CATEGORY_DEFAULT)
@@ -85,7 +98,7 @@ class OnlineRepository(var application: Application) {
                 else{
                     intent.putExtra("error",response.body()!!.error)
                 }
-                Log.d(TAG,"${response.body()}")
+                Log.d(TAG,"${response.body()    }")
                 intent.addCategory(Intent.CATEGORY_DEFAULT)
                 intent.action = LedgerReceiver.SERVER_PUSH_DATA_RESPONSE
                 application.sendBroadcast(intent)
@@ -113,7 +126,7 @@ class OnlineRepository(var application: Application) {
                 tmpArrayList.addAll(response.body() ?: listOf())
 
                 for (i in tmpArrayList){
-                    Log.d(TAG,"${i.description}  ${i.date}  ${i.lastUpdate} ${i.isDeleted}")
+                  Log.d(TAG,"${i.description}  ${i.date}  ${i.lastUpdate} ${i.isDeleted}")
                 }
 
                 val intent = Intent()
@@ -121,10 +134,14 @@ class OnlineRepository(var application: Application) {
                 intent.addCategory(Intent.CATEGORY_DEFAULT)
                 intent.action = LedgerReceiver.SERVER_PULL_DATA_RESPONSE
                 application.sendBroadcast(intent)
+                
 
             }
         })
+
+
     }
+    
 
     fun registerUser( user : User) {
         if(!NetworkTester.internetConnectionIsAvailable(application)){
@@ -174,6 +191,8 @@ class OnlineRepository(var application: Application) {
             override fun onResponse(call: Call<RetrieveRequestResult>, response: Response<RetrieveRequestResult>) {
                 Log.d(TAG,"Response code: " + response.code())
                 Log.d(TAG,"Response body: " + response.body())
+                Log.d(TAG,"Fret and don't po")
+                Log.d(TAG,"Fret boy fret. This is not an excercise")
             }
 
         })
