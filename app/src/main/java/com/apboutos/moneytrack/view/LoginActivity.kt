@@ -19,7 +19,7 @@ import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
 import java.util.prefs.Preferences
 
 
-//TODO Implement a progress bar dialog that appears while the user us waiting for login authentication.
+
 class LoginActivity : Activity() {
 
     private val TAG = "LoginActivity"

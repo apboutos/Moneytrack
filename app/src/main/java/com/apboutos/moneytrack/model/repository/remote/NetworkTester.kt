@@ -6,7 +6,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 
-//TODO Find a non deprecated way
+
 object NetworkTester {
     fun internetConnectionIsAvailable(context: Context): Boolean {
         var haveConnectedWifi = false
