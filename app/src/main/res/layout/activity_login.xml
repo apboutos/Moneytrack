@@ -93,7 +93,6 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/holo_green_light" />
 
-    <!-- TODO Must fix the color of the progressBar -->
     <ProgressBar
         android:id="@+id/activity_login_progressBar"
         style="?android:attr/progressBarStyleLarge"
