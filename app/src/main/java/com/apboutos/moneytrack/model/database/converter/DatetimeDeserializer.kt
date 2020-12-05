@@ -10,8 +10,8 @@ class DatetimeDeserializer() : JsonDeserializer<Datetime> {
 
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Datetime {
         if(json == null) throw JsonParseException("Datetime in json is null")
-        Log.d(tag,"json was deserialized as ${json.asJsonObject.get("datetime")}")
+        Log.d(tag,"json was deserialized as ${json.asJsonObject.get("datetime").asString}")
 
-        return Datetime(json.asJsonObject.get("datetime").toString())
+        return Datetime(json.asJsonObject.get("datetime").asString)
     }
 }
