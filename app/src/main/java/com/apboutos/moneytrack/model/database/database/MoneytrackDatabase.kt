@@ -29,8 +29,6 @@ abstract class MoneytrackDatabase : RoomDatabase() {
         private var instance : MoneytrackDatabase? = null
         private var LOCK = Any()
 
-
-        //TODO This code must be further investigated. Was copy pasted.
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
             instance ?: buildDatabase(context).also { instance = it}
         }
