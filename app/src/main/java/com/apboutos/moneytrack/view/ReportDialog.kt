@@ -96,7 +96,6 @@ class ReportDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
                 calculateMonthlySum()
                 calculateDailySum()
                 Log.d(tag,"Day = $currentDay  Month = $currentMonth Year = $currentYear")
-                //TODO There is a small bug that must be investigated. When the date is 29 of February and the year changes to a non leap year the day defaults to 1 instead of 28.
             }
         }
     }
