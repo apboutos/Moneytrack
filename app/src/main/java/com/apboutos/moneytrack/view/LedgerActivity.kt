@@ -24,6 +24,8 @@ import com.apboutos.moneytrack.utilities.converter.DateFormatConverter
 import com.apboutos.moneytrack.viewmodel.LedgerActivityViewModel
 import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_ledger.*
 
 
 class LedgerActivity : AppCompatActivity() {
@@ -37,6 +39,7 @@ class LedgerActivity : AppCompatActivity() {
     internal val dateBox by lazy { findViewById<TextView>(R.id.activity_ledger_dateToolbar_dateBox) }
     private val previousDayButton by lazy {findViewById<Button>(R.id.activity_ledger_dateToolbar_previousButton)}
     private val nextDayButton by lazy {findViewById<Button>(R.id.activity_ledger_dateToolbar_nextButton)}
+    private val newEntryButton by lazy {findViewById<FloatingActionButton>(R.id.floatingActionButton)}
     private var searchResultsAreDisplayed = false
     private val receiver by lazy { LedgerReceiver(this) }
     private val synchronizeProgressBar by lazy { findViewById<ProgressBar>(R.id.activity_ledger_synchronizeProgressBar) }
@@ -177,6 +180,7 @@ class LedgerActivity : AppCompatActivity() {
         dateBox.text = "${DateFormatConverter.parseToDisplayableFormat(summary.fromDate.toString(),this)} to ${DateFormatConverter.parseToDisplayableFormat(summary.untilDate.toString(),this)}"
         nextDayButton.visibility = View.INVISIBLE
         previousDayButton.visibility = View.INVISIBLE
+        newEntryButton.visibility = View.INVISIBLE
         searchResultsAreDisplayed = true
     }
 
@@ -185,6 +189,7 @@ class LedgerActivity : AppCompatActivity() {
             searchResultsAreDisplayed = false
             previousDayButton.visibility = View.VISIBLE
             nextDayButton.visibility = View.VISIBLE
+            newEntryButton.visibility = View.VISIBLE
             viewModel.loadEntries()
             adapter.notifyDataSetChanged()
             dateBox.text = DateFormatConverter.parseToDisplayableDate(viewModel.currentDate,this)
