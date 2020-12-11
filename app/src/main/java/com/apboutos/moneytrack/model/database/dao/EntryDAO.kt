@@ -18,6 +18,9 @@ interface EntryDAO {
     @Delete
     fun delete(entry : Entry)
 
+    @Query("UPDATE entry SET isDeleted = 1 WHERE id = :id")
+    fun markAsDeleted(id : String)
+
     @Query("SELECT * FROM entry WHERE id = :id")
     fun selectEntry(id : String) : Entry
 
