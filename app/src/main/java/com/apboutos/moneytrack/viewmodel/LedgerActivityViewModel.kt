@@ -112,6 +112,18 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         return entryList[position]
     }
 
+    fun markEntryAsDeleted(position: Int){
+        val entry = entryList[position]
+        entry.isDeleted = true
+        entry.lastUpdate = Time.getTimestamp()
+        if (databaseRepository.update(entry)) {
+            entryList.removeAt(position)
+            Log.d(tag, "Entry marked as deleted success. id: " + entry.id)
+        } else {
+            Log.d(tag, "Entry marked as deleted. id: " + entry.id)
+        }
+    }
+
     fun removeEntry(position: Int) {
         if (databaseRepository.delete(entryList[position])) {
             entryList.removeAt(position)
