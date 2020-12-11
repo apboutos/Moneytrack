@@ -28,6 +28,7 @@ class LoginActivity : Activity() {
     private val passwordBox by lazy { findViewById<EditText>(R.id.activity_login_passwordBox) }
     private val rememberMeBox by lazy { findViewById<CheckBox>(R.id.activity_login_rememberMeBox) }
     private val forgotText by lazy{ findViewById<TextView>(R.id.activity_login_forgotText) }
+    private val loginProgressBar by lazy {findViewById<ProgressBar>(R.id.activity_login_progressBar)}
     private val receiver by lazy { LoginReceiver(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +44,7 @@ class LoginActivity : Activity() {
         loginButton.setOnClickListener {
 
             if(!credentialEnteredIsValid()) return@setOnClickListener
+            loginProgressBar.visibility = View.VISIBLE
             handleResponse(viewModel.requestAuthentication(usernameBox.text.toString(),passwordBox.text.toString()))
         }
 
@@ -90,21 +92,27 @@ class LoginActivity : Activity() {
                     getSharedPreferences("autoLogin",Context.MODE_PRIVATE).edit().putBoolean("autoLogin",true).apply()
                 }
                 else viewModel.deleteStoredCredential()
+                loginProgressBar.visibility = View.INVISIBLE
                 finish() }
 
             LoginError.WRONG_USERNAME -> { Toast.makeText(applicationContext, getString(R.string.activity_login_username_error), Toast.LENGTH_LONG).show()
-                forgotText.visibility = View.VISIBLE }
+                forgotText.visibility = View.VISIBLE
+                loginProgressBar.visibility = View.INVISIBLE}
 
             LoginError.WRONG_PASSWORD -> { Toast.makeText(applicationContext, getString(R.string.activity_login_password_error), Toast.LENGTH_LONG).show()
-                forgotText.visibility = View.VISIBLE }
+                forgotText.visibility = View.VISIBLE
+                loginProgressBar.visibility = View.INVISIBLE}
 
             LoginError.NO_INTERNET -> { Toast.makeText(applicationContext, getString(R.string.activity_login_no_internet_error), Toast.LENGTH_LONG).show()
-                forgotText.visibility = View.VISIBLE }
+                forgotText.visibility = View.VISIBLE
+                loginProgressBar.visibility = View.INVISIBLE}
 
-            LoginError.SERVER_UNREACHABLE-> { Toast.makeText(applicationContext, getString(R.string.activity_login_server_unreachable_error), Toast.LENGTH_LONG).show() }
+            LoginError.SERVER_UNREACHABLE-> { Toast.makeText(applicationContext, getString(R.string.activity_login_server_unreachable_error), Toast.LENGTH_LONG).show()
+                loginProgressBar.visibility = View.INVISIBLE}
 
             LoginError.ATTEMPTING_ONLINE_LOGIN -> { Log.d(TAG,"User ${usernameBox.text} was not found in database. Attempting online login.")}
         }
+
     }
 
     override fun onPause() {
