@@ -139,7 +139,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
 
     fun loadEntries(): ArrayList<Entry> {
         entryList.clear()
-        entryList.addAll(databaseRepository.selectAllEntriesOfDate(currentDate, currentUser))
+        entryList.addAll(databaseRepository.selectAllNonDeletedEntriesOfDate(currentDate, currentUser))
         return entryList
     }
 
