@@ -40,6 +40,12 @@ class DatabaseRepository(application: Application) {
         ).execute(entry).get()
     }
 
+    fun markAsDeleted(entry : Entry) : Boolean{
+        return MarkAsDeletedEntryAsyncTask(
+            entryDAO, entry.id
+        ).execute().get()
+    }
+
     fun selectEntry(id : String) : Entry{
         return SelectEntryAsyncTask(entryDAO,id).execute(null).get()
     }
@@ -156,6 +162,18 @@ class DatabaseRepository(application: Application) {
         return SelectCredentialAsyncTask(
             credentialDAO
         ).execute(null).get()
+    }
+
+    private class MarkAsDeletedEntryAsyncTask(val dao : EntryDAO, val id: String) : AsyncTask<Void,Void,Boolean>() {
+        override fun doInBackground(vararg parameters: Void?): Boolean {
+            try {
+                dao.markAsDeleted(id)
+            } catch (e: Exception) {
+                Log.e("DatabaseRepository", e.message ?: "")
+                return false
+            }
+            return true
+        }
     }
 
     private class SelectModifiedEntriesAsyncTask(val dao : EntryDAO, val username: String, val lastPushDatetime: Datetime) : AsyncTask<Void,Void,List<Entry>>(){
