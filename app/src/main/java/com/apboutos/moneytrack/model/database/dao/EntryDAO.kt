@@ -33,6 +33,9 @@ interface EntryDAO {
     @Query("SELECT * FROM entry WHERE date = :date AND username = :username")
     fun selectAllEntriesOfDate(date : Date, username : String) : List<Entry>
 
+    @Query("SELECT * FROM entry WHERE date = :date AND username = :username AND isDeleted = 0")
+    fun selectAllNonDeletedEntriesOfDate(date : Date, username : String) : List<Entry>
+
     @Query("SELECT * FROM entry WHERE username = :username AND date >= :from AND date <= :until AND (:type IS NULL OR type = :type) AND (:category IS NULL OR category = :category) AND (:description IS NULL OR description = :description)")
     fun selectAllEntriesOfSummary(username: String, from: Date,until: Date, type : String?, category : String?, description: String?) : List<Entry>
 
