@@ -108,7 +108,7 @@ class LedgerActivity : AppCompatActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.removeEntry(viewHolder.adapterPosition)
+                viewModel.markEntryAsDeleted(viewHolder.adapterPosition)
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
             }
         }).attachToRecyclerView(recyclerView)
