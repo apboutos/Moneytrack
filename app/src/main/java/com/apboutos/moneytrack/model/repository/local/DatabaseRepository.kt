@@ -74,6 +74,14 @@ class DatabaseRepository(application: Application) {
         ).execute(null).get()
     }
 
+    fun selectAllNonDeletedEntriesOfDate(date : String, username : String) : List<Entry>{
+        return DateNonDeletedEntriesAsyncTask(
+            entryDAO,
+            Date(date),
+            username
+        ).execute(null).get()
+    }
+
     fun selectAllEntriesOfSummary(summary: Summary) : List<Entry>{
         return SummaryEntriesAsyncTask(
             entryDAO,
@@ -269,6 +277,12 @@ class DatabaseRepository(application: Application) {
     private class DateEntriesAsyncTask(val dao : EntryDAO, val date : Date, val username : String) : AsyncTask<Void,Void,List<Entry>>(){
         override fun doInBackground(vararg parameters : Void?): List<Entry>? {
             return dao.selectAllEntriesOfDate(date,username)
+        }
+    }
+
+    private class DateNonDeletedEntriesAsyncTask(val dao : EntryDAO, val date : Date, val username : String) : AsyncTask<Void,Void,List<Entry>>(){
+        override fun doInBackground(vararg parameters : Void?): List<Entry>? {
+            return dao.selectAllNonDeletedEntriesOfDate(date,username)
         }
     }
 
