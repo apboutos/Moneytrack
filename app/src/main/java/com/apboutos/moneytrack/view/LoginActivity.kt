@@ -6,17 +6,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import com.apboutos.moneytrack.R
+import com.apboutos.moneytrack.model.database.entity.Credential
 import com.apboutos.moneytrack.utilities.error.LoginError
 import com.apboutos.moneytrack.viewmodel.LoginActivityViewModel
 import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
-import java.util.prefs.Preferences
 
 
 
@@ -39,7 +38,7 @@ class LoginActivity : Activity() {
         val signUpText    = findViewById<TextView>(R.id.activity_login_signUpText)
         val loginButton   = findViewById<Button>(R.id.activity_login_loginButton)
 
-        fillUsernameAndPasswordBoxes()
+        fillUsernameAndPasswordBoxes(viewModel.retrieveStoredCredential())
 
         loginButton.setOnClickListener {
 
@@ -75,8 +74,7 @@ class LoginActivity : Activity() {
         return true
     }
 
-    private fun fillUsernameAndPasswordBoxes(){
-        val credential = viewModel.retrieveStoredCredential()
+    private fun fillUsernameAndPasswordBoxes(credential: Credential?){
         if(credential != null){
             usernameBox.setText(credential.username)
             passwordBox.setText(credential.password)

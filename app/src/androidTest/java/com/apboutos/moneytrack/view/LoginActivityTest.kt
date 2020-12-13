@@ -83,5 +83,9 @@ class LoginActivityTest {
 
     }
 
+    @Test
+    fun fillUsernameAndPasswordBoxes(){
 
+
+    }
 }
