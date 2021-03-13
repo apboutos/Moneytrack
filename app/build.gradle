@@ -39,13 +39,15 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     testImplementation 'junit:junit:4.13'
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
 
 
     //Lifecycle components
@@ -54,12 +56,12 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     //Room components
-    def room_version = "2.2.5"
+    def room_version = "2.2.6"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // Espresso dependencies
-    def androidx_test_espresso = "3.2.0"
+    def androidx_test_espresso = "3.3.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidx_test_espresso"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$androidx_test_espresso"
@@ -69,16 +71,16 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-idling-resource:$androidx_test_espresso"
 
     //androidx.test
-    def androidx_test = "1.2.0"
+    def androidx_test = "1.3.0"
     androidTestImplementation "androidx.test:runner:$androidx_test"
     androidTestImplementation "androidx.test:core:$androidx_test"
-    androidTestImplementation "androidx.test:rules:1.2.0"
-    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.1"
-    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation "androidx.test:rules:1.3.0"
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
 
     // Assertions
-    androidTestImplementation "androidx.test.ext:truth:1.2.0"
-    androidTestImplementation "com.google.truth:truth:0.42"
+    androidTestImplementation "androidx.test.ext:truth:1.3.0"
+    androidTestImplementation "com.google.truth:truth:1.0"
 
     //
     implementation "com.squareup.retrofit2:retrofit:2.4.0"

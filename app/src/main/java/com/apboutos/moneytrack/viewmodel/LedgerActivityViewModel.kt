@@ -15,6 +15,8 @@ import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.Time
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.stream.Collector
+import java.util.stream.Collectors
 
 class LedgerActivityViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -66,15 +68,13 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     }
 
     fun getYearsThatContainEntries(): Array<String> {
-        val list = databaseRepository.selectAllEntryDatesOfUser(currentUser)
-        var set = setOf<String>()
-        for (i in list) {
-            set = set.plus(i.year)
-        }
+
+        var set = databaseRepository.selectAllEntryDatesOfUser(currentUser).stream()
+            .map { e -> e.year }
+            .distinct()
+            .collect(Collectors.toSet())
         set = set.plus(Date(currentDate).year)
-        for (i in set) {
-            Log.d(tag, "set year= $i")
-        }
+        set.forEach { e -> Log.d(tag, "set year= $e") }
         return set.toTypedArray()
     }
 
