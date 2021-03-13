@@ -38,9 +38,6 @@ class OnlineRepository(var application: Application) {
                                                      .build()
     private val api : RemoteServerAPI = retro.create(RemoteServerAPI::class.java)
 
-    private lateinit var loginResult: AuthenticationRequestResult
-
-
     fun authenticateUser(username : String , password : String) {
 
                 Log.d(TAG,"username : $username password : $password")
