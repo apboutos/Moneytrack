@@ -36,12 +36,12 @@ interface EntryDAO {
     @Query("SELECT * FROM entry WHERE date = :date AND username = :username AND isDeleted = 0")
     fun selectAllNonDeletedEntriesOfDate(date : Date, username : String) : List<Entry>
 
-    @Query("SELECT * FROM entry WHERE username = :username AND date >= :from AND date <= :until AND (:type IS NULL OR type = :type) AND (:category IS NULL OR category = :category) AND (:description IS NULL OR description = :description)")
+    @Query("SELECT * FROM entry WHERE username = :username AND date >= :from AND date <= :until AND (:type IS NULL OR type = :type) AND (:category IS NULL OR category = :category) AND (:description IS NULL OR description = :description) AND isDeleted = 0")
     fun selectAllEntriesOfSummary(username: String, from: Date,until: Date, type : String?, category : String?, description: String?) : List<Entry>
 
-    @Query("SELECT SUM(amount) FROM entry WHERE username = :username")
+    @Query("SELECT SUM(amount) FROM entry WHERE username = :username AND isDeleted = 0")
     fun selectEntrySumOfLifetime(username: String) : Double
 
-    @Query("SELECT SUM(amount) FROM entry WHERE username = :username AND date >= :from AND date <= :until")
+    @Query("SELECT SUM(amount) FROM entry WHERE username = :username AND date >= :from AND date <= :until AND isDeleted = 0")
     fun selectEntrySumOfDateRange(username: String, from: Date, until: Date) : Double
 }
