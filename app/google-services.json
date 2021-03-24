@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "190663489616",
+    "firebase_url": "https://moneytrack-b4462-default-rtdb.firebaseio.com",
+    "project_id": "moneytrack-b4462",
+    "storage_bucket": "moneytrack-b4462.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190663489616:android:f593ad8efb876b61f8b955",
+        "android_client_info": {
+          "package_name": "com.apboutos.moneytrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190663489616-hb831mbcnmepu7akq17ubr202ahejn5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMtj-e_wu1RGzgP3gyJg8ea1WYunhxO4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190663489616-hb831mbcnmepu7akq17ubr202ahejn5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

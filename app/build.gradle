@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -87,5 +88,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
+    //Google Firebase
+    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-database-ktx'
 
 }
