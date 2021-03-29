@@ -12,6 +12,9 @@ import com.apboutos.moneytrack.model.database.entity.User
 import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.LoginReceiver
 import com.apboutos.moneytrack.viewmodel.receiver.RegisterReceiver
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,6 +30,8 @@ class OnlineRepository(var application: Application) {
 
     private val TAG = "OnlineRepository"
 
+    private val db : DatabaseReference = Firebase.database.reference;
+
     private val retro : Retrofit = Retrofit.Builder().baseUrl("http://exophrenik.com/moneytrack/")
                                                      .addConverterFactory(GsonConverterFactory
                                                          .create(GsonBuilder()
@@ -39,6 +44,8 @@ class OnlineRepository(var application: Application) {
     private val api : RemoteServerAPI = retro.create(RemoteServerAPI::class.java)
 
     fun authenticateUser(username : String , password : String) {
+
+
 
                 Log.d(TAG,"username : $username password : $password")
                 api.authenticateUser(AuthenticationRequestData(username, password)).enqueue(object : Callback<AuthenticationRequestResult> {
