@@ -43,6 +43,17 @@ class MoneytrackDatabaseTest{
     }
 
     @Test
+    fun selectNonExistingEntry(){
+        Assert.assertNull(entryDao.selectEntry("yolo"))
+    }
+
+    @Test
+    fun selectModifiedEntries(){
+        Assert.assertNotNull(entryDao.selectModifiedEntries("FUBAR", Datetime("2021-01-01 00:00:00")))
+        Assert.assertEquals(entryDao.selectModifiedEntries("FUBAR", Datetime("2021-01-01 00:00:00")).size, 0)
+    }
+
+    @Test
     fun selectAllEntryDatesOfUser(){
 
         entryDao.insert(Entry("ex2213","exophrenik","Expense","toEat","junk food",92.21, Date("2020-07-01"),Datetime("2020-06-01 23:41:22"),false))

@@ -201,7 +201,7 @@ class DatabaseRepository(application: Application) {
     private class SelectEntryAsyncTask(val dao : EntryDAO, val id : String) : AsyncTask<Void,Void,Entry>(){
         override fun doInBackground(vararg p0: Void?): Entry {
             return try{
-                dao.selectEntry(id)
+                dao.selectEntry(id) ?: Entry.createEmptyEntry()
             }catch (e : Exception){
                 Log.e("DatabaseRepository",e.message ?: "")
                 Entry.createEmptyEntry()
