@@ -3,6 +3,9 @@
 package com.apboutos.moneytrack.model.repository.local
 
 import android.app.Application
+import android.database.sqlite.SQLiteConstraintException
+import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
@@ -25,7 +28,15 @@ class DatabaseRepository(application: Application) {
      */
     suspend fun insert(entry : Entry){
         withContext(Dispatchers.IO){
-            entryDAO.insert(entry)
+            try {
+                entryDAO.insert(entry)
+            }
+            catch (e : SQLiteConstraintException){
+                Log.d(tag,"Entry ${entry.id} already in database")
+            }
+            catch (e : SQLiteException){
+                Log.d(tag,e.message ?: "SQLiteException")
+            }
         }
     }
 
@@ -140,7 +151,15 @@ class DatabaseRepository(application: Application) {
      */
     suspend fun insert(user : User){
         withContext(Dispatchers.IO){
-            userDAO.insert(user)
+            try {
+                userDAO.insert(user)
+            }
+            catch (e : SQLiteConstraintException){
+                Log.d(tag,"User $user already in database")
+            }
+            catch (e : SQLiteException){
+                Log.d(tag,e.message ?: "SQLiteException")
+            }
         }
     }
 
@@ -178,7 +197,15 @@ class DatabaseRepository(application: Application) {
      */
     suspend fun insert(category: Category){
         withContext(Dispatchers.IO){
-            categoryDAO.insert(category)
+            try{
+                categoryDAO.insert(category)
+            }
+            catch (e : SQLiteConstraintException){
+                Log.d(tag,"Category ${category.name} already in database")
+            }
+            catch (e : SQLiteException){
+                Log.d(tag,e.message ?: "SQLiteException")
+            }
         }
     }
 
@@ -216,7 +243,15 @@ class DatabaseRepository(application: Application) {
      */
     suspend fun insert(summary: Summary){
         withContext(Dispatchers.IO){
-            summaryDAO.insert(summary)
+            try{
+                summaryDAO.insert(summary)
+            }
+            catch (e : SQLiteConstraintException){
+                Log.d(tag,"Summary $summary already in database")
+            }
+            catch (e : SQLiteException){
+                Log.d(tag,e.message ?: "SQLiteException")
+            }
         }
     }
 
@@ -245,7 +280,15 @@ class DatabaseRepository(application: Application) {
      */
     suspend fun insertCredential(credential: Credential){
         withContext(Dispatchers.IO){
-            credentialDAO.insert(credential)
+            try{
+                credentialDAO.insert(credential)
+            }
+            catch (e : SQLiteConstraintException){
+                Log.d(tag,"Credential $credential already in database")
+            }
+            catch (e : SQLiteException){
+                Log.d(tag,e.message ?: "SQLiteException")
+            }
         }
     }
 
