@@ -15,6 +15,7 @@ import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
 import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.Time
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -77,7 +78,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
             "paycheck",
             "transportation"
         )
-        viewModelScope.launch {
+        runBlocking {
             for (i in list) {
                 databaseRepository.insert(Category(i))
             }
@@ -91,7 +92,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
     fun getYearsThatContainEntries(): Array<String> {
 
         lateinit var list : List<String>
-        viewModelScope.launch {
+        runBlocking {
             list = databaseRepository.selectAllEntryDatesOfUser(currentUser).stream()
                 .map { e -> e.year }
                 .distinct()
@@ -107,8 +108,8 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      * that are not marked as deleted and fit within the given Date range.
      */
     fun getSumOfDateRange(from: Date, until: Date): Double {
-        var sum = 0.0
-        viewModelScope.launch {
+        val sum : Double
+        runBlocking {
             sum = databaseRepository.selectSumAmountOfDateRange(currentUser, from, until)
         }
         return sum
@@ -119,8 +120,8 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      * that are not marked as deleted.
      */
     fun getSumOfLifetime(): Double {
-        var sum = 0.0
-        viewModelScope.launch {
+        val sum: Double
+        runBlocking {
             sum = databaseRepository.selectSumAmountOfLifetime(currentUser)
         }
         return sum
@@ -130,7 +131,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      * Adds a new entry to the repository and to the entryList.
      */
     fun createEntry(entry: Entry) {
-        viewModelScope.launch {
+        runBlocking {
             databaseRepository.insert(entry)
             entryList.add(entry)
             Log.d(tag, "Entry Insert success. id: " + entry.id + " username: " + entry.username + " date: " + entry.date)
@@ -141,7 +142,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      * Updates and existing entry.
      */
     fun updateEntry(position: Int, entry: Entry) {
-        viewModelScope.launch {
+        runBlocking {
             databaseRepository.update(entry)
             entryList[position] = entry
             Log.d(tag, "Entry update success. id: " + entry.id)
@@ -162,7 +163,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         val entry = entryList[position]
         entry.isDeleted = true
         entry.lastUpdate = Time.getTimestamp()
-        viewModelScope.launch {
+        runBlocking {
             databaseRepository.update(entry)
             entryList.removeAt(position)
             Log.d(tag, "Entry marked as deleted success. id: " + entry.id)
@@ -173,7 +174,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      * Removes the Entry at the specified index from the repository and the entryList.
      */
     fun removeEntry(position: Int) {
-        viewModelScope.launch {
+        runBlocking {
             databaseRepository.delete(entryList[position])
             entryList.removeAt(position)
             Log.d(tag, "Entry Delete success. id: ")
@@ -185,7 +186,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      */
     fun loadEntries(): ArrayList<Entry> {
         entryList.clear()
-        viewModelScope.launch {
+        runBlocking {
             entryList.addAll(databaseRepository.selectAllNonDeletedEntriesOfDate(currentDate, currentUser))
         }
         return entryList
@@ -196,7 +197,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      */
     fun loadEntriesOfSearch(summary: Summary): ArrayList<Entry> {
         entryList.clear()
-        viewModelScope.launch {
+        runBlocking {
             entryList.addAll(databaseRepository.selectAllEntriesOfSummary(summary))
             databaseRepository.insert(summary)
         }
@@ -207,8 +208,8 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      * Returns an array of String containing all the existing categories.
      */
     fun getCategories(): ArrayList<String> {
-        var list : List<Category> = ArrayList()
-        viewModelScope.launch {
+        val list : List<Category>
+        runBlocking {
             list = databaseRepository.selectAllCategories()
         }
         val arrayList = ArrayList<String>()
@@ -232,7 +233,7 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
      */
     fun updateDatabaseWithReceivedRemoteEntries(entryList : ArrayList<Entry>){
 
-        viewModelScope.launch {
+        runBlocking {
             for (i in entryList){
                 val tmp = databaseRepository.selectEntry(i.id)
                 if(tmp != null){
