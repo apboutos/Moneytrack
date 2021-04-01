@@ -9,7 +9,7 @@ import com.apboutos.moneytrack.model.database.converter.Date
 
 /**
  * Represents a search query. Summaries are stored in the database
- * so the user can reuse them. This is a feature not yet implemented.
+ * so the user can reuse them.
  */
 @Entity(tableName = "summary")
 @TypeConverters(Date::class)

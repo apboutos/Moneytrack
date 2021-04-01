@@ -4,9 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Represents the category of the field of the Entry class.
- * This class is saved in the database for future features
- * like the user being able to create custom categories.
+ * Represents the category field of the Entry class.
+ * This class is saved in the database so the user can create his own categories.
  */
 @Entity(tableName = "category")
 data class Category(

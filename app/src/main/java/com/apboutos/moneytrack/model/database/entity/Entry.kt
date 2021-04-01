@@ -52,7 +52,6 @@ data class Entry(
 
         /**
          * Creates an Entry object initialized with default values.
-         * @return default Entry object.
          */
         fun createEmptyEntry() : Entry {
             return Entry("","","","","",0.00,Date("2020-12-12"),Datetime("2020-12-12 12:12:12"),false)
@@ -60,9 +59,6 @@ data class Entry(
 
         /**
          * Creates a new ID. The ID is the concatenation of the user and the current timestamp.
-         *
-         * @param username A String containing the current user.
-         * @return A String containing the created ID.
          */
         fun createId(username: String) : String {
             return username + Time.getIdTimestamp()
