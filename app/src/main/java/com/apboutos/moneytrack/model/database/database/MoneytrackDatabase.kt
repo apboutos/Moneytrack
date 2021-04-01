@@ -12,9 +12,6 @@ import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.entity.*
 
-/**
- * Abstract class that is inherited and implemented by Room.
- */
 @Database(entities = [Entry::class, User::class, Category::class, Summary::class, Credential::class],version = 2)
 @TypeConverters(Date::class, Datetime::class)
 abstract class MoneytrackDatabase : RoomDatabase() {
@@ -31,6 +28,9 @@ abstract class MoneytrackDatabase : RoomDatabase() {
         private var instance : MoneytrackDatabase? = null
         private var LOCK = Any()
 
+        /**
+         * Returns the current instance of the MoneytrackDatabase and if it is null creates a new instance in a thread safe manner.
+         */
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
             instance ?: buildDatabase(context).also { instance = it}
         }
@@ -39,9 +39,6 @@ abstract class MoneytrackDatabase : RoomDatabase() {
          * Instantiates a concrete implementation of MoneytrackDatabase. This implementation
          * contains a migration strategy that is required to migrate to new future versions of
          * the database.
-         *
-         * @param context The application's context.
-         * @return A concrete instance of MoneytrackDatabase.
          */
         private fun buildDatabase(context: Context) : MoneytrackDatabase {
             return Room.databaseBuilder(context, MoneytrackDatabase::class.java, "Moneytrack_Database.db").fallbackToDestructiveMigration().build()
