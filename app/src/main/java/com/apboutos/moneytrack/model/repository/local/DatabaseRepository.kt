@@ -3,14 +3,12 @@
 package com.apboutos.moneytrack.model.repository.local
 
 import android.app.Application
-import android.os.AsyncTask
-import android.util.Log
 import com.apboutos.moneytrack.model.database.converter.Date
 import com.apboutos.moneytrack.model.database.converter.Datetime
-import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.database.MoneytrackDatabase
 import com.apboutos.moneytrack.model.database.entity.*
-import java.lang.Exception
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class DatabaseRepository(application: Application) {
 
@@ -22,398 +20,252 @@ class DatabaseRepository(application: Application) {
     private val summaryDAO    = database.SummaryDAO()
     private val credentialDAO = database.CredentialDAO()
 
-    fun insert(entry : Entry) : Boolean{
-
-        return InsertEntryAsyncTask(
-            entryDAO
-        ).execute(entry).get()
-
-    }
-
-    fun update(entry : Entry) : Boolean{
-        return UpdateEntryAsyncTask(
-            entryDAO
-        ).execute(entry).get()
-    }
-
-    fun delete(entry : Entry) : Boolean{
-        return DeleteEntryAsyncTask(
-            entryDAO
-        ).execute(entry).get()
-    }
-
-    fun markAsDeleted(entry : Entry) : Boolean{
-        return MarkAsDeletedEntryAsyncTask(
-            entryDAO, entry.id
-        ).execute().get()
-    }
-
-    fun selectEntry(id : String) : Entry{
-        return SelectEntryAsyncTask(entryDAO,id).execute(null).get()
-    }
-
-    fun selectModifiedEntries(username: String, lastPushDatetime : Datetime) : List<Entry> {
-        return SelectModifiedEntriesAsyncTask(entryDAO,username,lastPushDatetime).execute(null).get()
-    }
-
-    fun selectAllEntryDatesOfUser(username: String) : List<Date>{
-        return AllEntryDatesOfUserAsyncTask(entryDAO,username).execute(null).get()
-    }
-
-    fun selectSumAmountOfLifetime(username: String) : Double{
-        return SumOfLifetimeAsyncTask(entryDAO,username).execute(null).get()
-    }
-
-    fun selectSumAmountOfDateRange(username: String, from: Date, until: Date) : Double{
-        return SumOfDateRangeAsyncTask(entryDAO,username,from,until).execute(null).get()
-    }
-
-    fun selectAllEntriesOfDate(date : String, username : String) : List<Entry>{
-        return DateEntriesAsyncTask(
-            entryDAO,
-            Date(date),
-            username
-        ).execute(null).get()
-    }
-
-    fun selectAllNonDeletedEntriesOfDate(date : String, username : String) : List<Entry>{
-        return DateNonDeletedEntriesAsyncTask(
-            entryDAO,
-            Date(date),
-            username
-        ).execute(null).get()
-    }
-
-    fun selectAllEntriesOfSummary(summary: Summary) : List<Entry>{
-        return SummaryEntriesAsyncTask(
-            entryDAO,
-            summary
-        ).execute(null).get()
-    }
-
-    fun insert(user : User){
-        InsertUserAsyncTask(
-            userDAO
-        ).execute(user)
-    }
-
-    fun update(user : User){
-        UpdateUserAsyncTask(
-            userDAO
-        ).execute(user)
-    }
-
-    fun delete(user : User){
-        DeleteUserAsyncTask(
-            userDAO
-        ).execute(user)
-    }
-
-    fun selectUserBy(username : String) : User? {
-        return SelectUserAsyncTask(
-            userDAO,
-            username
-        ).execute(null).get()
-    }
-
-    fun insert(category: Category){
-        InsertCategoryAsyncTask(
-            categoryDAO
-        ).execute(category)
-    }
-
-    fun update(category: Category){
-        UpdateCategoryAsyncTask(
-            categoryDAO
-        ).execute(category)
-    }
-
-    fun delete(category: Category){
-        DeleteCategoryAsyncTask(
-            categoryDAO
-        ).execute(category)
-    }
-
-    fun selectAllCategories() : List<Category>{
-        return SelectAllCategoriesAsyncTask(categoryDAO).execute().get()
-    }
-
-    fun insert(summary: Summary){
-        InsertSummaryAsyncTask(
-            summaryDAO
-        ).execute(summary)
-    }
-
-    fun deleteAllSummaries(){
-        DeleteAllSummaryAsyncTask(
-            summaryDAO
-        ).execute(null)
-    }
-
-    fun selectAllSummaries() : List<Summary>{
-        return SelectAllSummaryAsyncTask(
-            summaryDAO
-        ).execute(null).get()
-    }
-
-    fun insertCredential(credential: Credential){
-        InsertCredentialAsyncTask(
-            credentialDAO
-        ).execute(credential)
-    }
-
-    fun deleteCredential(){
-        DeleteCredentialAsyncTask(
-            credentialDAO
-        ).execute(null)
-    }
-
-    fun selectCredential() : Credential?{
-        return SelectCredentialAsyncTask(
-            credentialDAO
-        ).execute(null).get()
-    }
-
-    private class MarkAsDeletedEntryAsyncTask(val dao : EntryDAO, val id: String) : AsyncTask<Void,Void,Boolean>() {
-        override fun doInBackground(vararg parameters: Void?): Boolean {
-            try {
-                dao.markAsDeleted(id)
-            } catch (e: Exception) {
-                Log.e("DatabaseRepository", e.message ?: "")
-                return false
-            }
-            return true
+    /**
+     * Inserts the specified Entry to the repository.
+     */
+    suspend fun insert(entry : Entry){
+        withContext(Dispatchers.IO){
+            entryDAO.insert(entry)
         }
     }
 
-    private class SelectModifiedEntriesAsyncTask(val dao : EntryDAO, val username: String, val lastPushDatetime: Datetime) : AsyncTask<Void,Void,List<Entry>>(){
-        override fun doInBackground(vararg p0: Void?): List<Entry> {
-            return try{
-                dao.selectModifiedEntries(username,lastPushDatetime)
-            }catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                listOf()
-            }
-        }
-
-    }
-
-    private class SelectEntryAsyncTask(val dao : EntryDAO, val id : String) : AsyncTask<Void,Void,Entry>(){
-        override fun doInBackground(vararg p0: Void?): Entry {
-            return try{
-                dao.selectEntry(id) ?: Entry.createEmptyEntry()
-            }catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                Entry.createEmptyEntry()
-            }
+    /**
+     * Updates the specified Entry.
+     */
+    suspend fun update(entry : Entry){
+        withContext(Dispatchers.IO){
+            entryDAO.update(entry)
         }
     }
 
-    private class AllEntryDatesOfUserAsyncTask(val dao: EntryDAO, val username: String) : AsyncTask<Void,Void,List<Date>>(){
-        override fun doInBackground(vararg p0: Void?): List<Date> {
-            return try{
-                dao.selectAllEntryDatesOfUser(username)
-            }catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                listOf()
-            }
+    /**
+     * Deletes the specified Entry from the repository.
+     */
+    suspend fun delete(entry: Entry){
+        withContext(Dispatchers.IO){
+            entryDAO.delete(entry)
         }
     }
 
-    private class SumOfDateRangeAsyncTask(val dao : EntryDAO,val username: String, val from: Date, val until: Date) : AsyncTask<Void,Void,Double>(){
-        override fun doInBackground(vararg p0: Void): Double {
-            return try{
-                dao.selectEntrySumOfDateRange(username,from,until)
-            }catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                0.00
-            }
+    /**
+     * Returns an Entry matching the specified id, otherwise returns null.
+     */
+    suspend fun selectEntry(id : String) : Entry?{
+        val entry : Entry?
+        withContext(Dispatchers.IO){
+            entry = entryDAO.selectEntry(id)
         }
-
+        return entry
     }
 
-    private class SumOfLifetimeAsyncTask(val dao : EntryDAO, val username: String) : AsyncTask<Void,Void,Double>(){
-        override fun doInBackground(vararg parameters : Void) : Double {
-            return try{
-                dao.selectEntrySumOfLifetime(username)
-            } catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                0.00
-            }
+    /**
+     * Returns a List containing all the entries of the specified user that have been updated after the given Datetime.
+     */
+    suspend fun selectModifiedEntries(username: String, lastPushDatetime : Datetime) : List<Entry> {
+        val list  : List<Entry>
+        withContext(Dispatchers.IO){
+            list = entryDAO.selectModifiedEntries(username,lastPushDatetime)
         }
+        return list
     }
 
-    private class InsertEntryAsyncTask(val dao : EntryDAO) :AsyncTask<Entry,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Entry) :Boolean {
-            try{ dao.insert(parameters[0]) }
-            catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                return false
-            }
-            return true
+    /**
+     * Returns a List containing all the entries of the specified user.
+     */
+    suspend fun selectAllEntryDatesOfUser(username: String) : List<Date>{
+        val list : List<Date>
+        withContext(Dispatchers.IO){
+            list = entryDAO.selectAllEntryDatesOfUser(username)
         }
+        return list
     }
 
-    private class UpdateEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Entry) :Boolean {
-            try{ dao.update(parameters[0]) }
-            catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                return false
-            }
-            return true
+    /**
+     * Returns a double value representing the sum of the "amount" column of all the entries of the specified user that are not marked as deleted.
+     */
+    suspend fun selectSumAmountOfLifetime(username: String) : Double{
+        val sum : Double
+        withContext(Dispatchers.IO){
+            sum = entryDAO.selectEntrySumOfLifetime(username)
         }
+        return sum
     }
 
-    private class DeleteEntryAsyncTask(val dao : EntryDAO) : AsyncTask<Entry,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Entry) : Boolean {
-            try{ dao.delete(parameters[0]) }
-            catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                return false
-            }
-            return true
+    /**
+     * Returns a double value representing the sum of the "amount" column of all the entries of the specified user that are not marked as deleted and fit within the given Date range.
+     */
+    suspend fun selectSumAmountOfDateRange(username: String, from: Date, until: Date) : Double{
+        val sum : Double
+        withContext(Dispatchers.IO){
+            sum = entryDAO.selectEntrySumOfDateRange(username,from,until)
         }
+        return sum
     }
 
-    private class DateEntriesAsyncTask(val dao : EntryDAO, val date : Date, val username : String) : AsyncTask<Void,Void,List<Entry>>(){
-        override fun doInBackground(vararg parameters : Void?): List<Entry>? {
-            return dao.selectAllEntriesOfDate(date,username)
+    /**
+     * Returns a List containing all the entries of the specified user on a given Date.
+     */
+    suspend fun selectAllEntriesOfDate(date : String, username : String) : List<Entry>{
+        val list : List<Entry>
+        withContext(Dispatchers.IO){
+            list = entryDAO.selectAllEntriesOfDate(Date(date),username)
         }
+        return list
     }
 
-    private class DateNonDeletedEntriesAsyncTask(val dao : EntryDAO, val date : Date, val username : String) : AsyncTask<Void,Void,List<Entry>>(){
-        override fun doInBackground(vararg parameters : Void?): List<Entry>? {
-            return dao.selectAllNonDeletedEntriesOfDate(date,username)
+    /**
+     * Returns a List containing all the entries of the specified user that match the given criteria and are not marked as deleted.
+     */
+    suspend fun selectAllNonDeletedEntriesOfDate(date : String, username : String) : List<Entry>{
+        val list : List<Entry>
+        withContext(Dispatchers.IO){
+            list = entryDAO.selectAllNonDeletedEntriesOfDate(Date(date),username)
         }
+        return list
     }
 
-    private class SummaryEntriesAsyncTask(val dao : EntryDAO,val summary: Summary) : AsyncTask<Void,Void,List<Entry>>(){
-        override fun doInBackground(vararg parameters : Void?): List<Entry>? {
-            var type : String? = null
-            var category : String? = null
-            var description : String? = null
-            if(summary.type != "Any"){
-                type = summary.type
-            }
-            if(summary.category != "Any"){
-                category = summary.category
-            }
-            if(summary.description != ""){
-                description = summary.description
-            }
-            return dao.selectAllEntriesOfSummary(summary.username,summary.fromDate,summary.untilDate,type,category,description)
+    /**
+     * Returns a List containing all the entries of the specified user that match the given criteria and are not marked as deleted.
+     */
+    suspend fun selectAllEntriesOfSummary(summary: Summary) : List<Entry>{
+        val list : List<Entry>
+        withContext(Dispatchers.IO){
+            list = entryDAO.selectAllEntriesOfSummary(summary.username,summary.fromDate,summary.untilDate,summary.type,summary.category,summary.description)
         }
+       return list
     }
 
-    private class InsertUserAsyncTask(val dao : UserDAO) : AsyncTask<User,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : User) :Boolean {
-            try{ dao.insert(parameters[0]) }
-            catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                return false
-            }
-            return true
-        }
-    }
-
-    private class UpdateUserAsyncTask(val dao : UserDAO) : AsyncTask<User,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : User) :Boolean {
-            dao.update(parameters[0])
-            return true
+    /**
+     * Insert the specified User to the Repository.
+     */
+    suspend fun insert(user : User){
+        withContext(Dispatchers.IO){
+            userDAO.insert(user)
         }
     }
 
-    private class DeleteUserAsyncTask(val dao : UserDAO) : AsyncTask<User,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : User) :Boolean {
-            dao.delete(parameters[0])
-            return true
+    /**
+     * Update the specified User.
+     */
+    suspend fun update(user : User){
+        withContext(Dispatchers.IO){
+            userDAO.update(user)
         }
     }
 
-    private class SelectUserAsyncTask(val dao : UserDAO, val username: String) : AsyncTask<Void,Void,User?>(){
-        override fun doInBackground(vararg parameters : Void) : User? {
-            return dao.selectUserBy(username)
+    /**
+     * Delete the specified User from the repository.
+     */
+    suspend fun delete(user : User){
+        withContext(Dispatchers.IO){
+            userDAO.delete(user)
         }
     }
 
-    private class InsertCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Category) :Boolean {
-            try{ dao.insert(parameters[0]) }
-            catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                return false
-            }
-            return true
+    /**
+     * Returns the User matching the specified username, otherwise returns null.
+     */
+    suspend fun selectUserBy(username : String) : User? {
+        val user : User?
+        withContext(Dispatchers.IO){
+            user = userDAO.selectUserBy(username)
+        }
+        return user
+    }
+
+    /**
+     * Insert the specified Category to the repository.
+     */
+    suspend fun insert(category: Category){
+        withContext(Dispatchers.IO){
+            categoryDAO.insert(category)
         }
     }
 
-    private class UpdateCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Category) :Boolean {
-            dao.update(parameters[0])
-            return true
+    /**
+     * Update the specified Category.
+     */
+    suspend fun update(category: Category){
+        withContext(Dispatchers.IO){
+            categoryDAO.update(category)
         }
     }
 
-    private class DeleteCategoryAsyncTask(val dao : CategoryDAO) : AsyncTask<Category,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Category) :Boolean {
-            dao.delete(parameters[0])
-            return true
+    /**
+     * Delete the specified Category from the repository.
+     */
+    suspend fun delete(category: Category){
+        withContext(Dispatchers.IO){
+            categoryDAO.delete(category)
         }
     }
 
-    private class SelectAllCategoriesAsyncTask(val dao : CategoryDAO) : AsyncTask<Void,Void,List<Category>>(){
-        override fun doInBackground(vararg p0: Void?): List<Category> {
-            return dao.selectAllCategories()
+    /**
+     * Returns a List containing all the existing categories.
+     */
+    suspend fun selectAllCategories() : List<Category>{
+        val list : List<Category>
+        withContext(Dispatchers.IO){
+            list = categoryDAO.selectAllCategories()
         }
-
+        return list
     }
 
-    private class InsertSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Summary,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Summary) :Boolean {
-            try{ dao.insert(parameters[0]) }
-            catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                return false
-            }
-            return true
-        }
-    }
-
-    private class DeleteAllSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Void,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Void) :Boolean {
-            dao.deleteAllSummaries()
-            return true
+    /**
+     * Insert the specified Summary to the repository.
+     */
+    suspend fun insert(summary: Summary){
+        withContext(Dispatchers.IO){
+            summaryDAO.insert(summary)
         }
     }
 
-    private class SelectAllSummaryAsyncTask(val dao : SummaryDAO) : AsyncTask<Void,Void,List<Summary>>(){
-        override fun doInBackground(vararg parameters : Void) : List<Summary> {
-            return dao.selectAllSummaries()
+    /**
+     * Delete all existing summaries in the repository.
+     */
+    suspend fun deleteAllSummaries(){
+        withContext(Dispatchers.IO){
+            summaryDAO.deleteAllSummaries()
         }
     }
 
-    private class InsertCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Credential,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Credential) :Boolean {
-            try{ dao.insert(parameters[0]) }
-            catch (e : Exception){
-                Log.e("DatabaseRepository",e.message ?: "")
-                return false
-            }
-            return true
+    /**
+     * Returns a List containing all existing summaries.
+     */
+    suspend fun selectAllSummaries() : List<Summary>{
+        val list: List<Summary>
+        withContext(Dispatchers.IO){
+            list = summaryDAO.selectAllSummaries()
+        }
+        return list
+    }
+
+    /**
+     * Inserts the specified Credential to the repository.
+     */
+    suspend fun insertCredential(credential: Credential){
+        withContext(Dispatchers.IO){
+            credentialDAO.insert(credential)
         }
     }
 
-    private class DeleteCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Void,Void,Boolean>(){
-        override fun doInBackground(vararg parameters : Void) :Boolean {
-            dao.deleteAll()
-            return true
+    /**
+     * Deletes all existing credentials from the repository.
+     */
+    suspend fun deleteCredential(){
+        withContext(Dispatchers.IO){
+            credentialDAO.deleteAll()
         }
     }
 
-    private class SelectCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Void,Void,Credential?>(){
-        override fun doInBackground(vararg parameters : Void) : Credential? {
-            return dao.select()
+    /**
+     * Returns the most recent Credential in the repository. Returns null if no credentials exist.
+     */
+    suspend fun selectCredential() : Credential?{
+        val credential : Credential?
+        withContext(Dispatchers.IO){
+            credential = credentialDAO.select()
         }
+        return credential
     }
 }
