@@ -24,3 +24,5 @@ data class Summary(
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0
 }
+
+//TODO Summary description , type and category can be null.
