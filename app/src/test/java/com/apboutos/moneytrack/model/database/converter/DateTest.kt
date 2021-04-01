@@ -1,8 +1,6 @@
 package com.apboutos.moneytrack.model.database.converter
 
 import android.content.Intent
-import android.os.Parcel
-import com.apboutos.moneytrack.utilities.converter.CurrencyConverter
 import org.junit.Assert.*
 import org.junit.Test
 
