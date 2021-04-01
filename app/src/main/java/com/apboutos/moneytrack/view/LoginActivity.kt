@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.database.entity.Credential
 import com.apboutos.moneytrack.utilities.error.LoginError
@@ -89,7 +90,9 @@ class LoginActivity : Activity() {
                     viewModel.saveUserCredential(usernameBox.text.toString(),passwordBox.text.toString())
                     getSharedPreferences("autoLogin",Context.MODE_PRIVATE).edit().putBoolean("autoLogin",true).apply()
                 }
-                else viewModel.deleteStoredCredential()
+                else {
+                    viewModel.deleteStoredCredential()
+                }
                 loginProgressBar.visibility = View.INVISIBLE
                 finish() }
 
