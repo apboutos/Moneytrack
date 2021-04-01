@@ -8,6 +8,10 @@ import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.repository.local.DatabaseRepository
 import com.apboutos.moneytrack.view.LedgerActivity
 import com.apboutos.moneytrack.view.LoginActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : Activity() {
 
@@ -19,9 +23,8 @@ class MainActivity : Activity() {
 
         if(getSharedPreferences("autoLogin",Context.MODE_PRIVATE).getBoolean("autoLogin",false)){
             val intent = Intent(this, LedgerActivity::class.java)
-            intent.putExtra("username",DatabaseRepository(application).selectCredential()?.username ?: "root")
+            MainScope().launch { intent.putExtra("username",DatabaseRepository(application).selectCredential()?.username ?: "root") }
             startActivity(intent)
-
         }
         else{
              val intent = Intent(this, LoginActivity::class.java)
