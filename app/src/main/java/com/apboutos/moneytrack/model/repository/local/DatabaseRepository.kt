@@ -23,9 +23,11 @@ class DatabaseRepository(application: Application) {
     private val credentialDAO = database.CredentialDAO()
 
     fun insert(entry : Entry) : Boolean{
+
         return InsertEntryAsyncTask(
             entryDAO
         ).execute(entry).get()
+
     }
 
     fun update(entry : Entry) : Boolean{
@@ -404,7 +406,7 @@ class DatabaseRepository(application: Application) {
 
     private class DeleteCredentialAsyncTask(val dao : CredentialDAO) : AsyncTask<Void,Void,Boolean>(){
         override fun doInBackground(vararg parameters : Void) :Boolean {
-            dao.delete()
+            dao.deleteAll()
             return true
         }
     }

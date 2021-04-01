@@ -7,6 +7,10 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.apboutos.moneytrack.model.database.converter.Date
 
+/**
+ * Represents a search query. Summaries are stored in the database
+ * so the user can reuse them. This is a feature not yet implemented.
+ */
 @Entity(tableName = "summary")
 @TypeConverters(Date::class)
 data class Summary(

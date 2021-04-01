@@ -11,7 +11,9 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-
+/**
+ * Represents an entry in the ledger.
+ */
 @Entity(tableName = "entry")
 @TypeConverters(Date::class,Datetime::class)
 @Parcelize
@@ -48,10 +50,20 @@ data class Entry(
 {
     companion object {
 
+        /**
+         * Creates an Entry object initialized with default values.
+         * @return default Entry object.
+         */
         fun createEmptyEntry() : Entry {
             return Entry("","","","","",0.00,Date("2020-12-12"),Datetime("2020-12-12 12:12:12"),false)
         }
 
+        /**
+         * Creates a new ID. The ID is the concatenation of the user and the current timestamp.
+         *
+         * @param username A String containing the current user.
+         * @return A String containing the created ID.
+         */
         fun createId(username: String) : String {
             return username + Time.getIdTimestamp()
         }

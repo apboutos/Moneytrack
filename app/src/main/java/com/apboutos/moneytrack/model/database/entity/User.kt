@@ -4,6 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 
+/**
+ * Represents a User. Users are stored in the local database to
+ * enable offline login.
+ */
 @Entity(tableName = "user")
 data class User(
 
