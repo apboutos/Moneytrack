@@ -8,8 +8,7 @@ import androidx.room.TypeConverter
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class Datetime() : Parcelable{
@@ -37,6 +36,9 @@ class Datetime() : Parcelable{
         return datetime.hashCode()
     }
 
+    /**
+     * Returns true if the this Datetime is chronologically before the parameter Datetime. Otherwise returns false.
+     */
     fun isBefore(dateTime: Datetime) : Boolean {
         val tmp1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.datetime)
         val tmp2 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateTime.datetime)
@@ -44,11 +46,19 @@ class Datetime() : Parcelable{
         return false
     }
 
+    /**
+     * Transforms a Long value to a Datetime using the yyyy-MM-dd HH:mm:ss format.
+     */
     @TypeConverter
-    fun timestampToDatetime(value : Long): Datetime = Datetime(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(java.util.Date(value)))
+    fun timestampToDatetime(value : Long): Datetime = Datetime(SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(value)))
 
+    /**
+     * Transforms a Datetime object to a Long value.
+     */
     @TypeConverter
-    fun datetimeToTimestamp(dateTime: Datetime) : Long = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateTime.datetime).time
+    fun datetimeToTimestamp(dateTime: Datetime) : Long {
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateTime.datetime).time
+    }
 
 
     //Parcelable implementation.
@@ -73,10 +83,12 @@ class Datetime() : Parcelable{
             return arrayOfNulls(size)
         }
 
+        /**
+         * Returns a String representation of the current timestamp in the yyyy-MM-dd HH:mm:ss format.
+         */
         fun currentDatetime() : String {
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            return current.format(formatter)
+
+            return SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(java.util.Date())
         }
 
     }
