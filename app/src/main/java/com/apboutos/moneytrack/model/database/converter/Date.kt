@@ -43,11 +43,19 @@ class Date() : Parcelable{
         return date.hashCode()
     }
 
+    /**
+     * Transforms a Long value to a Date, using the yyyy-MM-dd format.
+     */
     @TypeConverter
     fun timestampToDate(value: Long): Date = Date(SimpleDateFormat("yyyy-MM-dd").format(java.util.Date(value)))
 
+    /**
+     * Transforms a Date to a Long value.
+     */
     @TypeConverter
     fun dateToTimestamp(date : Date): Long = SimpleDateFormat("yyyy-MM-dd").parse(date.date).time;
+
+
 
     //Parcelable implementation.
     constructor(parcel: Parcel) : this() {
