@@ -54,6 +54,11 @@ class MoneytrackDatabaseTest{
     }
 
     @Test
+    fun selectUserBy(){
+        Assert.assertNull(userDao.selectUserBy("FUBAR"))
+    }
+
+    @Test
     fun selectAllEntryDatesOfUser(){
 
         entryDao.insert(Entry("ex2213","exophrenik","Expense","toEat","junk food",92.21, Date("2020-07-01"),Datetime("2020-06-01 23:41:22"),false))
@@ -75,12 +80,11 @@ class MoneytrackDatabaseTest{
     }
 
     @Test
-    @Throws(Exception::class)
     fun insertUser() {
         val user = User("exophrenik","ma582468","exophrenik@gmail.com","2020-07-06","2020-07-6 23:43:23")
             userDao.insert(user)
-        val byName : User = userDao.selectUserBy("exopdhrenik")
-        Assert.assertEquals(null,byName)
+        Assert.assertNotNull(userDao.selectUserBy("exophrenik"))
+        Assert.assertNull(userDao.selectUserBy("FUBAR"))
     }
 
     @Test(expected = SQLiteConstraintException::class)
@@ -96,23 +100,18 @@ class MoneytrackDatabaseTest{
     fun updateUser() {
         val user = User("exophrenik","ma582468","exophrenik@gmail.com","2020-07-06","2020-07-6 23:43:23")
         userDao.insert(user)
-        val byName : User = userDao.selectUserBy("exophrenik")
-        Assert.assertEquals(user,byName)
         val user2 = User("exophrenik","ma582470","exophrenik@gmail.com","2020-07-06","2020-07-6 23:43:23")
         userDao.update(user2)
         val byName2 = userDao.selectUserBy("exophrenik")
-        Assert.assertNotEquals(byName,byName2)
+        Assert.assertNotEquals(user,byName2)
     }
 
     @Test
-    @Throws(Exception::class)
     fun deleteUser() {
         val user = User("exophrenik","ma582470","exophrenik@gmail.com","2020-07-06","2020-07-6 23:43:23")
         userDao.insert(user)
-        val byName : User = userDao.selectUserBy("exophrenik")
-        Assert.assertEquals(user,byName)
         userDao.delete(user)
-        Assert.assertEquals(null,userDao.selectUserBy("exophrenik"))
+        Assert.assertNull(userDao.selectUserBy("exophrenik"))
     }
 
     @Test
