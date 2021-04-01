@@ -12,6 +12,7 @@ import com.apboutos.moneytrack.model.repository.remote.NetworkTester
 import com.apboutos.moneytrack.model.repository.remote.OnlineRepository
 import com.apboutos.moneytrack.utilities.error.LoginError
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class LoginActivityViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,7 +25,7 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
      */
     fun retrieveStoredCredential(): Credential? {
         var credential: Credential? = null
-        viewModelScope.launch {
+        runBlocking {
             credential = databaseRepository.selectCredential()
         }
         return credential
@@ -38,7 +39,7 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
     fun requestAuthentication(username: String, password: String): LoginError {
 
         var user : User? = null
-        viewModelScope.launch { user = databaseRepository.selectUserBy(username) }
+        runBlocking { user = databaseRepository.selectUserBy(username) }
         // user == null means that the user was not found in the local database
         // and so an online login attempt must be made.
         if (user == null) {
