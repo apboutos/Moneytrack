@@ -8,6 +8,9 @@ import android.net.NetworkInfo
 
 
 object NetworkTester {
+    /**
+     * Returns true if the device is connected to the internet either via a wifi connection or via mobile data.
+     */
     fun internetConnectionIsAvailable(context: Context): Boolean {
         var haveConnectedWifi = false
         var haveConnectedMobile = false

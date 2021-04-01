@@ -43,6 +43,11 @@ class OnlineRepository(var application: Application) {
                                                      .build()
     private val api : RemoteServerAPI = retro.create(RemoteServerAPI::class.java)
 
+    /**
+     * Sends an authentication request to the server.
+     * In response the server returns an error code.
+     * The error code is broadcasted to the LoginReceiver.
+     */
     fun authenticateUser(username : String , password : String) {
 
 
@@ -77,6 +82,11 @@ class OnlineRepository(var application: Application) {
                 })
     }
 
+    /**
+     * Sends a request to push data to server.
+     * In response the server sends an error code.
+     * The error code is broadcasted to the LedgerReceiver.
+     */
     fun pushData(entryList : List<Entry>){
         for (i in entryList){
             Log.d(TAG,"List Item : ${i.description} ${i.date} ${i.lastUpdate} ${i.isDeleted}")
@@ -110,6 +120,11 @@ class OnlineRepository(var application: Application) {
         })
     }
 
+    /**
+     * Sends a request to pull data from the server.
+     * In response the server sends all the available data matching the specified criteria.
+     * The data or the error are broadcasted to the LedgerReceiver.
+     */
     fun pullData(username: String,lastPullRequestDatetime : String){
         api.pullData(PullDataRequestBody(username,lastPullRequestDatetime)).enqueue(object : Callback<List<Entry>> {
             override fun onFailure(call: Call<List<Entry>>, t: Throwable) {
@@ -145,8 +160,13 @@ class OnlineRepository(var application: Application) {
 
 
     }
-    
 
+
+    /**
+     * Sends a registration request to the server.
+     * In response the server sends an Error code that is broadcasted
+     * to the RegisterReceiver.
+     */
     fun registerUser( user : User) {
         if(!NetworkTester.internetConnectionIsAvailable(application)){
             val intent = Intent()
@@ -185,6 +205,11 @@ class OnlineRepository(var application: Application) {
         })
     }
 
+    /**
+     * Sends a request to the server containing the user's email.
+     * In response the server will send email to this account containing
+     * the user's login information.
+     */
     fun retrieveLostCredentials(email : String){
 
         api.retrieveCredentials(RetrieveRequestBody(email)).enqueue(object : Callback<RetrieveRequestResult>{
@@ -196,7 +221,7 @@ class OnlineRepository(var application: Application) {
                 Log.d(TAG,"Response code: " + response.code())
                 Log.d(TAG,"Response body: " + response.body())
                 Log.d(TAG,"Fret and don't po")
-                Log.d(TAG,"Fret boy fret. This is not an excercise")
+                Log.d(TAG,"Fret boy fret. This is not an exercise")
             }
 
         })
