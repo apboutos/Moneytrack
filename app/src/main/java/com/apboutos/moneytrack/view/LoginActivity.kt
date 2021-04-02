@@ -89,7 +89,7 @@ class LoginActivity : Activity() {
     }
 
     /**
-     * The LoginReceiver calls this method to handle the server's response.
+     * The LoginReceiver calls this method to handle the server's response to a login request.
      */
     fun handleResponse(error: LoginError){
         when(error){

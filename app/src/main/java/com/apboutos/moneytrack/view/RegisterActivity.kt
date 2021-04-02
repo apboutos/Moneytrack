@@ -35,6 +35,9 @@ class RegisterActivity : Activity() {
         }
     }
 
+    /**
+     * The RegisterReceiver calls this method to handle the server's response to a register request.
+     */
     fun handleResponse(error : RegisterError){
 
         when(error){
@@ -52,6 +55,9 @@ class RegisterActivity : Activity() {
         }
     }
 
+    /**
+     * Checks if the information provided by the user is in a valid format and produces the appropriate error boxes.
+     */
     private fun dataEnteredAreValid(): Boolean {
 
         if (usernameBox.text.toString().isEmpty()) {usernameBox.error = "Enter a username."; return false}
@@ -77,6 +83,9 @@ class RegisterActivity : Activity() {
         return true
     }
 
+    /**
+     * Registers the broadcast receiver.
+     */
     override fun onResume() {
         super.onResume()
         val filter = IntentFilter()
@@ -85,6 +94,9 @@ class RegisterActivity : Activity() {
         registerReceiver(receiver,filter)
     }
 
+    /**
+     * Unregisters the broadcast receiver to avoid leaks.
+     */
     override fun onPause() {
         super.onPause()
         unregisterReceiver(receiver)
