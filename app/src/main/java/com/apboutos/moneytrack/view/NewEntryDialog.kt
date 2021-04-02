@@ -58,6 +58,9 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
         }
     }
 
+    /**
+     * Initializes the values of spinners in UI.
+     */
     private fun setUpBoxes(){
         val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, arrayOf("Income", "Expense"))
         typeSpinner.adapter = typeAdapter
@@ -67,6 +70,9 @@ class NewEntryDialog(private val parentActivity : LedgerActivity) : Dialog(paren
         categorySpinner.setSelection(1)
     }
 
+    /**
+     * Checks whether the user has filled all the text fields or not.
+     */
     private fun validateUserInputFormat(): Boolean {
         var flag = true
         if (descriptionBox.text.toString() == "") {
