@@ -94,9 +94,14 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
                             DateFormatConverter.getMonthNumber(untilMonthSpinner.selectedItem.toString(),parentActivity) +
                             "-" +
                             DateFormatConverter.normalizeDay(untilDaySpinner.selectedItem.toString())
-            val searchSummary = Summary(parentActivity.viewModel.currentUser,categorySpinner.selectedItem.toString(),typeSpinner.selectedItem.toString(),descriptionBox.text.toString(),Date(fromDate),Date(untilDate))
-            Log.d(tag,"fromDate $fromDate")
-            Log.d(tag, "untilDate $untilDate")
+            val searchSummary = Summary(parentActivity.viewModel.currentUser,
+                                        if(categorySpinner.selectedItem.toString() == "Any") null else categorySpinner.selectedItem.toString(),
+                                        if(typeSpinner.selectedItem.toString() == "Any") null else typeSpinner.selectedItem.toString() ,
+                                        if(descriptionBox.text.toString() == "") null else descriptionBox.text.toString(),
+                                        Date(fromDate),
+                                        Date(untilDate))
+
+            Log.d(tag,searchSummary.toString())
             parentActivity.loadSearchResults(searchSummary)
             dismiss()
         }

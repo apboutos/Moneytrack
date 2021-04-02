@@ -12,7 +12,7 @@ import com.apboutos.moneytrack.model.database.converter.Datetime
 import com.apboutos.moneytrack.model.database.dao.*
 import com.apboutos.moneytrack.model.database.entity.*
 
-@Database(entities = [Entry::class, User::class, Category::class, Summary::class, Credential::class],version = 2)
+@Database(entities = [Entry::class, User::class, Category::class, Summary::class, Credential::class],version = 3)
 @TypeConverters(Date::class, Datetime::class)
 abstract class MoneytrackDatabase : RoomDatabase() {
 

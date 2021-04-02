@@ -15,14 +15,17 @@ import com.apboutos.moneytrack.model.database.converter.Date
 @TypeConverters(Date::class)
 data class Summary(
     val username : String,
-    val category: String,
-    val type : String,
-    val description : String,
+    val category: String?,
+    val type : String?,
+    val description : String?,
     val fromDate : Date,
     val untilDate : Date)
 {
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0
+
+    override fun toString(): String {
+        return "[username:$username|type:$type|category:$category|description:$description|fromDate:$fromDate|untilDate:$untilDate"
+    }
 }
 
-//TODO Summary description , type and category can be null.
