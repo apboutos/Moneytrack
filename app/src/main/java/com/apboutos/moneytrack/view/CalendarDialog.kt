@@ -13,16 +13,19 @@ import java.util.*
 
 class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parentActivity) {
 
+
     private val tag = "CalendarDialog"
-    private val calendarView: CalendarView by lazy { findViewById<CalendarView>(R.id.calendar_dialog_calendarView) }
-    private val pickDayButton: Button by lazy { findViewById<Button>(R.id.calendar_dialog_pickDayButton)}
+    private val calendarView: CalendarView by lazy { findViewById(R.id.calendar_dialog_calendarView) }
+    private val pickDayButton: Button by lazy { findViewById(R.id.calendar_dialog_pickDayButton)}
     private var selectedDate = parentActivity.viewModel.currentDate
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.calendar_dialog_layout)
         setInitialDisplayDate()
-        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth -> //For some reason, months start from 0 instead of 1
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth -> //For some reason, months start from 0 instead of 1
             selectedDate = DateFormatConverter.parseToDatabaseDateFromUserDate(year, month + 1, dayOfMonth)
         }
 
