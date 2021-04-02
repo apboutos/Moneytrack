@@ -23,8 +23,11 @@ class MainActivity : Activity() {
 
         if(getSharedPreferences("autoLogin",Context.MODE_PRIVATE).getBoolean("autoLogin",false)){
             val intent = Intent(this, LedgerActivity::class.java)
-            MainScope().launch { intent.putExtra("username",DatabaseRepository(application).selectCredential()?.username ?: "root") }
-            startActivity(intent)
+            MainScope().launch {
+                intent.putExtra("username",DatabaseRepository(application).selectCredential()?.username ?: "root")
+                startActivity(intent)
+            }
+
         }
         else{
              val intent = Intent(this, LoginActivity::class.java)
@@ -43,10 +46,6 @@ class MainActivity : Activity() {
     //TODO Bug*     : In the ReportDialog there is a small bug that must be investigated.
     //                When the date is 29 of February and the year changes to a non leap year the day defaults to 1 instead of 28.
 
-    //TODO Bug***   : Every time the database schema changes and the version is increased the old data are lost and cannot be retrieved from the server.
-    //                This happens because although the data are lost due to database migration the lastPullDatetime is not reset and therefore the lost
-    //                entries cannot be retrieved again from the server. To fix this a migration strategy must be implemented to preserve the data, or
-    //                the lastPullDatetime must be reset in the SharedPreferences file each time the database migrates.
 
 
 }
