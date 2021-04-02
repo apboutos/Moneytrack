@@ -95,9 +95,9 @@ class LedgerActivityViewModel(application: Application) : AndroidViewModel(appli
         runBlocking {
             list = databaseRepository.selectAllEntryDatesOfUser(currentUser).stream()
                 .map { e -> e.year }
-                .distinct()
                 .collect(Collectors.toList())
             list = list.plus(Date(currentDate).year)
+            list = list.stream().distinct().collect(Collectors.toList())
             list.forEach { e -> Log.d(tag, "set year= $e") }
         }
         return list.toTypedArray()
