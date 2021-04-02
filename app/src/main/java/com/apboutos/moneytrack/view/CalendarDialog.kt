@@ -40,6 +40,9 @@ class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parent
         }
     }
 
+    /**
+     * Sets the calendar view's display date to the ledger's current date.
+     */
     private fun setInitialDisplayDate() {
         val date = parentActivity.viewModel.currentDate
         val parts = date.split("-".toRegex()).toTypedArray()
