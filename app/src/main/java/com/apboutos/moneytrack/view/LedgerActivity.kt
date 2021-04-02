@@ -25,7 +25,6 @@ import com.apboutos.moneytrack.viewmodel.LedgerActivityViewModel
 import com.apboutos.moneytrack.viewmodel.receiver.LedgerReceiver
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_ledger.*
 
 
 class LedgerActivity : AppCompatActivity() {
@@ -177,7 +176,9 @@ class LedgerActivity : AppCompatActivity() {
     fun loadSearchResults(summary: Summary){
         viewModel.loadEntriesOfSearch(summary)
         adapter.notifyDataSetChanged()
-        dateBox.text = "${DateFormatConverter.parseToDisplayableFormat(summary.fromDate.toString(),this)} to ${DateFormatConverter.parseToDisplayableFormat(summary.untilDate.toString(),this)}"
+        dateBox.text = "${DateFormatConverter.parseToDisplayableFormat(summary.fromDate.toString())} to ${DateFormatConverter.parseToDisplayableFormat(
+            summary.untilDate.toString()
+        )}"
         nextDayButton.visibility = View.INVISIBLE
         previousDayButton.visibility = View.INVISIBLE
         newEntryButton.visibility = View.INVISIBLE
