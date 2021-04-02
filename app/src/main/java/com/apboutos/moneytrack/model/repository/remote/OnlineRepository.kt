@@ -30,7 +30,7 @@ class OnlineRepository(var application: Application) {
 
     private val TAG = "OnlineRepository"
 
-    private val db : DatabaseReference = Firebase.database.reference;
+    private val db : DatabaseReference = Firebase.database.reference
 
     private val retro : Retrofit = Retrofit.Builder().baseUrl("http://exophrenik.com/moneytrack/")
                                                      .addConverterFactory(GsonConverterFactory
