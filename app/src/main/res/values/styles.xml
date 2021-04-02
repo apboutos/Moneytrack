@@ -20,7 +20,6 @@
     <style name="floatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/dark_grey</item>
         <item name="android:shadowColor">@color/light_black</item>
-        <item name="android:iconTint">@color/dark_oily_green</item>
         <item name="android:tint">@color/dark_oily_green</item>
         <item name="iconTint">@color/dark_oily_green</item>
         <item name="iconSize">30dp</item>
