@@ -17,7 +17,7 @@ class LedgerReceiver(private val parentActivity: LedgerActivity) : BroadcastRece
 
         if(intent?.action == SERVER_PULL_DATA_RESPONSE){
             Log.d(tag, "in pull action")
-            val list = intent?.getParcelableArrayListExtra<Entry>("entryList")
+            val list = intent.getParcelableArrayListExtra<Entry>("entryList")
             if(list != null) {
                 for (i in list){
                     Log.d(tag, "${i.id} ${i.description} ${i.date.date} ${i.lastUpdate.datetime}")
