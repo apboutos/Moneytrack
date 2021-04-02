@@ -52,6 +52,9 @@ class EditEntryDialog(private val parentActivity : LedgerActivity,private val en
         }
     }
 
+    /**
+     * Initializes the values of text fields and spinners in UI.
+     */
     private fun setUpBoxes(){
         val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_dialog_spinner, arrayOf("Income", "Expense"))
         typeSpinner.adapter = typeAdapter
@@ -63,6 +66,9 @@ class EditEntryDialog(private val parentActivity : LedgerActivity,private val en
         amountBox.setText(entry.amount.toString())
     }
 
+    /**
+     * Checks whether the user has filled all the text fields or not.
+     */
     private fun validateUserInputFormat(): Boolean {
         var flag = true
         if (descriptionBox.text.toString() == "") {
