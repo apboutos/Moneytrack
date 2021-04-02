@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.apboutos.moneytrack.R
 import com.apboutos.moneytrack.model.database.entity.Credential
 import com.apboutos.moneytrack.utilities.error.LoginError
@@ -59,6 +58,9 @@ class LoginActivity : Activity() {
     }
 
 
+    /**
+     * Checks whether the credentials provided by the user are in a valid format.
+     */
     private fun credentialEnteredIsValid(): Boolean {
         if (usernameBox.text.toString().isEmpty()) {
             usernameBox.error = "Enter a username"
@@ -75,6 +77,9 @@ class LoginActivity : Activity() {
         return true
     }
 
+    /**
+     * Fills the initial values of the username and password if they are saved in the database.
+     */
     private fun fillUsernameAndPasswordBoxes(credential: Credential?){
         if(credential != null){
             usernameBox.setText(credential.username)
@@ -83,6 +88,9 @@ class LoginActivity : Activity() {
         }
     }
 
+    /**
+     * The LoginReceiver calls this method to handle the server's response.
+     */
     fun handleResponse(error: LoginError){
         when(error){
             LoginError.NO_ERROR -> { startActivity(Intent(this,LedgerActivity::class.java).putExtra("username",usernameBox.text.toString()))
@@ -116,11 +124,17 @@ class LoginActivity : Activity() {
 
     }
 
+    /**
+     * Unregisters the broadcast receiver to avoid leaks.
+     */
     override fun onPause() {
         super.onPause()
         unregisterReceiver(receiver)
     }
 
+    /**
+     * Registers the broadcast receiver.
+     */
     override fun onResume() {
         super.onResume()
         val filter = IntentFilter()
