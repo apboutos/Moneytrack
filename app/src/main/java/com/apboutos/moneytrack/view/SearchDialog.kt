@@ -102,7 +102,9 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         }
     }
 
-
+    /**
+     * Initializes the type spinner with the proper values.
+     */
     private fun setUpTypeSpinner(){
         val typeAdapter = ArrayAdapter(context, R.layout.activity_ledger_report_spinner, arrayOf("Any","Income","Expense"))
         typeSpinner.adapter = typeAdapter
@@ -110,6 +112,9 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
 
     }
 
+    /**
+     * Initializes the category spinner with the proper values.
+     */
     private fun setUpCategorySpinner(){
         val categories = parentActivity.viewModel.getCategories()
         categories.add(0,"Any")
@@ -118,6 +123,9 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         categorySpinner.setSelection(0)
     }
 
+    /**
+     * Initializes the from day spinner with the proper values.
+     */
     private fun setUpFromDaySpinner(){
         val month = DateFormatConverter.getMonthNumber(fromMonthSpinner.selectedItem.toString(),context)
         val year = fromYearSpinner.selectedItem.toString()
@@ -126,6 +134,9 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         fromDaySpinner.setSelection(0)
     }
 
+    /**
+     * Initializes the until day spinner with the proper values.
+     */
     private fun setUpUntilDaySpinner(){
         val month = DateFormatConverter.getMonthNumber(untilMonthSpinner.selectedItem.toString(),context)
         val year = untilYearSpinner.selectedItem.toString()
@@ -134,30 +145,46 @@ class SearchDialog(private val parentActivity: LedgerActivity) : Dialog(parentAc
         untilDaySpinner.setSelection(0)
     }
 
+    /**
+     * Initializes the from month spinner with the proper values.
+     */
     private fun setUpFromMonthSpinner(){
         val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, DateFormatConverter.getListOfMonths(context))
         fromMonthSpinner.adapter = typeAdapter
         fromMonthSpinner.setSelection(0)
     }
 
+    /**
+     * Initializes the until month spinner with the proper values.
+     */
     private fun setUpUntilMonthSpinner(){
         val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, DateFormatConverter.getListOfMonths(context))
         untilMonthSpinner.adapter = typeAdapter
         untilMonthSpinner.setSelection(0)
     }
 
+    /**
+     * Initializes the from year spinner with the proper values.
+     */
     private fun setUpFromYearSpinner(){
         val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, getYearsThatContainEntries())
         fromYearSpinner.adapter = typeAdapter
         fromYearSpinner.setSelection(0)
     }
 
+    /**
+     * Initializes the until year spinner with the proper values.
+     */
     private fun setUpUntilYearSpinner(){
         val typeAdapter = ArrayAdapter(context,R.layout.activity_ledger_report_spinner, getYearsThatContainEntries())
         untilYearSpinner.adapter = typeAdapter
         untilYearSpinner.setSelection(0)
     }
 
+    /**
+     * Queries the private repository for a list of years that contain entries.
+     * This way only relevant years a displayed as a search option.
+     */
     private fun getYearsThatContainEntries() : Array<String>{
         return parentActivity.viewModel.getYearsThatContainEntries()
     }
