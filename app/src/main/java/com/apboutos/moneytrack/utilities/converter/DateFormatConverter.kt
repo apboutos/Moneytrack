@@ -7,6 +7,10 @@ import com.apboutos.moneytrack.model.database.converter.Date
 import java.io.Serializable
 
 object DateFormatConverter : Serializable {
+
+    /**
+     * Returns a String containing a date in database format yyyy-MM-dd.
+     */
     fun parseToDatabaseDateFromUserDate(year: Int, month: Int, day: Int): String {
         val tmp = StringBuilder()
         tmp.append(year)
@@ -19,11 +23,17 @@ object DateFormatConverter : Serializable {
         return tmp.toString()
     }
 
+    /**
+     * Returns a String containing the day number without the starting zero. 07 -> 7.
+     */
     fun cropStartingZeroFrom(day : String) : String{
         if(day.startsWith("0")) return day.drop(1)
         return day
     }
 
+    /**
+     * Adds a starting zero to the day if it needs one. 7 -> 07.
+     */
     fun normalizeDay(day : String) : String{
         if (day.length == 1){
             return "0$day"
@@ -31,6 +41,9 @@ object DateFormatConverter : Serializable {
         return day
     }
 
+    /**
+     * Returns a String containing the internationalized name of the specified month.
+     */
     fun getMonthName(month : String, context: Context) : String{
         return when (month){
             "01" -> context.resources.getString(R.string.month1)
@@ -48,6 +61,9 @@ object DateFormatConverter : Serializable {
         }
     }
 
+    /**
+     * Returns a String containing the number of the specified month. February -> 02
+     */
     fun getMonthNumber(month : String, context: Context) : String{
         return when(month){
             context.resources.getString(R.string.month1) -> "01"
@@ -66,6 +82,9 @@ object DateFormatConverter : Serializable {
     }
 
 
+    /**
+     * Returns an array of Strings containing all the internationalized names of months.
+     */
     fun getListOfMonths(context: Context) : Array<String>{
         return arrayOf(context.resources.getString(R.string.month1),
             context.resources.getString(R.string.month2),
@@ -81,6 +100,10 @@ object DateFormatConverter : Serializable {
             context.resources.getString(R.string.month12))
     }
 
+    /**
+     * Returns a String containing the number of days the specified month has.
+     * @param month The month in MM format.
+     */
     fun getLastDayOfMonth(month: String) : String{
         return when(month){
             "01","03","05","06","07","08","10","12" -> "31"
@@ -89,6 +112,12 @@ object DateFormatConverter : Serializable {
         }
     }
 
+    /**
+     * Returns a String containing the number of days the specified month has.
+     * Respects leap years.
+     * @param month The month in MM format.
+     * @param year The year in yyyy format.
+     */
     fun getLastDayOfMonth(month: String, year: String) : String{
         return when(month){
             "01","03","05","06","07","08","10","12" -> "31"
@@ -97,6 +126,11 @@ object DateFormatConverter : Serializable {
         }
     }
 
+    /**
+     * Returns an array of Strings containing all the days of a specified month in d format.
+     * @param month The month in MM format.
+     * @param year the year in yyyy format.
+     */
     fun getDaysOfMonth(month : String, year: String) : Array<String>{
         return when(month){
             "01","03","05","06","07","08","10","12" -> arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31")
@@ -106,6 +140,13 @@ object DateFormatConverter : Serializable {
         }
     }
 
+    /**
+     * Returns a String containing a displayable format of the specified date.
+     * 2020-01-03 -> 3-January-2020.
+     * @param date The date in yyyy-MM-dd format.
+     * @param context The application's context.
+     * @return a date in d-MonthName-yyyy format.
+     */
     fun parseToDisplayableDate(date : String, context: Context) : String{
         val tmp = Date(date)
         val sb = StringBuilder()
@@ -117,7 +158,13 @@ object DateFormatConverter : Serializable {
         return sb.toString()
     }
 
-    fun parseToDisplayableFormat(date: String, context: Context) : String{
+    /**
+     * Returns a String containing a displayable format of the specified date.
+     * 2020-01-03 -> 3-1-2020.
+     * @param date The date in yyyy-MM-dd format.
+     * @return a date in d-M-yyyy format.
+     */
+    fun parseToDisplayableFormat(date: String) : String{
         val tmp = Date(date)
         val sb = StringBuilder()
         sb.append(cropStartingZeroFrom(tmp.day))
@@ -127,6 +174,10 @@ object DateFormatConverter : Serializable {
         sb.append(tmp.year)
         return sb.toString()
     }
+
+    /**
+     * Checks whether the specified year is a leap year or not.
+     */
     private fun isLeapYear(year : String) : Boolean{
         return GregorianCalendar().isLeapYear(Integer.parseInt(year))
     }
