@@ -15,6 +15,10 @@ import kotlinx.coroutines.launch
 
 class MainActivity : Activity() {
 
+
+    /**
+     * Implements the autologin functionality by checking the autoLogin preferences file.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

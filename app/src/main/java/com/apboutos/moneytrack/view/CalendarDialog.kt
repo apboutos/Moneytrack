@@ -20,6 +20,8 @@ class CalendarDialog(private val parentActivity: LedgerActivity) : Dialog(parent
     private var selectedDate = parentActivity.viewModel.currentDate
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
