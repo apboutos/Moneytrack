@@ -33,7 +33,12 @@ class RegisterActivityViewModel(application: Application) : AndroidViewModel(app
      */
     fun addUserToDatabase(username: String,password: String,email: String){
         viewModelScope.launch {
-            databaseRepository.insert(User(username,password,email,SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date()),SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())))
+            databaseRepository.insert(User(
+                username,
+                password,
+                email,
+                SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date()),
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())))
         }
     }
 }

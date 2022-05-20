@@ -45,7 +45,9 @@ abstract class MoneytrackDatabase : RoomDatabase() {
          */
         private fun buildDatabase(context: Context) : MoneytrackDatabase {
             return Room.databaseBuilder(context, MoneytrackDatabase::class.java, "Moneytrack_Database.db")
-                .addMigrations(MIGRATION_2_3).build()
+                .fallbackToDestructiveMigration()
+                .build()
+                //.addMigrations(MIGRATION_2_3).build()
         }
 
         /**
